@@ -1,3 +1,0 @@
-<?php
-//000000000000a:20:{s:10:"website_id";i:1;s:5:"title";s:19:"niushop开源商城";s:4:"logo";s:28:"upload/common/1497923663.jpg";s:8:"web_desc";s:0:"";s:9:"key_words";s:9:"keywords2";s:7:"web_icp";s:7:"0300259";s:8:"style_id";i:2;s:11:"web_address";s:18:"山西省太原市";s:10:"web_qrcode";s:28:"upload/common/1500630330.jpg";s:7:"web_url";s:48:"http://demo.niushop.com.cn/shop/index/index.html";s:9:"web_email";s:17:"1518079521@qq.com";s:9:"web_phone";s:12:"400-886-7993";s:11:"create_time";s:19:"2016-10-26 11:21:52";s:11:"modify_time";s:19:"2017-07-21 17:45:32";s:6:"web_qq";s:10:"1518079521";s:10:"web_weixin";s:7:"y159753";s:10:"web_status";i:1;s:11:"third_count";s:11:"wu855热女";s:12:"close_reason";s:57:"对不起，牛酷商城维护中，大家敬请期待...";s:10:"wap_status";i:1;}
-?>

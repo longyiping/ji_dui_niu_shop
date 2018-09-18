@@ -1,11 +1,11 @@
 <?php
 /**
  * Account.php
- * Niushop商城系统 - 团队十年电商经验汇集巨献!
+ * 积兑商城系统 - 团队十年电商经验汇集巨献!
  * =========================================================
  * Copy right 2015-2025 山西牛酷信息科技有限公司, 保留所有权利。
  * ----------------------------------------------
- * 官方网址: http://www.niushop.com.cn
+ * 官方网址: http://www.积兑.com.cn
  * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和使用。
  * 任何企业和个人不允许对程序代码以任何形式任何目的再发布。
  * =========================================================
@@ -957,7 +957,7 @@ class Account extends BaseController
     /**
      * 查询一段时间内的总下单量及下单金额
      *
-     * @return multitype:\app\admin\controller\Ambigous Ambigous <\app\admin\controller\Ambigous, number, \data\service\niushop\unknown, \data\service\niushop\Order\unknown, unknown>
+     * @return multitype:\app\admin\controller\Ambigous Ambigous <\app\admin\controller\Ambigous, number, \data\service\积兑\unknown, \data\service\积兑\Order\unknown, unknown>
      */
     public function getOrderShopSaleCount()
     {
@@ -1000,7 +1000,7 @@ class Account extends BaseController
      *
      * @param unknown $condition            
      * @param unknown $type            
-     * @return Ambigous <\data\service\niushop\Ambigous, \data\service\niushop\Order\unknown, number, unknown>
+     * @return Ambigous <\data\service\积兑\Ambigous, \data\service\积兑\Order\unknown, number, unknown>
      */
     public function getShopSaleData($condition, $type)
     {

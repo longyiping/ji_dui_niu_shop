@@ -47,7 +47,7 @@ class Notify
         $website_model=new WebSiteModel();
         $website_obj=$website_model->getInfo("1=1", "title");
         if(empty($website_obj)){
-            $this->shop_name="NiuShop开源商城";
+            $this->shop_name="积兑商城";
         }else{
             $this->shop_name=$website_obj["title"];
         }

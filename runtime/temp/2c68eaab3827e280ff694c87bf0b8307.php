@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:22:{s:35:"template/shop\blue\Index\index.html";i:1500286999;s:28:"template/shop\blue\base.html";i:1500287003;s:45:"template/shop\blue\controlCommonVariable.html";i:1500287009;s:43:"template/shop\blue\Index\controlHeadAd.html";i:1500286999;s:34:"template/shop\blue\controlTop.html";i:1500286999;s:41:"template/shop\blue\controlHeadSerach.html";i:1500287009;s:44:"template/shop\blue\controlHeadSearchAdv.html";i:1500287009;s:43:"template/shop\blue\controlHeadGoodType.html";i:1500287009;s:40:"template/shop\blue\controlCommonNav.html";i:1500287009;s:44:"template/shop\blue\Index\controlHeadNav.html";i:1500286999;s:49:"template/shop\blue\Index\controlHeadNavRight.html";i:1500286999;s:43:"template/shop\blue\controlRightSidebar.html";i:1500287003;s:45:"template/shop\blue\Index\controlIndexAdv.html";i:1500286999;s:56:"template/shop\blue\Index\controlLimitedTimeDiscount.html";i:1500286999;s:47:"template/shop\blue\Index\controlShopStreet.html";i:1500286999;s:49:"template/shop\blue\Index\controlCommendBlock.html";i:1500286999;s:45:"template/shop\blue\Index\controlRecFloor.html";i:1500286999;s:51:"template/shop\blue\Index\controlFriendshipLink.html";i:1500286999;s:45:"template/shop\blue\controlBottomLinkHelp.html";i:1500287009;s:37:"template/shop\blue\controlBottom.html";i:1500287002;s:36:"template/shop\blue\controlLogin.html";i:1500287003;s:37:"template/shop\blue\baidu_js_push.html";i:1500287009;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:22:{s:35:"template/shop\blue\Index\index.html";i:1500286999;s:28:"template/shop\blue\base.html";i:1500287003;s:45:"template/shop\blue\controlCommonVariable.html";i:1500287009;s:43:"template/shop\blue\Index\controlHeadAd.html";i:1500286999;s:34:"template/shop\blue\controlTop.html";i:1500286999;s:41:"template/shop\blue\controlHeadSerach.html";i:1500287009;s:44:"template/shop\blue\controlHeadSearchAdv.html";i:1500287009;s:43:"template/shop\blue\controlHeadGoodType.html";i:1500287009;s:40:"template/shop\blue\controlCommonNav.html";i:1500287009;s:44:"template/shop\blue\Index\controlHeadNav.html";i:1500286999;s:49:"template/shop\blue\Index\controlHeadNavRight.html";i:1500286999;s:43:"template/shop\blue\controlRightSidebar.html";i:1500287003;s:45:"template/shop\blue\Index\controlIndexAdv.html";i:1500286999;s:56:"template/shop\blue\Index\controlLimitedTimeDiscount.html";i:1500286999;s:47:"template/shop\blue\Index\controlShopStreet.html";i:1500286999;s:49:"template/shop\blue\Index\controlCommendBlock.html";i:1500286999;s:45:"template/shop\blue\Index\controlRecFloor.html";i:1500286999;s:51:"template/shop\blue\Index\controlFriendshipLink.html";i:1500286999;s:45:"template/shop\blue\controlBottomLinkHelp.html";i:1500287009;s:37:"template/shop\blue\controlBottom.html";i:1537241974;s:36:"template/shop\blue\controlLogin.html";i:1500287003;s:37:"template/shop\blue\baidu_js_push.html";i:1500287009;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -963,7 +963,7 @@ function updateEndTime() {
 			$('.store-wall2-ad').html('<a href="'+data[0]['adv_url']+'" target="_blank"><img class="lazy" src="__UPLOAD__/'+data[0]['adv_image']+'"></a>');
 		</script>
 		<ul class="store-wall2-list">
-			<?php $__FOR_START_13347__=0;$__FOR_END_13347__=18;for($i=$__FOR_START_13347__;$i < $__FOR_END_13347__;$i+=1){ ?>
+			<?php $__FOR_START_27740__=0;$__FOR_END_27740__=18;for($i=$__FOR_START_27740__;$i < $__FOR_END_27740__;$i+=1){ ?>
 				<li>
 				<?php if($i < $shop_list_count): if($shop_list[$i]['shop_logo'] == ''): ?>
 						<img alt="<?php echo $shop_list[$i]['shop_name']; ?>" src="__TEMP__/<?php echo $style; ?>/public/images/default/default_shop_logo.png"/>
@@ -1365,7 +1365,7 @@ function updateEndTime() {
 <div class="dsc-copyright">
 	<div class="w w1200">
 		<p class="copyright_info">
-			<a href="#">Copyright © 2015-2025 Niushop开源商城&nbsp;版权所有 保留一切权利</a>
+			<a href="#">Copyright © 2015-2025 积兑商城&nbsp;版权所有 保留一切权利</a>
 		</p>
 		<b> <a href="javascript:;" target="_blank" class="copyright-logo"><?php echo $web_info['third_count']; ?></a>&nbsp;&nbsp;
 			<a href="http://www.niushop.com.cn" target="_blank"

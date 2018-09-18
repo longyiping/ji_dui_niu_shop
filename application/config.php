@@ -319,7 +319,7 @@ return [
     //验证码排至文件
     'captcha' => [
         //2345678abcdefhijkmnpqrstuvwxyzABCDEFGHJKLMNPQRTUVWXY
-        //niushop2017459ABCDEFGHJKLMNQRTVWXYZ
+        //积兑2017459ABCDEFGHJKLMNQRTVWXYZ
     // 验证码字符集合
         'codeSet' => '0123456789',
         // 验证码字体大小(px)

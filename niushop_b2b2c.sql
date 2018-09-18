@@ -1996,7 +1996,7 @@ CREATE TABLE `ns_member_favorites` (
 -- ----------------------------
 -- Records of ns_member_favorites
 -- ----------------------------
-INSERT INTO `ns_member_favorites` VALUES ('1', '91', '334', 'goods', '2017-06-23 17:34:19', '0', 'niushop开源商城', 'upload/common/1497923663.jpg', '测试商品', 'upload/goods/1498112971qrcode_23.png', '10.00', '测试商品');
+INSERT INTO `ns_member_favorites` VALUES ('1', '91', '334', 'goods', '2017-06-23 17:34:19', '0', '积兑商城', 'upload/common/1497923663.jpg', '测试商品', 'upload/goods/1498112971qrcode_23.png', '10.00', '测试商品');
 INSERT INTO `ns_member_favorites` VALUES ('13', '1', '0', 'shop', '2017-07-13 17:28:30', '0', '官方直营店', 'template/shop/default/public/images/temp_14653489106946.jpg', '', '', '0.00', '');
 INSERT INTO `ns_member_favorites` VALUES ('17', '63', '322', 'goods', '2017-07-13 19:13:49', '0', '', '', '男士衬衫1', 'upload/goods/14970768783.jpg', '12.00', '男士衬衫1');
 INSERT INTO `ns_member_favorites` VALUES ('33', '87', '344', 'goods', '2017-07-17 14:20:30', '0', '', '', '牛仔裤', 'upload/goods/149856653155decb37234733.jpg', '100.00', '牛仔裤');
@@ -2489,7 +2489,7 @@ CREATE TABLE `ns_platform_adv` (
 INSERT INTO `ns_platform_adv` VALUES ('942', '1051', '商城推广图', 'http://www.niushop.com.cn', 'upload/advertising/1497067441.png', '0', '0', '#ff8080');
 INSERT INTO `ns_platform_adv` VALUES ('943', '1052', '商城logo后的小广告', 'http://www.niushop.com.cn', 'upload/advertising/1497067657.png', '0', '0', '#ffffff');
 INSERT INTO `ns_platform_adv` VALUES ('944', '1052', 'logo栏右侧广告', 'http://www.niushop.com.cn', 'upload/advertising/1497068024.png', '1', '0', '#ffffff');
-INSERT INTO `ns_platform_adv` VALUES ('945', '1053', 'NIUSHOP开源商城', '#', 'upload/advertising/1497067819.png', '0', '0', '#c0c0c0');
+INSERT INTO `ns_platform_adv` VALUES ('945', '1053', '积兑商城', '#', 'upload/advertising/1497067819.png', '0', '0', '#c0c0c0');
 INSERT INTO `ns_platform_adv` VALUES ('947', '1053', '滚动图3', '#', 'upload/advertising/1497067855.jpg', '2', '0', '#ffffff');
 INSERT INTO `ns_platform_adv` VALUES ('948', '1054', '广告栏一图片1', 'javascript:;', 'upload/advertising/1497067960.png', '0', '0', '#ffffff');
 INSERT INTO `ns_platform_adv` VALUES ('949', '1054', '广告栏一图片2', 'javascript:;', 'upload/advertising/1497068146.png', '1', '0', '#ffffff');
@@ -8643,7 +8643,7 @@ CREATE TABLE `sys_instance` (
 -- ----------------------------
 -- Records of sys_instance
 -- ----------------------------
-INSERT INTO `sys_instance` VALUES ('19', 'Niushop开源商城', '1', '2016-10-27 12:03:38', '', '\'\'');
+INSERT INTO `sys_instance` VALUES ('19', '积兑商城', '1', '2016-10-27 12:03:38', '', '\'\'');
 INSERT INTO `sys_instance` VALUES ('41', '店小二', '1', '2017-07-14 10:07:39', '', null);
 INSERT INTO `sys_instance` VALUES ('42', '苏泊尔家电', '1', '2017-07-17 20:02:59', '', null);
 
@@ -9002,8 +9002,8 @@ INSERT INTO `sys_notice_template` VALUES ('52', 'email', '0', 'pay_success', '',
 INSERT INTO `sys_notice_template` VALUES ('53', 'email', '0', 'create_order', '', '\n', '', '0', '2017-07-15 16:54:41');
 INSERT INTO `sys_notice_template` VALUES ('54', 'email', '0', 'order_deliver', '', '\n', '', '0', '2017-07-15 16:54:41');
 INSERT INTO `sys_notice_template` VALUES ('55', 'email', '0', 'forgot_password', 'niushop找回密码', '找回密码{验证码}\n', '', '0', '2017-07-15 16:54:41');
-INSERT INTO `sys_notice_template` VALUES ('56', 'sms', '0', 'forgot_password', 'SMS_70250233', '', 'NiuShop开源商城', '1', '2017-07-14 18:17:48');
-INSERT INTO `sys_notice_template` VALUES ('57', 'sms', '0', 'bind_mobile', 'SMS_70250233', '', 'NiuShop开源商城', '1', '2017-07-14 18:17:48');
+INSERT INTO `sys_notice_template` VALUES ('56', 'sms', '0', 'forgot_password', 'SMS_70250233', '', '积兑商城', '1', '2017-07-14 18:17:48');
+INSERT INTO `sys_notice_template` VALUES ('57', 'sms', '0', 'bind_mobile', 'SMS_70250233', '', '积兑商城', '1', '2017-07-14 18:17:48');
 INSERT INTO `sys_notice_template` VALUES ('58', 'email', '0', 'bind_email', 'niushop商城邮箱绑定', '尊敬的{用户名称}，您正在进行niusho商城绑定邮箱操作，您的验证码为{验证码}。\n', '', '0', '2017-07-15 16:54:41');
 
 -- ----------------------------
@@ -9304,7 +9304,7 @@ CREATE TABLE `sys_website` (
 -- ----------------------------
 -- Records of sys_website
 -- ----------------------------
-INSERT INTO `sys_website` VALUES ('1', 'niushop开源商城', 'upload/common/1497923663.jpg', '', 'keywords2', '0300259', '2', '山西省太原市', 'upload/common/1500630330.jpg', 'http://demo.niushop.com.cn/shop/index/index.html', '1518079521@qq.com', '400-886-7993', '2016-10-26 11:21:52', '2017-07-21 17:45:32', '1518079521', 'y159753', '1', 'wu855热女', '对不起，牛酷商城维护中，大家敬请期待...', '1');
+INSERT INTO `sys_website` VALUES ('1', '积兑商城', 'upload/common/1497923663.jpg', '', 'keywords2', '0300259', '2', '山西省太原市', 'upload/common/1500630330.jpg', 'http://demo.niushop.com.cn/shop/index/index.html', '1518079521@qq.com', '400-886-7993', '2016-10-26 11:21:52', '2017-07-21 17:45:32', '1518079521', 'y159753', '1', 'wu855热女', '对不起，牛酷商城维护中，大家敬请期待...', '1');
 
 -- ----------------------------
 -- Table structure for sys_web_style

@@ -1,11 +1,11 @@
 <?php
 /**
  * Config.php
- * Niushop商城系统 - 团队十年电商经验汇集巨献!
+ * 积兑商城系统 - 团队十年电商经验汇集巨献!
  * =========================================================
  * Copy right 2015-2025 山西牛酷信息科技有限公司, 保留所有权利。
  * ----------------------------------------------
- * 官方网址: http://www.niushop.com.cn
+ * 官方网址: http://www.积兑.com.cn
  * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和使用。
  * 任何企业和个人不允许对程序代码以任何形式任何目的再发布。
  * =========================================================
@@ -812,7 +812,7 @@ class Config extends BaseController
     {
         $send = new Send();
        // $toemail = "854991437@qq.com";//$_POST['email_test'];
-        $title = 'Niushop测试邮箱发送';
+        $title = '积兑测试邮箱发送';
         $content = '测试邮箱发送成功不成功？';
         $email_host = request()->post('email_host', '');
         $email_port = request()->post('email_port', '');

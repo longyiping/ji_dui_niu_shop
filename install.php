@@ -925,7 +925,7 @@ function tpl_frame() {
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>安装系统 - Niushop开源商城</title>
+		<title>安装系统 - 积兑商城</title>
 		<link rel="stylesheet" href="./public/install/css/bootstrap.min.css">
 		<style>
 			html,body{font-size:13px;font-family:"Microsoft YaHei UI", "微软雅黑", "宋体";}
@@ -941,8 +941,8 @@ function tpl_frame() {
 		<div class="container">
 			<div class="header" style="margin:15px auto;">
 				<ul class="nav nav-pills pull-right" role="tablist">
-					<li role="presentation" class="active"><a href="javascript:;">安装Niushop开源商城</a></li>
-					<li role="presentation"><a target = "_blank" href="http://www.niushop.com.cn">Niushop开源商城官网</a></li>
+					<li role="presentation" class="active"><a href="javascript:;">安装积兑商城</a></li>
+					<li role="presentation"><a target = "_blank" href="http://www.niushop.com.cn">积兑商城官网</a></li>
 					<li role="presentation"><a target = "_blank" href="http://www.niushop.com.cn/forummain.html">访问论坛</a></li>
 				</ul>
 				<img src="?res=logo" />
@@ -972,10 +972,10 @@ function tpl_frame() {
 			</div>
 			<div class="footer" style="margin:15px auto;">
 				<div class="text-center">
-					<a  target = "_blank" href="http://www.niushop.com.cn">Niushop开源商城官网</a> &nbsp; &nbsp; <a  target = "_blank" href="http://www.niushop.com.cn/forummain.html">Niushop开源商城论坛</a> &nbsp; &nbsp; <a target = "_blank" href="http://www.niushop.com.cn/authorization.html">购买授权</a>
+					<a  target = "_blank" href="http://www.niushop.com.cn">积兑商城官网</a> &nbsp; &nbsp; <a  target = "_blank" href="http://www.niushop.com.cn/forummain.html">积兑商城论坛</a> &nbsp; &nbsp; <a target = "_blank" href="http://www.niushop.com.cn/authorization.html">购买授权</a>
 				</div>
 				<div class="text-center">
-					Powered by <a   target = "_blank" href="http://www.niushop.com.cn"><b>Niushop开源商城</b></a> v1.0 B2C公测版 &copy; 2015-2025 <a target = "_blank" href="http://www.niushop.com.cn">www.niushop.com.cn</a>
+					Powered by <a   target = "_blank" href="http://www.niushop.com.cn"><b>积兑商城</b></a> v1.0 B2C公测版 &copy; 2015-2025 <a target = "_blank" href="http://www.niushop.com.cn">www.niushop.com.cn</a>
 				</div>
 			</div>
 		</div>
@@ -992,19 +992,19 @@ function tpl_install_license() {
 		<div class="panel panel-default">
 			<div class="panel-heading">阅读许可协议</div>
 			<div class="panel-body" style="overflow-y:scroll;max-height:400px;line-height:20px;">
-				<h3>版权所有 (c)2016，Niushop开源商城团队保留所有权利。 </h3>
+				<h3>版权所有 (c)2016，积兑商城团队保留所有权利。 </h3>
 				<p>
-					感谢您选择Niushop开源商城（以下简称NiuShop，NiuShop基于 PHP + MySQL的技术开发，全部源码开放。 <br />
+					感谢您选择积兑商城（以下简称NiuShop，NiuShop基于 PHP + MySQL的技术开发，全部源码开放。 <br />
 					为了使你正确并合法的使用本软件，请你在使用前务必阅读清楚下面的协议条款：
 				</p>
 				<p>
-					<strong>一、本授权协议适用且仅适用于Niushop开源商城系统(以下简称Niushop)任何版本，Niushop开源商城官方对本授权协议的最终解释权。</strong>
+					<strong>一、本授权协议适用且仅适用于积兑商城系统(以下简称Niushop)任何版本，积兑商城官方对本授权协议的最终解释权。</strong>
 				</p>
 				<p>
 					<strong>二、协议许可的权利 </strong>
 					<ol>
 						<li>您可以在完全遵守本最终用户授权协议的基础上，将本软件应用于非商业用途，而不必支付软件版权授权费用。</li>
-						<li>您可以在协议规定的约束和限制范围内修改Niushop开源商城源代码或界面风格以适应您的网站要求。</li>
+						<li>您可以在协议规定的约束和限制范围内修改积兑商城源代码或界面风格以适应您的网站要求。</li>
 						<li>您拥有使用本软件构建的网站全部内容所有权，并独立承担与这些内容的相关法律义务。</li>
 						<li>获得商业授权之后，您可以将本软件应用于商业用途，同时依据所购买的授权类型中确定的技术支持内容，自购买时刻起，在技术支持期限内拥有通过指定的方式获得指定范围内的技术支持服务。商业授权用户享有反映和提出意见的权力，相关意见将被作为首要考虑，但没有一定被采纳的承诺或保证。</li>
 					</ol>
@@ -1014,7 +1014,7 @@ function tpl_install_license() {
 					<ol>
 						<li>未获商业授权之前，不得将本软件用于商业用途（包括但不限于企业网站、经营性网站、以营利为目的或实现盈利的网站）。</li>
 						<li>未经官方许可，不得对本软件或与之关联的商业授权进行出租、出售、抵押或发放子许可证。</li>
-						<li>未经官方许可，禁止在Niushop开源商城的整体或任何部分基础上以发展任何派生版本、修改版本或第三方版本用于重新分发。</li>
+						<li>未经官方许可，禁止在积兑商城的整体或任何部分基础上以发展任何派生版本、修改版本或第三方版本用于重新分发。</li>
 						<li>如果您未能遵守本协议的条款，您的授权将被终止，所被许可的权利将被收回，并承担相应法律责任。</li>
 					</ol>
 				</p>
@@ -1158,7 +1158,7 @@ function tpl_install_env($ret = array()) {
 			</table>
 		</div>
 
-		<div class="alert alert-info">系统要求Niushop开源商城安装目录下的runtime和upload必须可写, 才能使用Niushop开源商城所有功能。</div>
+		<div class="alert alert-info">系统要求积兑商城安装目录下的runtime和upload必须可写, 才能使用积兑商城所有功能。</div>
 		<div class="panel panel-default">
 			<div class="panel-heading">目录权限监测</div>
 			<table class="table table-striped">
@@ -1231,7 +1231,7 @@ function tpl_install_db($error = '') {
 						</label>
 						<!-- <div class="help-block">
 							<span style="color:red">由于在线安装是精简版，安装后，请务必注册云服务更新到完整版</span> <br/>
-							在线安装能够直接安装最新版本Niushop开源商城系统, 如果在线安装困难, 请下载离线安装包后使用本地安装. <br/>
+							在线安装能够直接安装最新版本积兑商城系统, 如果在线安装困难, 请下载离线安装包后使用本地安装. <br/>
 							离线安装包可能不是最新程序, 如果你不确定, 可以现在访问官网重新下载一份最新的.
 						</div> -->
 					</div>
@@ -1366,7 +1366,7 @@ function tpl_install_finish() {
 	echo <<<EOF
 	<div class="page-header"><h3>安装完成</h3></div>
 	<div class="alert alert-success">
-		恭喜您!已成功安装“Niushop开源商城”系统，您现在可以: <a target="_blank" class="btn btn-success" href="./index.php">访问网站首页</a>
+		恭喜您!已成功安装“积兑商城”系统，您现在可以: <a target="_blank" class="btn btn-success" href="./index.php">访问网站首页</a>
 	    <a target="_blank" class="btn btn-success" href="./index.php/admin">访问店铺后台</a>
 		<a target="_blank" class="btn btn-success" href="./index.php/platform">访问平台后台</a>
 	</div>

@@ -382,7 +382,7 @@ class Goods extends BaseController
         $res = $goodservice->addOrEditGoods($product["goodsId"], // 商品Id
 $product["title"], // 商品标题
 $shopId, $product["categoryId"], // 商品类目
-$category_id_1 = 0, $category_id_2 = 0, $category_id_3 = 0, $product["supplierId"], $product["brandId"], $product["groupArray"], // 商品分组
+$category_id_1 = 0, $category_id_2 = 0, $category_id_3 = 0, $product["supplierId"], $product["brandId"], $product["group_id_array"], // 商品标签分组
 $goods_type = 1, $product["market_price"], $product["price"], // 商品现价
 $product["cost_price"], $product["point_exchange_type"], $product['integration_available_use'], $product['integration_available_give'], $is_member_discount = 0, $product["shipping_fee"], $product["shipping_fee_id"], $product["stock"], $product['max_buy'], $product["minstock"], $product["base_good"], $product["base_sales"], $collects = 0, $star = 0, $evaluates = 0, $product["base_share"], $product["province_id"], $product["city_id"], $product["picture"], $product['key_words'], $product["introduction"], // 商品简介，促销语
 $product["description"], $product['qrcode'], // 商品二维码

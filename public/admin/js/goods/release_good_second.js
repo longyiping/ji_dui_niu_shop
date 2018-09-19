@@ -1611,7 +1611,10 @@ function PackageProductInfo() {
 	productViewObj.is_sale = $("input[name='shelves']:checked").val();// 上下架标记
 	productViewObj.display_stock = $('.controls input[name="stock"]:checked ').val();// 是否显示库存
 	productViewObj.stock = $("#txtProductCount").val();// 总库存
-	productViewObj.group_id_array = $("#group_id_array").val();// 商品标签分类ID
+	var groupid = $("#group_id_array").val();// 商品标签分类ID
+	var idattr=$("#productcategory-selected span").attr("id");
+	productViewObj.group_id_array =groupid;
+	if(groupid==0 && idattr>0){productViewObj.group_id_array =idattr;}
 	productViewObj.minstock = $("#txtMinStockLaram").val();// 库存预警数
 	productViewObj.max_buy = $("#PurchaseSum").val().replace(/^\s*/g, "").replace(/\s*$/g, "") == "" ? 0 : $("#PurchaseSum").val().replace(/^\s*/g, "").replace(/\s*$/g, "");// 每人限购
 	productViewObj.key_words = $("#txtKeyWords").val().replace(/^\s*/g, "").replace(/\s*$/g, "");//商品关键词

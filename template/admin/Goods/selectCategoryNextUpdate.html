@@ -476,7 +476,8 @@
 					<div class="productcategory-selected" id="productcategory-selected"></div>
 					<button  class="gruop-button" onclick="showGoodsGroup();"><i class="fa fa-plus-square"></i>&nbsp;添加商品标签</button>
 					<div class="goods-gruop-div">
-						<select class="goods-gruop-select" id="group_id_array">	
+						<select class="goods-gruop-select" id="group_id_array">
+						<option value="0">请选择商品标签</option>
 						{foreach $group_list as $k=>$v}
 							{if condition="strpos($goods_info['group_id_array'],(string)$v['group_id']) === false"}
 								<option value="{$v.group_id}">{$v.group_name}</option>

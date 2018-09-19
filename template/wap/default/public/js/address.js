@@ -62,7 +62,7 @@ function Check_Consignee() {
 	
 	if ($("#seleAreaFouth").val() < 0 || $("#seleAreaFouth").val() == "") {
 		if ($("#seleAreaNext").val() == "" || $("#seleAreaNext").val() < 0) {
-			showBox("请选择省份");
+			showBox("请选择");
 			$("#seleAreaNext").focus();
 			return false;
 		}
@@ -96,7 +96,7 @@ function GetProvince() {
 		selCity.options[i] = null;
 	}
 	
-	var opt = new Option("请选择市", "-1");
+	var opt = new Option("请选择", "-1");
 	selCity.options.add(opt);
 	$.ajax({
 		type : "post",
@@ -153,11 +153,15 @@ function getSelCity() {
 }
 
 $(function() {
+	$('.labelBtn').on('click','div',function(){
+		$('.labelBtn div').removeClass('active');
+		$(this).addClass('active');
+	});
 	var selCity = $("#seleAreaNext")[0];
 	for (var i = selCity.length - 1; i >= 0; i--) {
 		selCity.options[i] = null;
 	}
-	var opt = new Option("请选择省", "-1");
+	var opt = new Option("请选择", "-1");
 	selCity.options.add(opt);
 	// 添加省
 	$.ajax({

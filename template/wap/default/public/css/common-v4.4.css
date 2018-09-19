@@ -839,7 +839,7 @@ button.mb-10, .button.mb-10{margin-bottom:10px;}
 .list-ext.current .ext-icon .icon-arrow{float:right;margin-right:0;background:url("../images/icon-ps.png") -52px -22px;width:11px;}
 
 /*---address---*/
-.side-nav.address{margin:45px 0 0 0;padding:0 10px;overflow:hidden;background:#fff;
+.side-nav.address{margin:45px 0 0 0;padding:0;overflow:hidden;background:#fff;
                   -webkit-user-select:none;
                       -moz-user-select:none;
                           user-select:none;

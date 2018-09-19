@@ -11,7 +11,7 @@
 <title>{$platform_shopname}{if condition="$seoconfig.seo_title neq ''"}-{$seoconfig.seo_title}{/if}</title>
 <meta name="keywords" content="{$seoconfig.seo_meta}" />
 <meta name="description" content="{$seoconfig.seo_desc}"/>
-<link rel="shortcut  icon" type="image/x-icon" href="__TEMP__/{$style}/public/images/favicon.ico" media="screen"/>
+<link rel="shortcut  icon" type="image/x-icon" href="__TEMP__/{$style}/public/images/icon.ico" media="screen"/>
 <link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/pre_foot.css">
 <link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/pro-detail.css">
 <link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/font-awesome.min.css">
@@ -58,7 +58,6 @@ function clearButton(){
 	$("#bottom_cart").find("img").attr("src","__TEMP__/{$style}/public/images/cart_uncheck.png");
 	$("#bottom_member").find("img").attr("src","__TEMP__/{$style}/public/images/user_uncheck.png");
 }
-
 //显示加载遮罩层
 function showLoadMaskLayer(){
 	$(".mask-layer-loading").fadeIn(300);
@@ -101,19 +100,19 @@ body .fixed.bottom {bottom: 0;}
 					</div>
 				</a>
 			</dd>
+			<dd id="buttom_stroe" >
+				<a href="APP_MAIN/index/shopstreet">
+					<div class="nav-b5-relative">
+						<img src="__TEMP__/{$style}/public/images/store_uncheck.png"/>
+						<span>周边</span>
+					</div>
+				</a>
+			</dd>
 			<dd id="buttom_classify">
 				<a href="APP_MAIN/goods/goodsClassificationList">
 					<div class="nav-b5-relative">
 						<img src="__TEMP__/{$style}/public/images/classify_uncheck.png"/>
 						<span>分类</span>
-					</div>
-				</a>
-			</dd>
-			<dd id="buttom_stroe" >
-				<a href="APP_MAIN/index/shopstreet">
-					<div class="nav-b5-relative">
-						<img src="__TEMP__/{$style}/public/images/store_uncheck.png"/>
-						<span>店铺街</span>
 					</div>
 				</a>
 			</dd>
@@ -129,7 +128,7 @@ body .fixed.bottom {bottom: 0;}
 				<a href="APP_MAIN/Member/index">
 					<div class="nav-b5-relative">
 						<img src="__TEMP__/{$style}/public/images/user_uncheck.png"/>
-						<span>会员中心</span>
+						<span>我的</span>
 					</div>
 				</a>
 			</dd>

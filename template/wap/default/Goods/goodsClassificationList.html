@@ -103,9 +103,9 @@
 		</div>
 	{/if}
 </div>
-<div style="position: fixed;bottom: 5%;right: 5%;width: 50px;z-index: 999;" onclick="location.href='APP_MAIN';">
+<!--<div style="position: fixed;bottom: 5%;right: 5%;width: 50px;z-index: 999;" onclick="location.href='APP_MAIN';">
 	<img src="__TEMP__/{$style}/public/images/go_home.png" style="width: 100%;max-width: 100%;" />
-</div>
+</div>-->
 <script>
 $(function(){
 	
@@ -133,6 +133,8 @@ function showCategorySecond(obj,category_id){
 	}else{
 		$(".js-children").hide();
 	}
+	$("#buttom_home").find("img").attr("src","__TEMP__/{$style}/public/images/home_uncheck.png");
+	$("#buttom_classify").find("img").attr("src","__TEMP__/{$style}/public/images/classify_check.png");
 }
 // $("#head_back").click(function (){
 // 	var json ={
@@ -142,4 +144,3 @@ function showCategorySecond(obj,category_id){
 // })
 </script>
 {/block}
-{block name="bottom"} {/block}

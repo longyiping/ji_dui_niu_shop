@@ -151,11 +151,11 @@
 .store-logo {
 	width: 58px;
 	padding: 30px 10px;
-	height: 100%;
 }
 .store-item {
 	position: relative;
 	padding: 5px;
+	height:96px;
 }
 .store-right {
 	display: inline-block;

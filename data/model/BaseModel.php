@@ -39,7 +39,7 @@ class BaseModel extends Model
         $this->Validate = new Validate($this->rule, $this->msg);
         $this->Validate->extend('no_html_parse', function ($value, $rule) {
             return true;
-        });  
+        });
     } 
     /**
      * 获取空模型

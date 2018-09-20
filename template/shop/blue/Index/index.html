@@ -71,7 +71,7 @@ body{
 <script type="text/javascript" src="__TEMP__/{$style}/public/js/tabs.js"></script>
 <script type="text/javascript" src="__TEMP__/{$style}/public/js/jquery.fly.min.js"></script>
 <script type="text/javascript">
-	$().ready(function() {
+	$(document).ready(function() {
 		$.cartbox.count = "0";
 		// 缓载图片
 		$("img").lazyload({
@@ -80,6 +80,14 @@ body{
 			failure_limit : 20,
 			threshold : 200
 		});
+		$('.floor-tabs-nav li').mouseover(function(){
+			$('.floor-tabs-nav li').removeClass('borderBottom');
+			$(this).addClass('borderBottom');
+			$('.floor-tabs-nav li').children('i').removeClass('arrow');
+			$(this).children('i').addClass('arrow');
+			$('.floor-tabs-nav li').children('h3').removeClass('tab');
+			$(this).children('h3').addClass('tab');
+		})
 	});
 </script>
 {/block}

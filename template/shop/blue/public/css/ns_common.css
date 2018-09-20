@@ -2718,10 +2718,11 @@ a.btn-primary:active, .btn-primary:active {
 .right-sidebar-con {
 	width: auto;
 	position: fixed;
-	right: 10px;
+	right: 0px;
 	bottom: 0;
 	z-index: 1000002;
 	height: 100%;
+	border-right:4px solid #fff;
 }
 
 .right-sidebar-main {
@@ -2741,8 +2742,8 @@ a.btn-primary:active, .btn-primary:active {
 .right-sidebar-panel .quick-links-a {
 	display: block;
 	line-height: 200px;
-	width: 36px;
-	height: 38px;
+	width: 35px;
+	height: 35px;
 	text-decoration: none;
 	color: #d8d8d8;
 	font-size: 12px;
@@ -2817,8 +2818,7 @@ a.btn-primary:active, .btn-primary:active {
 	left: 0;
 	top: 0px;
 	background: #ffffff;
-	margin-top: 8px;
-	box-shadow: 0 0 5px rgba(0, 0, 0, .4);
+	margin-top:3px;
 }
 
 .quick-links li:hover .quick-links-a, .quick-links li.current .quick-links-a
@@ -5011,7 +5011,7 @@ ul.images-group li .inputstyle {
 	top: -60px;
 	z-index: 102;
 	position: fixed;
-	opacity: .9;
+	/*opacity: .9;*/
 	-webkit-transition: top .3s ease-out;
 	-moz-transition: top .3s ease-out;
 	-ms-transition: top .3s ease-out;
@@ -5038,6 +5038,7 @@ ul.images-group li .inputstyle {
 	-o-transition: top .3s ease-out;
 	transition: top .3s ease-out;
 	box-shadow: 0 0 4px #dedede;
+	border-bottom: 2px solid #0D84D4;
 }
 
 .follow-box.show {
@@ -5068,7 +5069,7 @@ ul.images-group li .inputstyle {
 
 .follow-box .logo img {
 	max-width: 220px;
-	max-height: 60px;
+	max-height: 56px;
 }
 
 .follow-box .search {

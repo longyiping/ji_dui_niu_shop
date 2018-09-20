@@ -54,13 +54,6 @@ $(function() {
 		$(".floor-tabs-nav > li").bind('mouseover', (function(e) {
 			var color = $(this).parents(".floor").attr("color");
 			$(this).addClass('floor-tabs-selected').siblings().removeClass('floor-tabs-selected');
-			$(this).find('h3').css({
-				
-				'color': color
-			}).parents('li').siblings('li').find('h3').css({
-				
-				'color': ''
-			});
 			$(this).parents('.floor-con').find('.floor-tabs-panel').eq($(this).index()).removeClass('floor-tabs-hide').siblings().addClass('floor-tabs-hide');
 		}));
 	}

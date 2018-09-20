@@ -46,7 +46,7 @@
 .goods-price { background: #F5F5F5;/*  margin-bottom: 10px; */ padding: 6px 0px; position: relative; z-index: 4;}
 .goods-price .price { color: #999; padding-left: 15px; }
 .goods-price .show-price { height: 35px; line-height: 35px; display: inline-block;}
-.goods-price .show-price .market-price { font-weight: normal; margin-left: 10px; margin-right: 50px; font-size:20px;color:#FF0036;}
+.goods-price .show-price .market-price { font-weight: normal; margin-left: 10px; margin-right: 50px; }
 .goods-price  a.bonus { width: 60px; height: 35px; line-height: 35px; float: right; margin-right: 10px; color: #E31939; display: inline-block; }
 .goods-price  a.bonus i { width: 15px; height: 15px; display: inline-block; background-position: 0px -115px; margin-right: 3px; margin-top: -2px; vertical-align: middle; }
 /*店铺优惠券*/

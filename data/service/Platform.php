@@ -314,12 +314,12 @@ class Platform extends BaseService implements IPlatform
                 //第一个 商品分类列表（根据商品分类id查询）
                 if(!empty($base_info['recommend_goods_category_1'])){
                     $goods = new NsGoodsModel();
-                    $goods_list_1 = $goods->where('category_id_3 = '.$base_info['recommend_goods_category_1'])->limit(6)->field('goods_id,goods_name,price,promotion_price,point_exchange_type,point_exchange,give_point,stock,picture')->select();
+                    $goods_list_1 = $goods->where('category_id_3 = '.$base_info['recommend_goods_category_1'])->limit(6)->field('goods_id,goods_name,market_price,promotion_price,point_exchange_type,point_exchange,give_point,stock,picture')->select();
                     if(empty($goods_list_1)){
-                        $goods_list_1 = $goods->where('category_id_2 = '.$base_info['recommend_goods_category_1'])->limit(6)->field('goods_id,goods_name,price,promotion_price,point_exchange_type,point_exchange,give_point,stock,picture')->select();
+                        $goods_list_1 = $goods->where('category_id_2 = '.$base_info['recommend_goods_category_1'])->limit(6)->field('goods_id,goods_name,market_price,promotion_price,point_exchange_type,point_exchange,give_point,stock,picture')->select();
                     }
                     if(empty($goods_list_1)){
-                        $goods_list_1 = $goods->where('category_id_1 = '.$base_info['recommend_goods_category_1'])->limit(6)->field('goods_id,goods_name,price,promotion_price,point_exchange_type,point_exchange,give_point,stock,picture')->select();
+                        $goods_list_1 = $goods->where('category_id_1 = '.$base_info['recommend_goods_category_1'])->limit(6)->field('goods_id,goods_name,market_price,promotion_price,point_exchange_type,point_exchange,give_point,stock,picture')->select();
                     }
                     if(!empty($goods_list_1)){
                         foreach ($goods_list_1 as $k=>$v){
@@ -337,12 +337,12 @@ class Platform extends BaseService implements IPlatform
                 //第二个 商品分类列表（根据商品分类id查询）
                 if(!empty($base_info['recommend_goods_category_2'])){
                     $goods = new NsGoodsModel();
-                    $goods_list_2 = $goods->where('category_id_3 = '.$base_info['recommend_goods_category_2'])->limit(6)->field('goods_id,goods_name,price,promotion_price,point_exchange_type,point_exchange,give_point,stock,picture')->select();
+                    $goods_list_2 = $goods->where('category_id_3 = '.$base_info['recommend_goods_category_2'])->limit(6)->field('goods_id,goods_name,market_price,promotion_price,point_exchange_type,point_exchange,give_point,stock,picture')->select();
                     if(empty($goods_list_2)){
-                        $goods_list_2 = $goods->where('category_id_2 = '.$base_info['recommend_goods_category_2'])->limit(6)->field('goods_id,goods_name,price,promotion_price,point_exchange_type,point_exchange,give_point,stock,picture')->select();
+                        $goods_list_2 = $goods->where('category_id_2 = '.$base_info['recommend_goods_category_2'])->limit(6)->field('goods_id,goods_name,market_price,promotion_price,point_exchange_type,point_exchange,give_point,stock,picture')->select();
                     }
                     if(empty($goods_list_2)){
-                        $goods_list_2 = $goods->where('category_id_1 = '.$base_info['recommend_goods_category_2'])->limit(6)->field('goods_id,goods_name,price,promotion_price,point_exchange_type,point_exchange,give_point,stock,picture')->select();
+                        $goods_list_2 = $goods->where('category_id_1 = '.$base_info['recommend_goods_category_2'])->limit(6)->field('goods_id,goods_name,market_price,promotion_price,point_exchange_type,point_exchange,give_point,stock,picture')->select();
                     }
             
                      
@@ -362,12 +362,12 @@ class Platform extends BaseService implements IPlatform
                 //第三个 商品分类列表（根据商品分类id查询）
                 if(!empty($base_info['recommend_goods_category_3'])){
                     $goods = new NsGoodsModel();
-                    $goods_list_3 = $goods->where('category_id_3 = '.$base_info['recommend_goods_category_3'])->limit(6)->field('goods_id,goods_name,price,promotion_price,point_exchange_type,point_exchange,give_point,stock,picture')->select();
+                    $goods_list_3 = $goods->where('category_id_3 = '.$base_info['recommend_goods_category_3'])->limit(6)->field('goods_id,goods_name,market_price,promotion_price,point_exchange_type,point_exchange,give_point,stock,picture')->select();
                     if(empty($goods_list_3)){
-                        $goods_list_3 = $goods->where('category_id_2 = '.$base_info['recommend_goods_category_3'])->limit(6)->field('goods_id,goods_name,price,promotion_price,point_exchange_type,point_exchange,give_point,stock,picture')->select();
+                        $goods_list_3 = $goods->where('category_id_2 = '.$base_info['recommend_goods_category_3'])->limit(6)->field('goods_id,goods_name,market_price,promotion_price,point_exchange_type,point_exchange,give_point,stock,picture')->select();
                     }
                     if(empty($goods_list_3)){
-                        $goods_list_3 = $goods->where('category_id_1 = '.$base_info['recommend_goods_category_3'])->limit(6)->field('goods_id,goods_name,price,promotion_price,point_exchange_type,point_exchange,give_point,stock,picture')->select();
+                        $goods_list_3 = $goods->where('category_id_1 = '.$base_info['recommend_goods_category_3'])->limit(6)->field('goods_id,goods_name,market_price,promotion_price,point_exchange_type,point_exchange,give_point,stock,picture')->select();
                     }
             
                     if(!empty($goods_list_3)){

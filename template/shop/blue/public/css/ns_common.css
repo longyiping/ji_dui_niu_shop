@@ -5038,7 +5038,6 @@ ul.images-group li .inputstyle {
 	-o-transition: top .3s ease-out;
 	transition: top .3s ease-out;
 	box-shadow: 0 0 4px #dedede;
-	border-bottom: 2px solid #0D84D4;
 }
 
 .follow-box.show {

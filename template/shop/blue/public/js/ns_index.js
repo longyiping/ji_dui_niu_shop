@@ -281,7 +281,7 @@ if($('.NS-FLOOR-HISLIDER').length >0)
 
 //头部滚动通栏悬浮框
 $(document).ready(function(){ 
-	var headHeight=820;  //这个高度其实有更好的办法的。使用者根据自己的需要可以手工调整。
+	var headHeight=500;  //这个高度其实有更好的办法的。使用者根据自己的需要可以手工调整。
 	 
 	var nav=$(".as-shelter"); 
 	var nav2=$(".follow-box");//要悬浮的容器的id
@@ -290,10 +290,12 @@ $(document).ready(function(){
 	if($(this).scrollTop()>headHeight){ 
 		nav.addClass("show");   //悬浮的样式
 		nav2.addClass("show");
+		$('.follow-box').css('border-bottom','2px solid #0D84D4');
 	} 
 	else{ 
 		nav.removeClass("show"); 
 		nav2.removeClass("show"); 
-		} 
-	}) 
+		$('.follow-box').css('border-bottom','none');
+	} 
+}) 
 })

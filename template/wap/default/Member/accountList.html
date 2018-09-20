@@ -1,6 +1,6 @@
 {extend name="wap/default/base" /} {block name="resources"}
 <link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/common-v4.4.css">
-<link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/member_address.css">
+<link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/editRess.css">
 <style>
 .addr-box {padding-top: 0px;text-align: center;}
 .addr-tip {font-size: 14px;color: #8f8f8f;margin-top: 10px;}
@@ -67,7 +67,9 @@
 	<p class="addr-tip">您还没有添加账户，添加一个吧!</p>
 </div>
 {/if}
-<button class="btn-save" onclick="window.location.href='APP_MAIN/member/addaccount?shop_id={$shop_id}';">新增账户</button>
+<div class="addRessBth">
+	<a href="APP_MAIN/member/addaccount?shop_id={$shop_id}" class="btn-save">新增账户</a>
+</div>
 
 <input type="hidden" value="{$shop_id}" id="shop_id"/>
 {/block} {block name="bottom"}{/block}

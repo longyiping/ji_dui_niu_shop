@@ -2,7 +2,6 @@
 /**
  * 初始化浏览器默认样式
  **/
-
 html,body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,input,button,textarea,p,span,table,th,td,from{margin:0;padding:0}
 body,input,button,select,textarea{font:12px/1.5 "Microsoft Yahei","Helvetica Neue";color:#34495e;
 	-webkit-font-smoothing: antialiased;
@@ -25,7 +24,11 @@ input::-ms-clear {display: none;}
 textarea {resize: none;}
 
 /* ==全局通用样式== */
-
+body{
+	max-width:640px;
+	min-width:320px;
+	margin:0 auto;
+}
 /* 避免因子元素浮动而导致的父元素高度缺失能问题 */
 .cl:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; } .cl { zoom: 1; }
 

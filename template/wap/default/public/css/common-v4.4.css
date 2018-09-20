@@ -14,7 +14,7 @@ body{font-family:"微软雅黑","Helvetica Neue", "Helvetica", Helvetica, Arial,
 a{font-family:"微软雅黑","Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;-webkit-tap-highlight-color: rgba(0,0,0,0);outline:none;}
 a:hover,a:active,a:link,a:visited{outline:0;}
 h1, h2, h3, h4, h5, h6{font-family:"微软雅黑";}
-.body-gray{background:#eee;}
+.body-gray{background:#eee;margin:auto;}
 .mr-10{margin-right:10px;}
 .mlr-15{margin:0 15px;}
 .ml-10{margin-left:10px;}

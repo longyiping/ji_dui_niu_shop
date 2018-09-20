@@ -191,6 +191,10 @@ body {
 	box-sizing: border-box;
 	font-size: 0;
 	border-top-width: 1px;
+	max-width:640px;
+	min-width: 320px;
+	margin:auto;
+	right: 0;
 }
 
 .order-total-pay, .order-total-pay .pay-container {

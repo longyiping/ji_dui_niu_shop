@@ -14,6 +14,10 @@
 	position: fixed;
 	top: 0;
 	z-index: 99;
+	max-width:640px;
+	min-width: 320px;
+	right: 0;
+	margin: 0 auto;
 }
 
 .sub-nav dt, .sub-nav dd, .sub-nav li {

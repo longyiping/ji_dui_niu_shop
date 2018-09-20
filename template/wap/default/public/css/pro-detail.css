@@ -51,7 +51,10 @@ body {
 	color: #333;
 	-webkit-text-size-adjust: 100%;
 	-webkit-user-select: none;
-	user-select: none
+	user-select: none;
+	max-width:640px;
+	min-width: 320px;
+	
 }
 
 .bgf5 {
@@ -107,6 +110,9 @@ body {
 	z-index: 1000;
 	border-bottom: solid 1px #e2e2e2;
 	background: #f7f7f7;
+	max-width:640px;
+	min-width: 320px;
+	margin: auto;
 }
 
 .head .head_back, .head .icon-home, .head .head-cart {
@@ -758,6 +764,9 @@ body, .detail_info_wrap .detail_item, .sku_wrap, .layer_detail_full .layer_detai
 	border-top: 1px solid #fff;
 	z-index: 5;
 	padding: 0;
+	max-width:640px;
+	min-width: 320px;
+	margin: auto;
 }
 
 .btn_wrap_fixed {

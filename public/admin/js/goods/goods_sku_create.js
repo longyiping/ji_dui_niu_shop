@@ -294,7 +294,7 @@ function createTable(){
 	} 
 	//表格表头
 	th_html += '<th class="th-price">价格（元）</th>';
-	th_html += '<th class="th-price">市场价（元）</th>';
+	th_html += '<th class="th-price">jplus价（元）</th>';
 	th_html += '<th class="th-price">成本价（元）</th>';
 	th_html += '<th class="th-stock">库存</th>';
 	th_html += '<th class="th-code">商家编码</th>';

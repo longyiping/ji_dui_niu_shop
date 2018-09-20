@@ -40,7 +40,7 @@
 					</tr>
 					<tr>
 						<td align="right" bgcolor="#ffffff">配送方式：</td>
-						<td align="left" bgcolor="#ffffff">{$order.shipping_type_name}&nbsp;&nbsp;{$order['shipping_company_name']}</td>
+						<td align="left" bgcolor="#ffffff">{$order.shipping_type_name}&nbsp;&nbsp;{notempty name="name"}{$order['shipping_company_name']}{/notempty}</td>
 					</tr>
 					{switch name="$order.shipping_type"}
 						{case value="1"}

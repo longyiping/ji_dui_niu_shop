@@ -389,11 +389,11 @@ input[type=number]::-webkit-outer-spin-button {
 					//	html += '<div class="QRcode" style="display: none; position: absolute;"id="qrcode"><p><img src="__ROOT__/'+ data["data"][i]["QRcode"]+'" style="width:110px;"></p></div>';
 					//    html += '</div>';
 					    html += '</div></td>';
-						html += '<td style="background: white;"><div class="priceaddactive"><span class="price-lable">原&nbsp;&nbsp;&nbsp;价：</span><span class="price-numble" style="color: #666;"id="moreChangePrice'+ data["data"][i]["goods_id"]+'"  >'
-							+ data["data"][i]["price"]
+						html += '<td style="background: white;"><div class="priceaddactive"><span class="price-lable">jplus价：</span><span class="price-numble" style="color: #666;"id="moreChangePrice'+ data["data"][i]["goods_id"]+'"  >'
+							+ data["data"][i]["market_price"]
 							+ '</span></div>';
 						html += '<div><span class="price-lable" >销售价：</span><span class="price-numble"id="moreChangePrice'+ data["data"][i]["goods_id"]+'" style="color:red;">'
-							+ data["data"][i]["promotion_price"]
+							+ data["data"][i]["price"]
 							+ '</span>';
 						html += '</td>';
 						html += '<td style="background: white;"><div class="cell"><span class="pro-stock" style="color: #666;"id="moreChangeStock'+ data["data"][i]["goods_id"] + '">'

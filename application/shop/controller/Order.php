@@ -59,7 +59,7 @@ class Order extends BaseController
         $shipping_time = date("Y-m-d H::i:s", time());
         $address = $member->getDefaultExpressAddress();
         $order_id = $order->orderCreate('1', $out_trade_no, $pay_type, $shipping_type, '1', 1, $leavemessage, $buyer_invoice, $shipping_time, $address['mobile'], $address['province'], $address['city'], $address['district'], $address['address'], $address['zip_code'], $address['consigner'], $integral, $use_coupon, 0, $goods_sku_list, $user_money, $pick_up_id,$express_company_id);
-        if ($order_id > 0) {
+		if ($order_id > 0) {
             $order->deleteCart($goods_sku_list, $this->uid);
             $_SESSION['order_tag'] = "";
             return AjaxReturn($out_trade_no);

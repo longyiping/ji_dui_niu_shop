@@ -68,7 +68,7 @@ class Member extends User implements IMember
      * 前台添加会员(non-PHPdoc)
      * @see \data\api\IMember::registerMember()
      */
-    public function registerMember($user_name, $password, $email, $mobile, $user_qq_id, $qq_info, $wx_openid, $wx_info, $wx_unionid)
+    public function registerMember($user_name, $password, $email, $mobile, $user_qq_id, $qq_info, $wx_openid, $wx_info, $wx_unionid, $pid, $path_pid )
     {
         // if (! empty($user_name)) {
         // if (! preg_match("/^(?!\d+$)[\da-zA-Z]*$/i", $user_name)) {
@@ -104,8 +104,11 @@ class Member extends User implements IMember
                 'uid' => $res,
                 'member_name' => $user_name,
                 'member_level' => $member_level,
-                'reg_time' => date("Y-m-d H:i:s", time())
+                'reg_time' => date("Y-m-d H:i:s", time()),
+                'pid' => $pid,
+                'path_pid' =>$path_pid
             );
+			
             $retval = $member->save($data);
             // 注册会员送积分
             $promote_reward_rule = new PromoteRewardRule();
@@ -130,6 +133,18 @@ class Member extends User implements IMember
         return $res;
         // TODO Auto-generated method stub
     }
+//
+//	public function registerPid($user_name, $uid)
+//	{
+//		
+//			$member = new NsMemberModel();
+//          $data = array(
+//				'pid' => $uid,
+//				'path_pid' => 2
+//				);
+//			$retval = $member->save($data);
+//			return $retval;
+//	}
 
     /**
      * (non-PHPdoc)
@@ -145,7 +160,7 @@ class Member extends User implements IMember
                 'uid' => $res,
                 'member_name' => $user_name,
                 'member_level' => $member_level,
-                'reg_time' => date("Y-m-d H:i:s", time())
+                'reg_time' => date("Y-m-d H:i:s", time()),
             );
             $retval = $member->save($data);
             $user = new UserModel();

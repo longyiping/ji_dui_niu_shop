@@ -37,7 +37,7 @@ interface IMember extends IUser
      * @param unknown $wx_openid            
      * @param unknown $wx_info            
      */
-    function registerMember($user_name, $password, $email, $mobile, $user_qq_id, $qq_info, $wx_openid, $wx_info, $wx_unionid);
+    function registerMember($user_name, $password, $email, $mobile, $user_qq_id, $qq_info, $wx_openid, $wx_info, $wx_unionid, $pid, $path_pid);
 
     /**
      * 删除会员

@@ -17,10 +17,12 @@ namespace app\shop\controller;
 
 use data\extend\ThinkOauth as ThinkOauth;
 use data\service\Member as Member;
+use data\service\User as User;
 use data\service\Config as Config;
 use data\service\WebSite as WebSite;
 use think\Controller;
 use think\Session;
+use data\model\NsMemberModel as NsMemberModel;
 \think\Loader::addNamespace('data', 'data/');
 
 /**
@@ -447,10 +449,26 @@ class Login extends Controller
             // $email = rand($min, $max) . '@qq.com';
             // $mobile = rand($min, $max);
             $user_name = isset($_POST["username"]) ? $_POST["username"] : '';
-            
-            $retval = $member->registerMember($user_name, $password, '', '', '', '', '', '', '');
+            //根据用户提交的推荐人的名称获取其id
+            if(isset($_POST['pid']))
+			{
+				$user = new User();
+				$user_data=$user->getUserInfoByUsername($_POST['pid']);
+            	$pid =$user_data['uid'];
+				//获取推荐人的path_pid
+				$mem = new NsMemberModel();
+				$mem_data = $mem->getInfo(['uid'=>$pid]);
+				$path_pid = $pid.'#'.$mem_data['path_pid'];
+			}else{
+				$pid = '';
+				$path_pid = '';
+			}
+			
+            $retval = $member->registerMember($user_name, $password, '', '', '', '', '', '', '', $pid, $path_pid);
+
             if ($retval > 0) {
                 // $this->success("注册成功", __URL__."/index");
+                
                 $this->redirect(__URL__ . "/index");
             } else {
                 $this->success("注册失败", __URL__ . "/login/register");

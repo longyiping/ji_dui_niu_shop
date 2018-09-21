@@ -451,19 +451,24 @@ class Login extends Controller
             $user_name = isset($_POST["username"]) ? $_POST["username"] : '';
 			$pid=$_POST['pid'];
             //根据用户提交的推荐人的名称获取其id
-            if($pid !== '')
-			{
-				$user  = new User();
-				$user_data=$user->getUserInfoByUsername($_POST['pid']);
+            $user  = new User();
+			$user_data=$user->getUserInfoByUsername($_POST['pid']);
+			if($user_data!=NULL){
+					if($pid !=='')
+			{ 
             	$pid   =$user_data['uid'];
 				//获取推荐人的path_pid
 				$mem   		= new NsMemberModel();
 				$mem_data 	= $mem->getInfo(['uid'=>$pid]);
-				$path_pid 	= '#'.$pid.'#'.$mem_data['path_pid'];
+				$path_pid 	= '#'.$pid.$mem_data['path_pid'];
 			}else{
 				$pid 		= 0;
 				$path_pid 	= 0;
 			}
+				}else{
+					$path_pid 	= 0;
+				}
+            
 			
             $retval = $member->registerMember($user_name, $password, '', '', '', '', '', '', '', $pid, $path_pid);
 

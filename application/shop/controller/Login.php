@@ -444,24 +444,25 @@ class Login extends Controller
         if ($_POST) {
             $min = 10000000000;
             $max = 19999999999;
-            $member = new Member();
+            $member   = new Member();
             $password = isset($_POST['password']) ? $_POST['password'] : '';
             // $email = rand($min, $max) . '@qq.com';
             // $mobile = rand($min, $max);
             $user_name = isset($_POST["username"]) ? $_POST["username"] : '';
+			$pid=$_POST['pid'];
             //根据用户提交的推荐人的名称获取其id
-            if(isset($_POST['pid']))
+            if($pid !== '')
 			{
-				$user = new User();
+				$user  = new User();
 				$user_data=$user->getUserInfoByUsername($_POST['pid']);
-            	$pid =$user_data['uid'];
+            	$pid   =$user_data['uid'];
 				//获取推荐人的path_pid
-				$mem = new NsMemberModel();
-				$mem_data = $mem->getInfo(['uid'=>$pid]);
-				$path_pid = $pid.'#'.$mem_data['path_pid'];
+				$mem   		= new NsMemberModel();
+				$mem_data 	= $mem->getInfo(['uid'=>$pid]);
+				$path_pid 	= '#'.$pid.'#'.$mem_data['path_pid'];
 			}else{
-				$pid = '';
-				$path_pid = '';
+				$pid 		= 0;
+				$path_pid 	= 0;
 			}
 			
             $retval = $member->registerMember($user_name, $password, '', '', '', '', '', '', '', $pid, $path_pid);

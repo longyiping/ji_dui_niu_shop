@@ -101,12 +101,12 @@ class Member extends User implements IMember
             $member_level = $level_info['level_id'];
             $member = new NsMemberModel();
             $data = array(
-                'uid' => $res,
-                'member_name' => $user_name,
-                'member_level' => $member_level,
-                'reg_time' => date("Y-m-d H:i:s", time()),
-                'pid' => $pid,
-                'path_pid' =>$path_pid
+                'uid' 			=> $res,
+                'member_name' 	=> $user_name,
+                'member_level'	=> $member_level,
+                'reg_time' 		=> date("Y-m-d H:i:s", time()),
+                'pid' 			=> $pid,
+                'path_pid' 		=>$path_pid
             );
 			
             $retval = $member->save($data);

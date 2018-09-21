@@ -422,18 +422,16 @@
 		<dt><i class="required">*</i>积分设置：</dt>
 		<dd>
 			<div class="controls">
-			{if condition = "$goods_info.point_exchange_type  eq 0"}
-				<label class="radio inline normal"><input type="radio" name="integralSelect" value="0" checked="checked" /> 非积分兑换</label>
-				<label class="radio inline normal"><input type="radio" name="integralSelect" value="1" />积分兑换</label>
-			{else /}
-				<label class="radio inline normal"><input type="radio" name="integralSelect" value="0"/> 非积分兑换</label>
-				<label class="radio inline normal"><input type="radio" name="integralSelect" value="1" checked="checked" />积分兑换</label>
-			{/if}
+			
+				<label class="radio inline normal"><input type="radio" name="integralSelect" value="0" {if condition = "$goods_info.point_exchange_type  eq 0"}checked="checked"{/if} /> 非积分兑换</label>
+				<label class="radio inline normal"><input type="radio" name="integralSelect" value="1" {if condition = "$goods_info.point_exchange_type  eq 1"}checked="checked"{/if} />部分积分兑换</label>
+				<label class="radio inline normal"><input type="radio" name="integralSelect" value="2" {if condition = "$goods_info.point_exchange_type  eq 2"}checked="checked"{/if} />完全积分兑换</label>
+			
 			</div>
 		</dd>
 	</dl>
-	{if condition = "$goods_info.point_exchange_type  eq 0"}
-	<dl id="integral-exchange" style="display: none">
+	{if condition = "$goods_info.point_exchange_type eq 1"}
+	<dl id="integral-exchange">
 		<dt>积分兑换：</dt>
 		<dd>
 			<div class="controls">
@@ -443,7 +441,7 @@
 		</dd>
 	</dl>
 	{else /}
-	<dl id="integral-exchange">
+	<dl id="integral-exchange" style="display:none">
 		<dt>积分兑换：</dt>
 		<dd>
 			<div class="controls">

@@ -453,6 +453,7 @@ class Login extends Controller
             //根据用户提交的推荐人的名称获取其id
             $user  = new User();
 			$user_data=$user->getUserInfoByUsername($_POST['pid']);
+			
 			if($user_data!=NULL){
 					if($pid !=='')
 			{ 
@@ -460,7 +461,7 @@ class Login extends Controller
 				//获取推荐人的path_pid
 				$mem   		= new NsMemberModel();
 				$mem_data 	= $mem->getInfo(['uid'=>$pid]);
-				$path_pid 	= '#'.$pid.$mem_data['path_pid'];
+				$path_pid 	= $mem_data['path_pid'].'#'.$pid;
 			}else{
 				$pid 		= 0;
 				$path_pid 	= 0;

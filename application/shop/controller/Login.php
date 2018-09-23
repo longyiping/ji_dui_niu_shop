@@ -453,7 +453,8 @@ class Login extends Controller
             //根据用户提交的推荐人的名称获取其id
             $user  = new User();
 			$user_data=$user->getUserInfoByUsername($_POST['pid']);
-			
+//			print_r($user_data);
+//			exit;
 			if($user_data!=NULL){
 					if($pid !=='')
 			{ 
@@ -467,6 +468,7 @@ class Login extends Controller
 				$path_pid 	= 0;
 			}
 				}else{
+					$pid 		= 0;
 					$path_pid 	= 0;
 				}
             

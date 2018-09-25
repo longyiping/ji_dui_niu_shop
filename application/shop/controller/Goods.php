@@ -27,6 +27,7 @@ use data\service\Shop as ShopService;
 use data\service\Address;
 use think\Session;
 use data\service\Config;
+use data\model\NsPointConfigModel;
 
 /**
  * 商品控制器
@@ -70,6 +71,13 @@ class Goods extends BaseController
      */
     public function goodsinfo()
     {
+    	$cf = new NsPointConfigModel();
+		$convert_rate=$cf->getInfo(['is_open'=>1],'convert_rate');
+//		print_r($convert_rate);
+//		exit;
+		$convert_rate = $convert_rate['convert_rate']*100;
+		$this->assign("convert_rate", $convert_rate);
+		
         $this->goods_category = new GoodsCategoryService();
         $goodsid = 0;
         if (isset($_GET["goodsid"])) {

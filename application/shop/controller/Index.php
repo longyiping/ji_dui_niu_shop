@@ -15,6 +15,7 @@
  */
 namespace app\shop\controller;
 
+use data\model\NsPointConfigModel;
 use data\model\Send;
 use data\service\Article;
 use data\service\Goods;
@@ -123,7 +124,13 @@ class Index extends BaseController
      */
     public function controlCommendBlock()
     {
+    	$config = new NsPointConfigModel();
+		$convert_rate=$config->getInfo(['is_open'=>1],'convert_rate');
+//		print_r($convert_rate);
+//		exit;
+		$convert_rate = $convert_rate['convert_rate']*100;
         $Platform = new Platform();
+		
         $recommend_block = $Platform->getPlatformGoodsRecommendClass();
         foreach($recommend_block as $k=>$v){
             //获取模块下商品
@@ -132,6 +139,7 @@ class Index extends BaseController
                 unset($recommend_block[$k]);
             }
         }
+		$this->assign("convert_rate", $convert_rate);
         $this->assign("recommend_block", $recommend_block);
        
        

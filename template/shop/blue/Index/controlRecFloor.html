@@ -80,8 +80,21 @@
 										<img class="lazy" src="__UPLOAD__/{$good['picture_detail']['pic_cover_big']}" />
 									</a>
 									<p class="price">
-										<span class="second-color">￥{$good['promotion_price']}</span>
-										<span class="plusPrice">Jplus: ￥{$good['market_price']}</span>
+										{if condition="$good.point_exchange_type eq 0"}
+							<span class="second-color">￥{$good.promotion_price}</span>
+										<span class="plusPrice">Jplus:￥{$good['market_price']}</span>
+										{/if}
+							
+										{if condition="$good.point_exchange_type eq 1"}
+										<span>￥{$good['promotion_price']}+{$good.point_exchange}积分</span>
+										<span class="plusPrice">Jplus:￥{$good.market_price}+{$good.point_exchange}积分</span>
+										{/if}
+							
+										{if condition="$good.point_exchange_type eq 2"}
+										<span>{$good.promotion_price*$convert_rate}积分</span>
+										<span class="plusPrice">Jplus:￥{$good.market_price*$convert_rate}积分</span>
+										{/if}
+										
 									</p>
 									<p class="title">
 										<a target="_blank" href="SHOP_MAIN/goods/goodsinfo?goodsid={$good['goods_id']}" title="{$good['goods_name']}">{$good['goods_name']}</a>
@@ -100,8 +113,20 @@
 										<img class="lazy" src="__UPLOAD__/{$good['picture_detail']['pic_cover_big']}" >
 									</a>
 									<p class="price">
-										<span class="second-color">￥{$good['promotion_price']}</span>
-										<span class="plusPrice">Jplus: ￥{$good['market_price']}</span>
+										{if condition="$good.point_exchange_type eq 0"}
+							<span class="second-color">￥{$good.promotion_price}</span>
+										<span class="plusPrice">Jplus:￥{$good['market_price']}</span>
+										{/if}
+							
+										{if condition="$good.point_exchange_type eq 1"}
+										<span>￥{$good['promotion_price']}+{$good.point_exchange}积分</span>
+										<span class="plusPrice">Jplus:￥{$good.market_price}+{$good.point_exchange}积分</span>
+										{/if}
+							
+										{if condition="$good.point_exchange_type eq 2"}
+										<span>{$good.promotion_price*$convert_rate}积分</span>
+										<span class="plusPrice">Jplus:￥{$good.market_price*$convert_rate}积分</span>
+										{/if}
 									</p>
 									<p class="title">
 										<a target="_blank" href="SHOP_MAIN/goods/goodsinfo?goodsid={$good['goods_id']}" title="{$good['goods_name']}">{$good['goods_name']}</a>
@@ -120,8 +145,20 @@
 										<img class="lazy" src="__UPLOAD__/{$good['picture_detail']['pic_cover_big']}" />
 									</a>
 									<p class="price">
-										<span class="second-color">￥{$good['promotion_price']}</span>
-										<span class="plusPrice">Jplus: ￥{$good['market_price']}</span>
+										{if condition="$good.point_exchange_type eq 0"}
+							<span class="second-color">￥{$good.promotion_price}</span>
+										<span class="plusPrice">Jplus:￥{$good['market_price']}</span>
+										{/if}
+							
+										{if condition="$good.point_exchange_type eq 1"}
+										<span>￥{$good['promotion_price']}+{$good.point_exchange}积分</span>
+										<span class="plusPrice">Jplus:￥{$good.market_price}+{$good.point_exchange}积分</span>
+										{/if}
+							
+										{if condition="$good.point_exchange_type eq 2"}
+										<span>{$good.promotion_price*$convert_rate}积分</span>
+										<span class="plusPrice">Jplus:￥{$good.market_price*$convert_rate}积分</span>
+										{/if}
 									</p>
 									<p class="title">
 										<a target="_blank" href="SHOP_MAIN/goods/goodsinfo?goodsid={$good['goods_id']}" title="{$good['goods_name']}">{$good['goods_name']}</a>

@@ -94,15 +94,8 @@ class Goods extends BaseController
 		$shop_id = $goods_info['shop_id'];
 
 		$cf = new NsPointConfigModel($shop_id);
-		$point_info = $cf->getInfo([
-                    'shop_id' => $shop_id
-                ], 'is_open, convert_rate');
-		$is_open = $point_info['is_open'];
-		$convert_rate = $point_info['convert_rate']*100;
-//		print_r($convert_rate);
-//		exit;
-		$this->assign("is_open", $is_open);
-		$this->assign("convert_rate", $convert_rate);
+		$point_info = $cf->getInfo(['shop_id' => $shop_id],'convert_rate');
+		$this->assign("convert_rate", $point_info['convert_rate']);
             //把属性值相同的合并
             $goods_attribute_list = $goods_info['goods_attribute_list'];
             $goods_attribute_list_new =array();

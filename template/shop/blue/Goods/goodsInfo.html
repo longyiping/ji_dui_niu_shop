@@ -53,7 +53,7 @@
 				<!-- 商品团购倒计时 -->
 				<div class="goods-price">
 					<!-- 商品不同的价格 -->
-							
+						{if condition="$is_open==1"}
 							{if condition="$goods_info.point_exchange_type==0"}
 								<div class="show-price">
 						<span class="price">Jplus价</span>
@@ -92,6 +92,47 @@
 							</div>
 							</div>
 							{/if}
+						{else /}
+							{if condition="$goods_info.point_exchange_type==0"}
+								<div class="show-price">
+						<span class="price">Jplus价</span>
+						<font class="market-price"><strong>￥{$goods_info.market_price}</strong></font>
+					</div>
+					<div class="realy-price">
+						<div class="now-prices">
+							<span class="price">销售价</span>
+							<strong class="p-price second-color" id="price" style="font-size:22px;" id="member_point">￥{$goods_info.promotion_price}</strong>
+							</div>
+							</div>
+							{/if}
+							<!--部分积分商品-->
+							{if condition="$goods_info.point_exchange_type==1 && $goods_info.point_exchange>0"}
+							<div class="show-price">
+						<span class="price">Jplus价</span>
+						<font class="market-price"><strong>￥{$goods_info.market_price}</strong></font>
+					</div>
+					<div class="realy-price">
+						<div class="now-prices">
+							<span class="price">销售价</span>
+							<strong class="p-price second-color" id="price" style="font-size:22px;" id="member_point">￥{$goods_info.promotion_price}</strong>
+							</div>
+							</div>
+							{/if}
+							<!--完全积分商品-->
+							{if condition="$goods_info.point_exchange_type==2"}
+								<div class="show-price">
+						<span class="price">Jplus价</span>
+						<font class="market-price"><strong>￥{$goods_info.market_price}</strong></font>
+					</div>
+					<div class="realy-price">
+						<div class="now-prices">
+							<span class="price">销售价</span>
+							<strong class="p-price second-color" id="price" style="font-size:22px;" id="member_point">￥{$goods_info.promotion_price}</strong>
+							</div>
+							</div>
+							{/if}
+						
+						{/if}
 							
 							
 							

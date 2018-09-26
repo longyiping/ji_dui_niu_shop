@@ -27,6 +27,7 @@ use data\service\Shop as ShopService;
 use data\service\Address;
 use think\Session;
 use data\service\Config;
+use data\service\GoodsCategory;
 use data\model\NsPointConfigModel;
 
 /**
@@ -71,13 +72,7 @@ class Goods extends BaseController
      */
     public function goodsinfo()
     {
-    	$cf = new NsPointConfigModel();
-		$convert_rate=$cf->getInfo(['is_open'=>1],'convert_rate');
-//		print_r($convert_rate);
-//		exit;
-		$convert_rate = $convert_rate['convert_rate']*100;
-		$this->assign("convert_rate", $convert_rate);
-		
+    	
         $this->goods_category = new GoodsCategoryService();
         $goodsid = 0;
         if (isset($_GET["goodsid"])) {
@@ -88,12 +83,26 @@ class Goods extends BaseController
             $goodsid = (int) $_GET["goodsid"];
             $this->assign('goods_id', $goodsid); // 将商品id传入方便查询当前商品的评论
             $this->member->addMemberViewHistory($goodsid);
-            
+		
             // 商品详情
             $goods_info = $this->goods->getGoodsDetail($goodsid);
             if (empty($goods_info)) {
                 $this->redirect(__URL__.'/index'); // 没有商品返回到首页
             }
+			
+			//先根据URL中的商品id获取商品所属商家的id,再根据商家id获取商家是否开启积分功能
+		$shop_id = $goods_info['shop_id'];
+
+		$cf = new NsPointConfigModel($shop_id);
+		$point_info = $cf->getInfo([
+                    'shop_id' => $shop_id
+                ], 'is_open, convert_rate');
+		$is_open = $point_info['is_open'];
+		$convert_rate = $point_info['convert_rate']*100;
+//		print_r($convert_rate);
+//		exit;
+		$this->assign("is_open", $is_open);
+		$this->assign("convert_rate", $convert_rate);
             //把属性值相同的合并
             $goods_attribute_list = $goods_info['goods_attribute_list'];
             $goods_attribute_list_new =array();

@@ -125,10 +125,6 @@ class Index extends BaseController
     public function controlCommendBlock()
     {
     	$config = new NsPointConfigModel();
-		$convert_rate=$config->getInfo(['is_open'=>1],'convert_rate');
-//		print_r($convert_rate);
-//		exit;
-		$convert_rate = $convert_rate['convert_rate']*100;
         $Platform = new Platform();
 		
         $recommend_block = $Platform->getPlatformGoodsRecommendClass();
@@ -137,12 +133,17 @@ class Index extends BaseController
             $goods_list = $Platform->getPlatformGoodsRecommend($v['class_id']);
             if(empty($goods_list)){
                 unset($recommend_block[$k]);
-            }
+            } else {
+				foreach($v['goods_list'] as $key=>$val){
+					$convert_rate=$config->where("shop_id",$val['goods_info']['shop_id'])->value("convert_rate");
+					if($val['goods_info']['point_exchange_type']==2 && $convert_rate>0){
+						$recommend_block[$k]['goods_list'][$key]['goods_info']['normal_integral']=round($val['goods_info']['promotion_price']/$convert_rate,2);
+						$recommend_block[$k]['goods_list'][$key]['goods_info']['jplus_integral']=round($val['goods_info']['market_price']/$convert_rate,2);
+					}
+				}
+			}
         }
-		$this->assign("convert_rate", $convert_rate);
         $this->assign("recommend_block", $recommend_block);
-       
-       
     }
 
     /**

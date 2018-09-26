@@ -35,8 +35,8 @@
 							{/if}
 							
 							{if condition="$goods_list.goods_info.point_exchange_type eq 2" }
-							<span>{$goods_list.goods_info.promotion_price*$convert_rate}积分</span>
-							<span class="plusPrice">Jplus: ￥{$goods_list.goods_info.market_price*$convert_rate}积分</span>
+							<span>{$goods_list.goods_info.normal_integral}积分</span>
+							<span class="plusPrice">Jplus: ￥{$goods_list.goods_info.jplus_integral}积分</span>
 							{/if}
 						</em>
 					</dd>

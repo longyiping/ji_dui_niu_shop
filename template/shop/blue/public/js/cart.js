@@ -139,7 +139,8 @@ function getCopeSum() {
 	}
 	for (j = 0; j < sel_goods.length; j++) {
 		sum += Number($("#subtotal_" + sel_goods[j]).attr("data-total"));
-		integral += parseInt($("#subtotal_" + sel_goods[j]).attr("data-integral"));
+		//integral += parseInt($("#subtotal_" + sel_goods[j]).attr("data-integral"));
+		integral += parseInt($("#subtotal_" + sel_goods[j]).attr("data-integral"))*$("#goods_number_" + sel_goods[j]).val();
 	}
 	sum=sum.toFixed(2);
 	if (sum == 0) {

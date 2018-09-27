@@ -237,7 +237,7 @@
 				// 回调函数
 				callback: undefined
 			};
-
+			
 			options = $.extend(true, defaults, options);
 			var data = {
 				sku_id: id,
@@ -313,6 +313,7 @@
 							}
 							cart_detail.sku_name = $("#hidden_skuname").val();
 							cart_detail.price = $("#hidden_sku_price").val();
+							cart_detail.jplus_price = $("#hidden_sku_jplus_price").val();
 							cart_detail.picture_id = $("#hidden_default_img_id").val();
 							cart_detail.cost_price = $("#hidden_sku_price").val();//成本价
 							$.ajax({

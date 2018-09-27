@@ -157,7 +157,7 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
      * @return Query
      */
     public function db($baseQuery = true)
-    {
+    { 
         $model = $this->class;
         if (! isset(self::$links[$model])) {
             // 设置当前模型 确保查询返回模型对象
@@ -696,7 +696,7 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
         
         // 数据自动完成
         $this->autoCompleteData($this->auto);
-        
+       
         // 自动写入更新时间
         if ($this->autoWriteTimestamp && $this->updateTime) {
             $this->setAttr($this->updateTime, null);
@@ -755,7 +755,7 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
         } else {
             // 自动写入
             $this->autoCompleteData($this->insert);
-            
+             
             // 自动写入创建时间
             if ($this->autoWriteTimestamp && $this->createTime) {
                 $this->setAttr($this->createTime, null);
@@ -766,7 +766,7 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
             }
             
             $result = $this->db()->insert($this->data);
-            
+           
             // 获取自动增长主键
             if ($result && is_string($pk) && ! isset($this->data[$pk])) {
                 $insertId = $this->db()->getLastInsID($sequence);

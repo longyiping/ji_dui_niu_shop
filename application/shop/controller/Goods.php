@@ -935,19 +935,22 @@ class Goods extends BaseController
     public function addCart()
     {
         $goods = new GoodsService();
+		$member = new MemberService();
+		$onemem=$member->getMemberInfo();
         $uid = $this->uid;
         $cart_detail = $_POST['cart_detail'];
         $goods_id = $cart_detail['goods_id'];
+		$GoodsDetail=$goods->getGoodsDetail($goods_id);
         $goods_name = $cart_detail['goods_name'];
         $shop_id = $this->instance_id;
         $web_info = $this->web_site->getWebSiteInfo();
         $count = $cart_detail['count'];
         $sku_id = $cart_detail['sku_id'];
         $sku_name = $cart_detail['sku_name'];
-        $price = $cart_detail['price'];
+        $price = $onemem['is_jplus']==1 ? $cart_detail['jplus_price'] : $cart_detail['price'];
         $cost_price = $cart_detail['cost_price'];
         $picture_id = $cart_detail['picture_id'];
-        $_SESSION['order_tag'] = ""; // 清空订单        
+        $_SESSION['order_tag'] = ""; // 清空订单
         $retval = $goods->addCart($uid, $shop_id, $web_info['title'], $goods_id, $goods_name, $sku_id, $sku_name, $price, $count, $picture_id, 0);
         return $retval;
     }   

@@ -182,19 +182,24 @@ class GoodsPreference extends BaseService{
     {
         $goods_sku = new NsGoodsSkuModel();
         $goods_sku_info = $goods_sku->getInfo(['sku_id' => $sku_id], 'goods_id,price,promote_price');
-        if(!empty($this->uid))
-        {
-            $member_price = $this->getGoodsSkuMemberPrice($sku_id, $this->uid);
-            if($member_price < $goods_sku_info['promote_price'])
-            {
-                return $member_price;
-            }else{
-                return $goods_sku_info['promote_price'];
-            }
-        }else{
-            return $goods_sku_info['promote_price'];
-        }
-     
+		$goods = new NsGoodsModel();
+		$point_exchange_type=$goods->where('goods_id',$goods_sku_info['goods_id'])->value('point_exchange_type');
+		if($point_exchange_type==2){
+			return 0;
+		} else {
+			if(!empty($this->uid))
+			{
+				$member_price = $this->getGoodsSkuMemberPrice($sku_id, $this->uid);
+				if($member_price < $goods_sku_info['promote_price'])
+				{
+					return $member_price;
+				}else{
+					return $goods_sku_info['promote_price'];
+				}
+			}else{
+				return $goods_sku_info['promote_price'];
+			}
+		}
     }
     /**
      * 获取商品sku的积分兑换值

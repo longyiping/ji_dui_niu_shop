@@ -35,6 +35,7 @@ use think\Session;
 use data\service\promotion\GoodsExpress as GoodsExpressService;
 use data\service\Express;
 use data\service\WebSite;
+use data\model\NsPointConfigModel;
 
 /**
  * 会员控制器
@@ -858,15 +859,24 @@ class Member extends BaseController
         $count_money = $order->getGoodsSkuListPrice($goods_sku_list); // 商品金额
         $this->assign("count_money", sprintf("%.2f", $count_money)); // 商品金额
         
+		$cf = new NsPointConfigModel();
+		
+		
+		//$this->assign("convert_rate", $point_info['convert_rate']);
         $count_point_exchange = 0;
         foreach ($list as $k => $v) {
             $list[$k]['price'] = sprintf("%.2f", $list[$k]['price']);
             $list[$k]['subtotal'] = sprintf("%.2f", $list[$k]['price'] * $list[$k]['num']);
+			$point_info = $cf->getInfo(['shop_id' => $v["shop_id"]],'convert_rate');
             if ($v["point_exchange_type"] == 1) {
                 if ($v["point_exchange"] > 0) {
                     $count_point_exchange += $v["point_exchange"] * $v["num"];
                 }
-            }
+            } elseif ($v["point_exchange_type"] == 2 && $point_info['convert_rate']>0) {
+				$count_point_exchange += round($v["price"] * $v["num"]/$point_info['convert_rate'],2);
+				$list[$k]['price'] = sprintf("%.2f", 0);
+				$list[$k]['subtotal'] = sprintf("%.2f", 0);
+			}
         }
         $this->assign("list", $list); // 格式化后的列表
         $this->assign("count_point_exchange", $count_point_exchange); // 总积分

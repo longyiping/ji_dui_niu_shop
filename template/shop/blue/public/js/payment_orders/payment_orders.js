@@ -67,7 +67,7 @@ $(function(){
 						$(".btn-jiesuan").css("background-color","#ccc");
 						//如果实际付款金额为0，跳转到个人中心的订单界面中
 						if(parseFloat($("#realprice").attr("data-total-money")) == 0){
-							location.href = app_main + '/pay/paycallback?msg=1&out_trade_no=' + res.code;
+							//location.href = app_main + '/pay/paycallback?msg=1&out_trade_no=' + res.code;
 						}else if(pay_type == 4){
 							location.href = shop_main + '/member/orderlist';
 						}else{

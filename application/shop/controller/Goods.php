@@ -969,6 +969,16 @@ class Goods extends BaseController
     {
         $goods = new Goods();
         $cart_list = $this->getShoppingCart();
+		$cf = new NsPointConfigModel();
+		foreach($cart_list as $key=>$val){
+			if($val['point_exchange_type']==2){
+				$point_info = $cf->getInfo(['shop_id' => $val['shop_id']],'convert_rate');
+				if($point_info['convert_rate']>0){
+					$cart_list[$key]['point_exchange']=round($val['price']/$point_info['convert_rate'],2);
+					$cart_list[$key]['price']=0.00;
+				}
+			}
+		}
        // var_dump($cart_list[0]['shop_name']);die;
         // 店铺，店铺中的商品
         $list = Array();

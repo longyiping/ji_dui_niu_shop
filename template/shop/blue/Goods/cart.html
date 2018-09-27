@@ -76,16 +76,24 @@
 										</td>
 										<td align="center" width="15%">
 											<font class="cart_jmprice" id="goods_price_{$cart_info.cart_id}">
+											{if condition="$cart_info.point_exchange_type neq 2"}
 											￥{$cart_info.price}
-											{if condition="$cart_info.point_exchange_type==1 "}
+											{/if}
+											{if condition="$cart_info.point_exchange_type==1"}
 												{if condition=" $cart_info.point_exchange>0"}
 												+{$cart_info.point_exchange}积分
 												{/if}
-<!-- 												<br/>积分商品 -->
+<!-- 												<!--部分积分商品 -->
+											{/if}
+											{if condition="$cart_info.point_exchange_type==2"}
+												{if condition=" $cart_info.point_exchange>0"}
+													{$cart_info.point_exchange}积分
+												{/if}
+<!-- 												<!--完全积分商品 -->
 											{/if}
 											</font>
 										</td>
-										<td align="center" width="15%"><font class="cart_jmprice" id="subtotal_{$cart_info.cart_id}" data-total="{$cart_info.price*$cart_info.num}" data-integral="{if condition='($cart_info.point_exchange_type==1) OR ($cart_info.point_exchange_type==2)'}{$cart_info.point_exchange}{else/}0{/if}"  data-price="{$cart_info.price}">￥{$cart_info.price*$cart_info.num}</font></td>
+										<td align="center" width="15%"><font class="cart_jmprice" id="subtotal_{$cart_info.cart_id}" data-total="{$cart_info.price*$cart_info.num}" data-integral="{if condition='($cart_info.point_exchange_type==1) OR ($cart_info.point_exchange_type==2)'}{$cart_info.point_exchange}{else/}0{/if}" data-price="{$cart_info.price}">￥{$cart_info.price*$cart_info.num}</font></td>
 										<td align="center" width="10%">
 											<a href="javascript:deleteShoppingCartById({$cart_info.cart_id},true)" class="f6">删除</a>
 										</td>

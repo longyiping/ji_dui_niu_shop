@@ -64,7 +64,7 @@ $(function(){
 				},
 				success : function(res) {
 					if (res.code > 0) {
-						$(".btn-jiesuan").css("background-color","#ccc");
+						$(".btn-jiesuan").css("background-color","#0689e1");
 						//如果实际付款金额为0，跳转到个人中心的订单界面中
 						if(parseFloat($("#realprice").attr("data-total-money")) == 0){
 							//location.href = app_main + '/pay/paycallback?msg=1&out_trade_no=' + res.code;

@@ -55,7 +55,13 @@
 					<!-- 商品不同的价格 -->
 					<div class="show-price">
 						<span class="price">Jplus价</span>
-						<font class="market-price"><strong>￥{$goods_info.market_price}</strong></font>
+						<font class="market-price"><strong>
+						{if condition="$goods_info.point_exchange_type==2 && $convert_rate>0"/}
+							{$goods_info.market_price/$convert_rate}积分
+						{else /}
+							￥{$goods_info.market_price}
+						{/if}
+						</strong></font>
 					</div>
 					<div class="realy-price">
 						<div class="now-prices">

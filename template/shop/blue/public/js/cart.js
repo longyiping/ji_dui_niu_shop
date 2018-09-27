@@ -143,7 +143,7 @@ function getCopeSum() {
 		integral += parseInt($("#subtotal_" + sel_goods[j]).attr("data-integral"))*$("#goods_number_" + sel_goods[j]).val();
 	}
 	sum=sum.toFixed(2);
-	if (sum == 0) {
+	if (sum == 0 && integral == 0) {
 		$("#cart_money_info").html("您一个商品都没选，这怎么行捏！！真的不行哦！");
 		$(".js-settlement").addClass("disabled");
 

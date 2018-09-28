@@ -433,9 +433,9 @@ class Member extends BaseController
         $withdraw_list = $member->getMemberBalanceWithdraw(1, 0, $condition);
         foreach ($withdraw_list['data'] as $k=>$v){
             if($v['status'] == 1){
-                $withdraw_list['data'][$k]['status'] = '已完成';
+                $withdraw_list['data'][$k]['status'] = '已同意';
             }else if($v['status'] == 0){
-                $withdraw_list['data'][$k]['status'] = '审核中';
+                $withdraw_list['data'][$k]['status'] = '已申请';
             }else{
                 $withdraw_list['data'][$k]['status'] = '已拒绝';
             }
@@ -449,7 +449,7 @@ class Member extends BaseController
         $this->assign("sum", $member_info['balance']);
         $this->assign("withdraws", $withdraw_list);
         $this->assign("shopid", $shopid);
-        return view($this->style . '/Member/bringDetails');
+        return view($this->style . '/Member/balanceWithdraw');
     }
     
     /**
@@ -1018,28 +1018,15 @@ class Member extends BaseController
             return AjaxReturn($retval);
         }
     }
-	/**
-     * 安全中心
-     */
-    public function securityCenter()
-    {
-        return view($this->style . "/Member/securityCenter");
-    }
-    /**
-     * 实名制认证
-     */
-    public function realNameSystem()
-    {
-        return view($this->style . "/Member/realNameSystem");
-    }
+
     /**
      * 提现页面
      */
     public function userShopCommission()
     {
-        return view($this->style . "/Member/putForward");
+        return view($this->style . "/Member/userShopCommission");
     }
-		
+
     /**
      * 申请提现
      */

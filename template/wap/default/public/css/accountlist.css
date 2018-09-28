@@ -1,0 +1,50 @@
+/*common style*/
+*,body{
+	padding: 0;
+	margin: 0;
+	font: normal 100% 'Microsoft Yahei', Arial, sans-serif;
+}
+html, body { width:100%; margin:0; padding:0; font-size: 12px;}
+body{background:#F6F5FA;min-width:320px;max-width:640px;margin:0 auto;}
+li{list-style:none}
+a:active,a:hover {outline: 0;text-decoration:none;}
+a, li, a:hover, a:active, a:focus {text-decoration:none;}
+a,input,button,div{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlight-color: transparent;outline: none;}
+.fl { float: left;}
+.fr { float: right;}
+/*清除浮动*/
+.cf:before,.cf:after{display:table;line-height:0;content:"";}
+.cf:after{clear:both;}
+*.cf{zoom:1;}
+.hasBank,.binding{
+	background:#fff;
+	margin:24px auto 12px auto;
+	width:84%;
+	border-radius:6px;
+	box-shadow:0 0 10px rgba(0,0,0,.3);
+	padding:24px 0 24px 24px;
+}
+.hasBank .bankIcon img{
+	width:60px;
+	margin-right:10px;
+}
+.hasBank .bankCard .bankName{
+	color: #383838;
+	font-size:16px;
+	padding:6px 0 4px 0;
+}
+.hasBank .bankCard .bankCord{
+	color: #777;
+	font-size:16px;
+}
+.binding a{
+	display: block;
+	width:100%;
+	text-align: center;
+	font-size:16px;
+	color:#666;
+}
+/*绑银行卡*/
+.head{
+	background:#fff;
+}

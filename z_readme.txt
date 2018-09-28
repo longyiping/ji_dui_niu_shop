@@ -2,3 +2,5 @@
 account_type的值为1才是增加的积分！
 account_type的值为2增加的是余额！
 data\service\Member下面的memberaccount.php中积分及余额下面调整取值方式。
+
+积分兑换比例唯一

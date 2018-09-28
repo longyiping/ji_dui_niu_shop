@@ -37,6 +37,7 @@ use data\model\AlbumPictureModel as AlbumPictureModel;
 use data\model\NsAttributeModel;
 use data\model\NsAttributeValueModel;
 use data\model\NsGoodsAttributeModel;
+use data\service\Member as MemberService;
 use data\service\BaseService as BaseService;
 use data\service\promotion\GoodsDiscount;
 use data\service\promotion\GoodsExpress;
@@ -1385,7 +1386,7 @@ class Goods extends BaseService implements IGoods
                 $goods_sku = new NsGoodsSkuModel();
                 $sku_info = $goods_sku->getInfo([
                     'sku_id' => $v['sku_id']
-                ], 'stock, price, sku_name, promote_price');
+                ], 'stock,market_price,price, sku_name, promote_price');
                 //验证商品或sku是否存在,不存在则从购物车移除
                 if($uid > 0){
                     if(empty($goods_info)){
@@ -1431,6 +1432,9 @@ class Goods extends BaseService implements IGoods
                     }else{
                         $price = $member_price;
                     }
+					$member = new MemberService();
+					$onemem=$member->getMemberInfo();
+					$price = $onemem['is_jplus']==1 ? $sku_info["market_price"] : $price;//market_price代替jplus_price
                      $update_data = array(
                          "goods_name"=>$goods_info["goods_name"], 
                          "sku_name"=>$sku_info["sku_name"],

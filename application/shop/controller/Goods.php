@@ -935,8 +935,6 @@ class Goods extends BaseController
     public function addCart()
     {
         $goods = new GoodsService();
-		$member = new MemberService();
-		$onemem=$member->getMemberInfo();
         $uid = $this->uid;
         $cart_detail = $_POST['cart_detail'];
         $goods_id = $cart_detail['goods_id'];
@@ -947,7 +945,7 @@ class Goods extends BaseController
         $count = $cart_detail['count'];
         $sku_id = $cart_detail['sku_id'];
         $sku_name = $cart_detail['sku_name'];
-        $price = $onemem['is_jplus']==1 ? $cart_detail['jplus_price'] : $cart_detail['price'];
+        $price = $cart_detail['price'];
         $cost_price = $cart_detail['cost_price'];
         $picture_id = $cart_detail['picture_id'];
         $_SESSION['order_tag'] = ""; // 清空订单

@@ -313,7 +313,6 @@
 							}
 							cart_detail.sku_name = $("#hidden_skuname").val();
 							cart_detail.price = $("#hidden_sku_price").val();
-							cart_detail.jplus_price = $("#hidden_sku_jplus_price").val();
 							cart_detail.picture_id = $("#hidden_default_img_id").val();
 							cart_detail.cost_price = $("#hidden_sku_price").val();//成本价
 							$.ajax({
@@ -331,7 +330,7 @@
 										$(".add-cart").removeClass("js-disabled");
 										$(".js-buy-now").removeClass("js-disabled");
 										//加入购物车
-										refreshShopCart();//里边会加载购物车中的数量
+										refreshShopCart();//里边会加载购物车中的数量;并且刷新价格（促销及jplus价）
 										$.msg("添加购物车成功");
 									}
 								}

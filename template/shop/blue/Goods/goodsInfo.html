@@ -190,8 +190,7 @@
 					<input type="hidden" id="goods_sku_count" value="{$goods_sku_count}"/>
 					<input type="hidden" id="attribute_list" value="{$spec_list}"/>
 					{foreach name="goods_info['sku_list']" item="pro_skus" key="k"}
-					<input type="hidden" id="goods_sku{$k}" value="{$pro_skus.attr_value_items}" stock="{$pro_skus.stock}" {if condition="$pro_skus.promote_price < $pro_skus.member_price" }price="{$pro_skus.promote_price}" {else/}price="{$pro_skus.member_price}"{/if} promotion_price="{$pro_skus.promote_price}" member_price="{$pro_skus.member_price}" skuid="{$pro_skus.sku_id}" skuname="{$pro_skus.sku_name}" 
-					original_price="{$pro_skus.price}" jplus_price="{$pro_skus.market_price}" />
+					<input type="hidden" id="goods_sku{$k}" value="{$pro_skus.attr_value_items}" stock="{$pro_skus.stock}" {if condition="$pro_skus.promote_price < $pro_skus.member_price" }price="{$pro_skus.promote_price}" {else/}price="{$pro_skus.member_price}"{/if} promotion_price="{$pro_skus.promote_price}" member_price="{$pro_skus.member_price}" skuid="{$pro_skus.sku_id}" skuname="{$pro_skus.sku_name}" original_price="{$pro_skus.price}" />
 					{/foreach}
 					{foreach name="goods_info['spec_list']" item="spec" key="k"}
 						<dl class="attr">

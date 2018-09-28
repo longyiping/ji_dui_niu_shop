@@ -2,7 +2,6 @@
 <input id="hidden_skuid"   type="hidden" value="">
 <input id="hidden_skuname" type="hidden" value="">
 <input id="hidden_sku_price" type="hidden" value="">
-<input id="hidden_sku_jplus_price" type="hidden" value="">
 <input id="hidden_default_img_id" type="hidden" value="{$goods_info['img_list'][0]['pic_id']}" />
 <input id="hidden_max_buy" type="hidden" value="{$goods_info.max_buy}" />
 <input id="hidden_stock" type="hidden" value="{$goods_info.stock}" />
@@ -101,13 +100,11 @@ $().ready(function() {
 				$("#hidden_skuid").val(select_skuid);
 				$("#hidden_skuname").val(select_skuName);
 				var price = parseFloat($(sku_id).attr("price"));
-				var jplus_price = parseFloat($(sku_id).attr("jplus_price"));
 				var promotion_price = parseFloat($(sku_id).attr("promotion_price"));
 				var member_price = parseFloat($(sku_id).attr("member_price"));
 				$("#price").text("￥" + promotion_price.toFixed(2));
 				$("#member_price").text("￥"+member_price.toFixed(2));
 				$("#hidden_sku_price").val(price);
-				$("#hidden_sku_jplus_price").val(jplus_price);
 				$(".js-goods-number").text("库存"+select_stock+"件");
 				if($("#hidden_max_buy").val()==0)
 				{

@@ -2,6 +2,3 @@
 account_type的值为1才是增加的积分！
 account_type的值为2增加的是余额！
 data\service\Member下面的memberaccount.php中积分及余额下面调整取值方式。
-
-ns_cart.js
-refreshShopCart();//里边会加载购物车中的数量

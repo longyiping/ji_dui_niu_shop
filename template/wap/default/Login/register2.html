@@ -11,27 +11,37 @@
 	<body>
 		<div class="box" id="first">
 			<span id="refereeNum">
-				<div class="referee">注册会员</div>
+				<div class="referee">推荐人</div>
+				<div class="J_referee cf">
+					<div class="fl nickname">
+						<div class="J_nickname">
+							<span class="intimate">昵称</span>
+							<span class="call">泰坦尼克号</span>
+						</div>
+						<div class="J_nickname">
+							<span class="intimate">ID</span>
+							<span class="call">00000007</span>
+						</div>
+						<div class="J_nickname">
+							<span class="intimate">级别</span>
+							<span class="call">经理</span>
+						</div>
+					</div>
+					<div class="fr userIcon"><img src="__TEMP__/{$style}/public/images/headicon.png"/></div>
+				</div>
+				<div class="referee">注册人</div>
 			</span>
 			<div class="register">
 				<div class="reksm cf">
-					<label class="fl">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称: </label>
+					<label class="fl">昵称</label>
 					<input type="text" name="name" placeholder="请输入昵称" class="fl nameInput" id="userName"/>
 				</div>
 				<div class="reksm cf">
-					<label class="fl">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</label>
-					<input type="password" name="password" placeholder="请输入密码" maxlength="6" class="fl nameInput" id="oldPwa"/>
-				</div>
-				<div class="reksm cf">
-					<label class="fl">确认密码:</label>
-					<input type="password" name="password" placeholder="请确认密码" maxlength="6" class="fl nameInput" id="newsPwa"/>
-				</div>
-				<div class="reksm cf">
-					<label class="fl">手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机:</label>
+					<label class="fl">手机</label>
 					<input type="text" name="phone" placeholder="请输入手机号码" maxlength="11" class="fl nameInput" id="phone"/>
 				</div>
 				<div class="reksm cf">
-					<label class="fl">验&nbsp;&nbsp;证&nbsp;&nbsp;码:</label>
+					<label class="fl">验证码</label>
 					<input type="text" name="code" placeholder="请输入验证码" maxlength="6" class="fl nameInput" id="code"/>
 					<input type="button" id="btn" value="发送验证码" onClick="sendemail()" /> 
 				</div>
@@ -67,20 +77,6 @@
 				if($('#userName').val() == ''){
 					$('.msg').html('请填写您的昵称!').show();
 					$("#userName").focus();
-				}else if($("#oldPwa").val() == ''){
-					$('.msg').html('请输入密码!').show();
-					$("#oldPwa").focus();
-				}else if($("#oldPwa").val().length < 6){
-					$('.msg').html('请输入6位密码!').show();
-					$("#oldPwa").val('');
-					$("#oldPwa").focus();
-				}else if($("#newsPwa").val() ==''){
-					$('.msg').html('请确认密码!').show();
-					$("#newsPwa").focus();
-				}else if($("#newsPwa").val() != $("#oldPwa").val()){
-					$('.msg').html('两次密码不一致,请重新输入!').show();
-					$("#newsPwa").val('');
-					$("#newsPwa").focus();
 				}else if($("#phone").val() == ''){
 					$('.msg').html('请填写您的手机号!').show();
 					$("#phone").focus();

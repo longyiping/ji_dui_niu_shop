@@ -56,6 +56,20 @@
 		<!--绑定之后的弹窗-->
 	</body>
 	<script>
+		function login(username,password){
+			$.ajax({
+				type : "post",
+				url : "index",
+				async : true,
+				data : {
+					"username" : username,
+					"password" : password
+				},
+				success : function(data) {
+					setTimeout(function(){location.href="APP_MAIN/member/mysale"},1000);
+				}
+			});
+		}
 		$(function(){
 			var mobile = /^1[3-9]\d{9}$/;
 			$('#submit').click(function(){
@@ -89,7 +103,7 @@
 						success : function(data) {
 							 if(data["code"] > 0 ){
 							 	$('.msg').html(data["message"]).show();
-							 	setTimeout(function(){location.href="APP_MAIN/login/index"},500);
+								login($('#userName').val(),$("#oldPwa").val());
 							}else{
 								$('.msg').html(data["message"]).show();
 							} 
@@ -101,6 +115,7 @@
 				}
 			});
 		})
+		
 //		var countdown=60; 
 //		function sendemail(){
 //		    var obj = $("#btn");

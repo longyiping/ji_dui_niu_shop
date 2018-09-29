@@ -1224,14 +1224,14 @@ class Member extends BaseController
         // 查看积分总数
         $account_type = 1;
         
-        $conponSum = $conponAccount->getMemberAccount($shop_id, $this->uid, $account_type);
+        $conponSum = $conponAccount->getMemberPoint($this->uid);////变更为只查询唯一的积分账户
         // var_dump($conponSum);die;
         // 店铺名称
         // $shop_name = $this->user->getShopNameByShopId($shop_id);
         $shop_name = $this->user->getWebSiteInfo();
         $this->assign([
             'account' => $accounts['convert_rate'],
-            "sum" => (int) $conponSum,
+            "sum" => (int) $conponSum['point'],
             "shopname" => $shop_name['title'],
             "shop_id" => $shop_id,
             'page_count' => $list['page_count'],
@@ -1273,8 +1273,8 @@ class Member extends BaseController
         // 用户在该店铺的账户余额总数
         $account_type = 2;
         $accountAccount = new MemberAccount();
-        $accountSum = $accountAccount->getMemberAccount($shop_id, $this->uid, $account_type);
-		
+        //$accountSum = $accountAccount->getMemberAccount($shop_id, $this->uid, $account_type);
+		$accountSum = $accountAccount->getMemberBalance($this->uid);//使用直接读取方式
         $this->assign("sum", number_format($accountSum, 2));
         // 店铺名称
         // $shop_name = $this->user->getShopNameByShopId($shop_id);

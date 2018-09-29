@@ -1055,6 +1055,13 @@ class Member extends BaseController
         return view($this->style . "/Member/realNameSystem");
     }
     /**
+     * 推荐商户
+     */
+    public function merchant()
+    {
+        return view($this->style . "/Member/merchant");
+    }
+    /**
      * 提现页面
      */
     public function putForward()

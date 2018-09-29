@@ -92,8 +92,8 @@ class MemberAccount extends BaseService
             {
 				$account_statistics = new NsMemberAccountModel();
                 //积分
-				//$account = $account_statistics->where(['uid'=> $uid, 'shop_id' => $shop_id])->value("point");//从账户取数方式
-                $account = $member_account->where(['uid'=>$uid, 'shop_id' => $shop_id, 'account_type' => $account_type])->sum('number');
+				$account = $account_statistics->where(['uid'=> $uid, 'shop_id' => $shop_id])->value("point");//从账户取数方式
+                //$account = $member_account->where(['uid'=>$uid, 'shop_id' => $shop_id, 'account_type' => $account_type])->sum('number');
                 if($account < 0)
                 {
                     $member_account->rollback();
@@ -128,8 +128,8 @@ class MemberAccount extends BaseService
             {
 				$account_statistics = new NsMemberAccountModel();
                 //余额
-				//$account = $account_statistics->where(['uid'=> $uid, 'shop_id' => $shop_id])->value("balance");
-				$account = $member_account->where(['uid'=>$uid, 'shop_id' => 0, 'account_type' => $account_type])->sum('number');
+				$account = $account_statistics->where(['uid'=> $uid, 'shop_id' => $shop_id])->value("balance");//从账户取数比较
+				//$account = $member_account->where(['uid'=>$uid, 'shop_id' => 0, 'account_type' => $account_type])->sum('number');
                 if($account < 0)
                 {
                     $member_account->rollback();
@@ -322,8 +322,9 @@ class MemberAccount extends BaseService
         $member_account = new NsMemberAccountModel();
         if($shop_id == '')
         {
-            //查询全部积分
-            $point = $member_account->where(['uid'=> $uid])->sum('point');
+            //查询积分
+            //$point = $member_account->where(['uid'=> $uid])->sum('point');
+			$point = $member_account->getInfo(['uid'=> $uid], 'point');//变更为只查询唯一的积分账户
             if(!empty($point))
             {
                 return $point;

@@ -14,11 +14,11 @@
 					<a href="javascript:void(0);" class="cf">
 						<span class="title fl">头像</span>
 						<span class="icon fr">
-							{if condition="$member_img neq '' and $member_img neq '0'"}
-								<img src="__UPLOAD__/{$member_img}" />
-							{else /}
+							{empty name="$member_info.user_info.user_headimg"}
 								<img src="__TEMP__/{$style}/public/images/member_default.png" />
-							{/if}
+							{else /}
+								<img src="__UPLOAD__/{$member_info.user_info.user_headimg}" />
+							{/empty}
 						</span>
 					</a>
 				</li>

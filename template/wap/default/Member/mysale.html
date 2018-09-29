@@ -5,7 +5,7 @@
 		<meta content="yes" name="apple-mobile-web-app-capable"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/ >
 		<link rel="stylesheet" href="__TEMP__/{$style}/public/css/myDistribution.css" />
-		<script type="text/javascript" src="__TEMP__/{$style}/public/js/jquery.min.js" ></script>
+		<script type="text/javascript" src="__TEMP__/{$style}/public/js/jquery.js" ></script>
 		<title>我的分销</title>
 	</head>
 	<body>
@@ -151,16 +151,15 @@
 			})
 			function logout(){
 				$.ajax({
-					url: "SHOP_MAIN/member/logout",
+					url: "/wap/member/logout",
 					type: "post",
 					success: function (res) {
 						if (res['code'] > 0) {
-			// 				location.href='SHOP_MAIN';
-							$.msg("退出成功！");
-							window.location.reload();
+			 				location.href='/wap';
+							//window.location.reload();
 						} else {
 							if(res["message"]!=null){
-								$.msg(res["message"]);
+								alert(res["message"]);
 							}
 						}
 					}

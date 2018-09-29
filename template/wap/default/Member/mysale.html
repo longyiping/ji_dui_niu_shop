@@ -5,7 +5,7 @@
 		<meta content="yes" name="apple-mobile-web-app-capable"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/ >
 		<link rel="stylesheet" href="__TEMP__/{$style}/public/css/myDistribution.css" />
-		<script type="text/javascript" src="__TEMP__/{$style}/public/js/jquery.js" ></script>
+		<script type="text/javascript" src="__TEMP__/{$style}/public/js/jquery.min.js" ></script>
 		<title>我的分销</title>
 	</head>
 	<body>
@@ -15,15 +15,23 @@
 					{if condition="$member_img neq '' and $member_img neq '0'"}
 						<img src="__UPLOAD__/{$member_img}" />
 					{else /}
-						<img src="__TEMP__/{$style}/public/images/member_default.png" />
+						<img src="__TEMP__/{$style}/public/images/icon/personal.png" />
 					{/if}
 				</div>
 				<div class="nickname fl">
 					<div class="J_nickname">{$member_info.user_info.nick_name}</div>
-					<div class="J_nicknameID">ID: {$member_info.uid}</div>
+					<div class="J_nicknameID">ID:{$real_num}</div>
+					{if condition="$mem['grade'] eq '0'"}
+					<div class="J_nicknameLevel">会员</div>
+					{elseif condition="$mem['grade'] eq '2'" /}
 					<div class="J_nicknameLevel">经理</div>
+					{elseif condition="$mem['grade'] eq '5'" /}
+					<div class="J_nicknameLevel">总监</div>
+					{else}
+					<div class="J_nicknameLevel">大众</div>
+					{/if}
 					<span class="explain">规则说明</span>
-				</div>
+				</div>	
 			</div>
 			<div class="sale cf">
 				<div class="J_sale fl">
@@ -80,7 +88,7 @@
 		<div class="liMenu">
 			<ul class="cf">
 				<li class="col-cx-3">
-					<a href="APP_MAIN/Member/index">
+					<a href="APP_MAIN/Member/information">
 						<div class="J_linkIcon J_linkIcon01"><img src="__TEMP__/{$style}/public/images/icon/personal.png"/></div>
 						<div class="linkIcon">个人信息</div>
 					</a>
@@ -98,7 +106,7 @@
 					</a>
 				</li>
 				<li class="col-cx-3">
-					<a href="APP_MAIN/Member/userShopCommission">
+					<a href="APP_MAIN/Member/putforward">
 						<div class="J_linkIcon J_linkIcon03 "><img src="__TEMP__/{$style}/public/images/icon/apply.png"/></div>
 						<div class="linkIcon">申请提现</div>
 					</a>
@@ -110,7 +118,7 @@
 					</a>
 				</li>
 				<li class="col-cx-3">
-					<a href="APP_MAIN/Member/merchant">
+					<a href="javascript:void(0);">
 						<div class="J_linkIcon"><img src="__TEMP__/{$style}/public/images/icon/store.png"/></div>
 						<div class="linkIcon">推荐商户</div>
 					</a>
@@ -128,7 +136,7 @@
 					</a>
 				</li>
 				<li class="col-cx-3" onclick="logout()">
-					<a href="javascript:void(0);">
+					<a href="APP_MAIN/Member/logOut">
 						<div class="J_linkIcon"><img src="__TEMP__/{$style}/public/images/icon/signOut.png"/></div>
 						<div class="linkIcon">退出登录</div>
 					</a>
@@ -151,15 +159,16 @@
 			})
 			function logout(){
 				$.ajax({
-					url: "/wap/member/logout",
+					url: "SHOP_MAIN/member/logout",
 					type: "post",
 					success: function (res) {
 						if (res['code'] > 0) {
-			 				location.href='/wap';
-							//window.location.reload();
+			// 				location.href='SHOP_MAIN';
+							$.msg("退出成功！");
+							window.location.reload();
 						} else {
 							if(res["message"]!=null){
-								alert(res["message"]);
+								$.msg(res["message"]);
 							}
 						}
 					}

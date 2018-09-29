@@ -1041,6 +1041,13 @@ class Member extends BaseController
         return view($this->style . "/Member/sale");
     }
     /**
+     * 新增会员
+     */
+    public function addMembers()
+    {
+        return view($this->style . "/Member/addMembers");
+    }
+    /**
      * 销售明细
      */
     public function salesDetails()

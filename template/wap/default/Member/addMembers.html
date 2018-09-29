@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/ >
+		<link rel="stylesheet" href="__TEMP__/{$style}/public/css/addMembers.css" />
+		<script type="text/javascript" src="__TEMP__/{$style}/public/js/jquery.min.js" ></script>
+		<title>新增会员</title>
+	</head>
+	<body>
+		<div class="box">
+			<div class="head">
+				<div class="title">总计:60人</div>
+				<ul class="cf">
+					<li class="col-cx-4">
+						<div class="number">8</div>
+						<div class="lable">会员</div>
+					</li>
+					<li class="col-cx-4">
+						<div class="number">8</div>
+						<div class="lable">经理</div>
+					</li>
+					<li class="col-cx-4">
+						<div class="number">8</div>
+						<div class="lable">总监</div>
+					</li>
+				</ul>
+			</div>
+			<div class="todayAdd">
+				<div class="title cf">
+					<div class="J_add fl">今日新增</div>
+					<div class="J_addIcon fr"><img src="__TEMP__/{$style}/public/images/ARROW.png"/></div>
+				</div>
+				<div class="dmjhuul">
+					<ul class="cf">
+						<li class="col-cx-4">
+							<div class="number">8</div>
+							<div class="lable">会员</div>
+						</li>
+						<li class="col-cx-4">
+							<div class="number">8</div>
+							<div class="lable">经理</div>
+						</li>
+						<li class="col-cx-4">
+							<div class="number">8</div>
+							<div class="lable">总监</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="detailed">新增明细</div>
+			<div class="detailedContent">
+				<!--会员升级循环-->
+				<div class="date">2018-09-18 17:50</div>
+				<div class="J_detailed">
+					<div class="J_detailedTitle">您的团队会员已升级.</div>
+					<div class="J_level">升阶级别：经理</div>
+					<div class="J_number">会员编号：00000001</div>
+					<div class="J_date">升阶时间：2018-09-19 14:53</div>
+				</div>
+				<!--会员升级循环end-->
+				<!--新成员加入团队循环-->
+				<div class="date">2018-09-18 17:50</div>
+				<div class="J_detailed">
+					<div class="J_detailedTitle">有新成员加入你的团队！</div>
+					<div class="J_number">会员编号：00000001</div>
+					<div class="J_date">加入时间：2018-09-19 14:53</div>
+				</div>
+				<!--新成员加入团队循环end-->
+			</div>
+		</div>
+	</body>
+	<script type="application/javascript">
+		$(function(){
+			$('.J_addIcon').click(function(){
+				if($('.dmjhuul').is(':hidden')){
+					$('.J_addIcon img').attr('src','__TEMP__/{$style}/public/images/right.png');
+					$('.dmjhuul').show();
+				}else{
+					$('.J_addIcon img').attr('src','__TEMP__/{$style}/public/images/ARROW.png');
+					$('.dmjhuul').hide();
+				}
+			})
+		})
+	</script>
+</html>

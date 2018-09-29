@@ -28,6 +28,7 @@ use data\service\User;
 use data\service\Config;
 use think\Session;
 use think\Log;
+use data\model\NsMemberModel as NsMemberModel;
 \think\Loader::addNamespace('data', 'data/');
 
 /**
@@ -413,7 +414,16 @@ class Login extends Controller
 			} else {
 				$user  = new User();
 				$user_data=$user->getUserInfoByUsername($pid);
-				print_r($user_data);exit;
+				if(empty($user_data)){
+					$path_pid='';
+				} else {
+					$pid   =$user_data['uid'];
+					//获取推荐人的path_pid
+					$mem   		= new NsMemberModel();
+					$mem_data 	= $mem->getInfo(['uid'=>$pid]);
+					$path_pid 	= $mem_data['path_pid'].'#'.$pid;
+				}
+				
 			}
             $sendMobile = Session::get('sendMobile');
             if (empty($mobile)) {

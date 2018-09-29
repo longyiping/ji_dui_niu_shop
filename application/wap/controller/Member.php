@@ -1033,56 +1033,6 @@ class Member extends BaseController
     {
         return view($this->style . "/Member/userShopCommission");
     }
-    /**
-     * 安全中心
-     */
-    public function securityCenter()
-    {
-        return view($this->style . "/Member/securityCenter");
-    }
-    /**
-     * 实名制认证
-     */
-    public function realNameSystem()
-    {
-        return view($this->style . "/Member/realNameSystem");
-    }
-    /**
-     * 推荐商户
-     */
-    public function merchant()
-    {
-        return view($this->style . "/Member/merchant");
-    }
-    /**
-     * 信息
-     */
-    public function information()
-    {
-    	$shop_id = isset($_GET['shop_id']) ? $_GET['shop_id'] : 0;
-        $_SESSION['bund_pre_url'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-        $uid = $this->user->getSessionUid();
-        $member = new MemberService();
-        $member_info = $member->getMemberDetail();
-        $this->assign('member_info', $member_info);
-        // 查询账户信息
-        // $user = new UserModel();
-        // $nick_name = $user->getInfo(["uid" => $this->uid], "nick_name");
-        
-        if (! empty($member_info['user_info']['user_headimg'])) {
-            $member_img = $member_info['user_info']['user_headimg'];
-        } elseif (! empty($member_info['user_info']['qq_openid'])) {
-            $member_img = $member_info['user_info']['qq_info_array']['figureurl_qq_1'];
-        } elseif (! empty($member_info['user_info']['wx_openid'])) {
-            $member_img = '0';
-        } else {
-            $member_img = '0';
-        }
-        $this->assign("shop_id", $shop_id);
-        $this->assign('qq_openid', $member_info['user_info']['qq_openid']);
-        $this->assign('member_img', $member_img);
-        return view($this->style . "/Member/information");
-    }
 
     /**
      * 申请提现

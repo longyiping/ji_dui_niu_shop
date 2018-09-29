@@ -6,29 +6,34 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/ >
 		<link rel="stylesheet" href="__TEMP__/{$style}/public/css/bringDetails.css" />
 		<title>提现明细</title>
+		<style>
+			.emptyFrame{
+				text-align: center;
+				font-size:14px;
+				margin-top:10px;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="box">
-			<div class="content cf">
-				<div class="fl forward">
-					<div class="J_forward">余额提现</div>
-					<div class="money">+100.00</div>
+			{if condition="$total_count neq ''"}
+				{foreach $balances.data as $balance}
+				<div class="content cf">
+					<div class="fl forward">
+						<div class="J_forward">余额提现</div>
+						<div class="money">{$balance.cash}</div>
+					</div>
+					<div class="fr stateDate">
+						<div class="date">{$balance.ask_for_date}</div>
+						<div class="state">{$balance.status}</div>
+					</div>
 				</div>
-				<div class="fr stateDate">
-					<div class="date">2018-09-19 18:00</div>
-					<div class="state">审核中</div>
-				</div>
+				{/foreach}
+			{else/}
+			<div>
+				<div class="emptyFrame"> <i class="user_balance"></i><span>您暂时还没有提现记录哦！</span> </div>
 			</div>
-			<div class="content cf">
-				<div class="fl forward">
-					<div class="J_forward">余额提现</div>
-					<div class="money">+100.00</div>
-				</div>
-				<div class="fr stateDate">
-					<div class="date">2018-09-19 18:00</div>
-					<div class="state">已完成</div>
-				</div>
-			</div>
+			{/if}
 		</div>
 	</body>
 </html>

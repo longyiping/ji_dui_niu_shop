@@ -95,10 +95,10 @@ class Member extends BaseController
    
     public function memberIndex()
     {
-        $member = new MemberService();
-        $platform = new Platform();
-        $get_shop = empty($this->shop_id) ? '' : '?shop_id=' . $this->shop_id;
-        $account_flag = $get_shop == '' ? '?flag=1' : '&flag=1';
+	        $member = new MemberService();
+	        $platform = new Platform();
+	        $get_shop = empty($this->shop_id) ? '' : '?shop_id=' . $this->shop_id;
+	        $account_flag = $get_shop == '' ? '?flag=1' : '&flag=1';
         // 基本信息行级显示菜单项
          $member_menu_arr = array(
             'personal' => array(
@@ -126,7 +126,10 @@ class Member extends BaseController
                 'member/memberCoupon' . $get_shop
             )
         );
+		
         $member_info = $member->getMemberDetail($this->instance_id);
+//		print_r($member);
+//		exit;
         // 头像
         if (! empty($member_info['user_info']['user_headimg'])) {
             $member_img = $member_info['user_info']['user_headimg'];
@@ -160,8 +163,22 @@ class Member extends BaseController
         // 判断用户是否签到
         $dataMember = new MemberService();
         $isSign = $dataMember->getIsMemberSign($this->uid, $this->instance_id);
+		$mem = $member->getMemberInfo(['uid' => $this->uid], '*');
+			
+		//给用户的id前面自动补零变为8位数字-例如00000294
+		//start
+		 $num = $member_info['uid'];
+		 $bit = 8;//产生7位数的数字编号
+		 $num_len = strlen($num);
+		 $zero = '';
+		 for($i=$num_len; $i<$bit-1; $i++){
+		  $zero .= "0";
+		 }
+		 $real_num = "0".$zero.$num;
+		 //end
+		$this->assign("mem", $mem);
         $this->assign("isSign", $isSign);
-        
+        $this->assign("real_num", $real_num);
         $this->assign('member_info', $member_info);
         $this->assign('index_adv', $index_adv["adv_list"][0]);
         $this->assign('member_img', $member_img);
@@ -501,6 +518,11 @@ class Member extends BaseController
         $this->assign('member_img', $member_img);
         return view($this->style . "/Member/personalData");
     }
+	
+	public function sale()
+	{
+		return view($this->style . "/Member/sale");
+	}
 
     /**
      * 修改密码
@@ -1035,7 +1057,7 @@ class Member extends BaseController
     /**
      * 提现页面
      */
-    public function userShopCommission()
+    public function putForward()
     {
         return view($this->style . "/Member/putForward");
     }

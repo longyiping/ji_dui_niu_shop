@@ -1048,6 +1048,13 @@ class Member extends BaseController
         return view($this->style . "/Member/realNameSystem");
     }
     /**
+     * 绑定手机号
+     */
+    public function cellPhone()
+    {
+        return view($this->style . "/Member/cellPhone");
+    }
+    /**
      * 推荐商户
      */
     public function merchant()

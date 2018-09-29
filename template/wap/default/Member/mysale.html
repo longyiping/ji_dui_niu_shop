@@ -21,11 +21,11 @@
 				<div class="nickname fl">
 					<div class="J_nickname">{$member_info.user_info.nick_name}</div>
 					<div class="J_nicknameID">ID:{$real_num}</div>
-					{if condition="$mem['grade'] eq '0'"}
+					{if condition="$member_info['grade'] eq '0'"}
 					<div class="J_nicknameLevel">会员</div>
-					{elseif condition="$mem['grade'] eq '2'" /}
+					{elseif condition="$member_info['grade'] eq '2'" /}
 					<div class="J_nicknameLevel">经理</div>
-					{elseif condition="$mem['grade'] eq '5'" /}
+					{elseif condition="$member_info['grade'] eq '5'" /}
 					<div class="J_nicknameLevel">总监</div>
 					{else}
 					<div class="J_nicknameLevel">大众</div>
@@ -39,7 +39,7 @@
 					<div class="H_pcire">总销售(元)</div>
 				</div>
 				<div class="J_balance fl">
-					<div class="J_pcire J_pese">{$member_account['balance']}<span>.00</span></div>
+					<div class="J_pcire J_pese">{$member_info['balance']}</div>
 					<div class="H_pcire">可提余额(元)</div>
 				</div>
 				<div class="J_balance fr">

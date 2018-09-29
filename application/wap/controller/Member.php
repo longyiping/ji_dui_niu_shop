@@ -136,7 +136,7 @@ class Member extends BaseController
         } else {
             $member_img = '0';
         }
-		print_r($member_img);
+		
 //		exit;
         $index_adv = $platform->getPlatformAdvPositionDetail(1152);
         // 平台广告位

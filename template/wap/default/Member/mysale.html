@@ -118,7 +118,7 @@
 					</a>
 				</li>
 				<li class="col-cx-3">
-					<a href="APP_MAIN/Member/merchant">
+					<a href="javascript:void(0);">
 						<div class="J_linkIcon"><img src="__TEMP__/{$style}/public/images/icon/store.png"/></div>
 						<div class="linkIcon">推荐商户</div>
 					</a>
@@ -136,7 +136,7 @@
 					</a>
 				</li>
 				<li class="col-cx-3" onclick="logout()">
-					<a href="APP_MAIN/Member/logOut">
+					<a href="APP_MAIN/Member/signOut">
 						<div class="J_linkIcon"><img src="__TEMP__/{$style}/public/images/icon/signOut.png"/></div>
 						<div class="linkIcon">退出登录</div>
 					</a>
@@ -159,7 +159,7 @@
 			})
 			function logout(){
 				$.ajax({
-					url: "SHOP_MAIN/member/logout",
+					url: "APP_MAIN/member/signOut",
 					type: "post",
 					success: function (res) {
 						if (res['code'] > 0) {

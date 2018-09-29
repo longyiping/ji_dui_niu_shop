@@ -391,7 +391,7 @@ class Member extends User implements IMember
             $member_info['coupon_list'] = $coupon_list;
             $member_info['coupon_count'] = count($coupon_list);
             $member_account = new MemberAccount();
-            $member_info['point'] = $member_account->getMemberPoint($this->uid, $shop_id);
+            $member_info['point'] = $member_account->getMemberPoint($this->uid);
             $member_info['balance'] = $member_account->getMemberBalance($this->uid);
             $member_info['coin'] = $member_account->getMemberCoin($this->uid);
             // 会员等级名称

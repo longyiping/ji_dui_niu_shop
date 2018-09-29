@@ -75,7 +75,7 @@ a,li{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlig
 	text-overflow:ellipsis;
 	white-space: nowrap;
 	color:#1D202B;
-	background: url(../img/map_point.png)no-repeat left center;
+	background: url(../images/map_point.png)no-repeat left center;
 	background-size:20px 20px;
 	font-size:16px;
 	padding-left:24px;
@@ -204,19 +204,19 @@ a,li{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlig
 	width: 100%;
 }
 .share .col-sm-5 .wechat{
-	background: url(../img/icon/weixin.png) no-repeat top center;
+	background: url(../images/icon/weixin.png) no-repeat top center;
 }
 .share .col-sm-5 .friends{
-	background: url(../img/icon/friends.png) no-repeat top center;
+	background: url(../images/icon/friends.png) no-repeat top center;
 }
 .share .col-sm-5 .weibo{
-	background: url(../img/icon/weibo.png) no-repeat top center;
+	background: url(../images/icon/weibo.png) no-repeat top center;
 }
 .share .col-sm-5 .qq{
-	background: url(../img/icon/qq.png) no-repeat top center;
+	background: url(../images/icon/qq.png) no-repeat top center;
 }
 .share .col-sm-5 .space{
-	background: url(../img/icon/space.png) no-repeat top center;
+	background: url(../images/icon/space.png) no-repeat top center;
 }
 .featured {
 	height: 160px;
@@ -271,7 +271,7 @@ a,li{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlig
 .vip{
 	width:80%;
 	height:158px;
-	background:#fff url(../img/icon/298icon.png)no-repeat left top;
+	background:#fff url(../images/icon/298icon.png)no-repeat left top;
 	border-radius:8px;
 	margin: 0 auto;
 }

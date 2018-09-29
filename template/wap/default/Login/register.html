@@ -119,36 +119,23 @@
 //						}
 //					});	
 				}else{
-					$.ajax({           //判断手机是否已经注册
-						type: "post",
-						url: "APP_MAIN/login/mobile",
-						data: {"mobile":$("#phone").val()},
-						dataType:'json',
-						success: function(data){
-							if(data){
-								$('.msg').html('该手机号已注册!').show();
-								return false;
+					$.ajax({
+						type : "post",
+						url : "register",
+						async : true,
+						data : {
+							"username" :$("#userName").val(),
+							"password" : $("#oldPwa").val(),
+							'pid':$("#pid").val()
+						},
+						success : function(data) {
+							 if(data["code"] > 0 ){
+							 	$('.msg').html(data["message"]).show();
+								 login(username,password);
 							}else{
-								$.ajax({
-									type: "post",
-									url: "APP_MAIN/Login/index",
-									data: {"mobile":$("#phone").val(),'pid':$("#pid").val()},
-									success: function(data){
-										if(data.code > 0){
-											if(data.code == 1){
-												 setTimeout(function(){location.href = data['url']},1000);						 
-											}else{
-												 setTimeout(function(){location.href="APP_MAIN/member/index"},1000);
-											}	 
-										}else{
-											$('.msg').html(data.message).show();
-											//$(".verifyimg").attr("src",'{:captcha_src()}');
-											return false;
-										}
-									}
-								});
-							}
-						} 
+								$('.msg').html(data["message"]).show();
+							} 
+						}
 					});
 				}
 			});

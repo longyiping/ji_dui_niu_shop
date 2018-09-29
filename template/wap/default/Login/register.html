@@ -671,6 +671,7 @@ function verifyPassword(password){
 				</a>
 			</div>
 		</div>
+<<<<<<< HEAD
 		{/if}
 
 
@@ -688,4 +689,130 @@ function verifyPassword(password){
 		</div>
 	</div>
 </body>
+=======
+		<!--绑定之后的弹窗-->
+	</body>
+	<script>
+		$(function(){
+			var mobile = /^1[3-9]\d{9}$/;
+			$('#submit').click(function(){
+				if($('#userName').val() == ''){
+					$('.msg').html('请填写您的昵称!').show();
+					$("#userName").focus();
+				}else if($("#oldPwa").val() == ''){
+					$('.msg').html('请输入密码!').show();
+					$("#oldPwa").focus();
+				}else if($("#oldPwa").val().length < 6){
+					$('.msg').html('请输入6位密码!').show();
+					$("#oldPwa").val('');
+					$("#oldPwa").focus();
+				}else if($("#newsPwa").val() ==''){
+					$('.msg').html('请确认密码!').show();
+					$("#newsPwa").focus();
+				}else if($("#newsPwa").val() != $("#oldPwa").val()){
+					$('.msg').html('两次密码不一致,请重新输入!').show();
+					$("#newsPwa").val('');
+					$("#newsPwa").focus();
+//				}else if($("#phone").val() == ''){
+//					$('.msg').html('请填写您的手机号!').show();
+//					$("#phone").focus();
+//				}else if(!mobile.test($("#phone").val())){
+//					$('.msg').html('请填写有效的手机号!').show();
+//					$("#phone").val('');
+//					$("#phone").focus();
+//				}else if($("#code").val() == ''){
+//					$('.msg').html('请输入验证码!').show();
+//					$("#code").focus();
+//				}else{
+//					$.ajax({
+//						type : "post",
+//						url : "APP_MAIN/Login/index",
+//						async : true,
+//						data : {
+//							"mobile" : $("#phone").val(),
+//							"sms_captcha" : $("#code").val()
+//						},
+//						success : function(data) {
+//							 if(data.code > 0 ){
+//								 if(data.code == 1){
+//									 setTimeout(function(){location.href = data['url']},1000);						 
+//								 }else{
+//									 setTimeout(function(){location.href="APP_MAIN/member/index"},1000);
+//								 }	 
+//							}else if(data.code == -10){
+//								$('.msg').html('验证码错误,请重新输入!').show();
+//							}else{
+//								$('.msg').html(data.message).show();
+//							} 
+//						}
+//					});	
+				}else{
+					$.ajax({
+						type : "post",
+						url : "register",
+						async : true,
+						data : {
+							"username" :$("#userName").val(),
+							"password" : $("#oldPwa").val(),
+						},
+						success : function(data) {
+							 if(data["code"] > 0 ){
+							 	$('.msg').html(data["message"]).show();
+								 login(username,password);
+							}else{
+								$('.msg').html(data["message"]).show();
+							} 
+						}
+					});
+				}
+			});
+		})
+//		var countdown=60; 
+//		function sendemail(){
+//		    var obj = $("#btn");
+//		    $.ajax({           //判断手机是否已经注册
+//				type: "post",
+//				url: "APP_MAIN/login/mobile",
+//				data: {"mobile":$("#phone").val()},
+//				dataType:'json',
+//				success: function(data){
+//					if(data){
+//						$('.msg').html('该手机号已注册!').show();
+//						return false;
+//					}else{
+//						$.ajax({
+//							type: "post",
+//							url: "APP_MAIN/Login/sendSmsRegisterCode",
+//							data: {"mobile":$("#phone").val()},
+//							success: function(data){
+//								if(data.code == '0'){
+//									settime(obj);
+//								}else{
+//									$('.msg').html(data.message).show();
+//									//$(".verifyimg").attr("src",'{:captcha_src()}');
+//									return false;
+//								}
+//							}
+//						});
+//					}
+//				} 
+//			});
+//	    }
+//		function settime(obj) { //发送验证码倒计时
+//		    if(countdown == 0) { 
+//		        obj.attr('disabled',false); 
+//		        //obj.removeattr("disabled"); 
+//		        obj.val("发送验证码");
+//		        countdown = 60; 
+//		        return;
+//		    }else { 
+//		        obj.attr('disabled',true);
+//		        obj.val("重新发送(" + countdown + ")");
+//		        countdown--; 
+//		    } 
+//		setTimeout(function() { 
+//		    settime(obj) 
+//		},1000)}
+	</script>
+>>>>>>> e1762ed30b75092c4990eaed4237ed39f734c4e3
 </html>

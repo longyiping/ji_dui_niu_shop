@@ -76,6 +76,7 @@ a,li{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlig
 }
 .sale .J_balance .J_pcire{
 	position:relative;
+	height:26px;
 }
 .J_pese a{
 	background:url()no-repeat center;

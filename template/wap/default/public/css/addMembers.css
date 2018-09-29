@@ -9,7 +9,7 @@ body{background:#F9FAFB;min-width:320px;max-width:640px;margin:0 auto;}
 li{list-style:none}
 a:active,a:hover {outline: 0;text-decoration:none;}
 a, li, a:hover, a:active, a:focus {text-decoration:none;}
-a{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlight-color: transparent;outline: none;}
+a,div{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlight-color: transparent;outline: none;}
 .fl { float: left;}
 .fr { float: right;}
 /*清除浮动*/

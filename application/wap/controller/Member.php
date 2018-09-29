@@ -683,7 +683,7 @@ class Member extends BaseController
 		return view($this->style . 'member/signOut');
     }
     /**
-     * 接触QQ绑定
+     * 解除QQ绑定
      */
     public function removeBindQQ()
     {
@@ -1123,13 +1123,33 @@ class Member extends BaseController
             return AjaxReturn($retval);
         }
     }
-
+	/**
+     * 我的销售
+     */
+    public function sales()
+    {
+        return view($this->style . "/Member/sale");
+    }
+    /**
+     * 新增会员
+     */
+    public function addMembers()
+    {
+        return view($this->style . "/Member/addMembers");
+    }
+    /**
+     * 销售明细
+     */
+    public function salesDetails()
+    {
+        return view($this->style . "/Member/salesDetails");
+    }
     /**
      * 提现页面
      */
-    public function userShopCommission()
+    public function putForward()
     {
-        return view($this->style . "/Member/userShopCommission");
+        return view($this->style . "/Member/putForward");
     }
     /**
      * 安全中心
@@ -1144,6 +1164,13 @@ class Member extends BaseController
     public function realNameSystem()
     {
         return view($this->style . "/Member/realNameSystem");
+    }
+    /**
+     * 绑定手机号
+     */
+    public function cellPhone()
+    {
+        return view($this->style . "/Member/cellPhone");
     }
     /**
      * 推荐商户

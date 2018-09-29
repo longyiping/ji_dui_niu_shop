@@ -52,7 +52,7 @@
 			<div class="date">2018-09-21(今日)</div>
 			<ul class="cf">
 				<li class="col-cx-4">
-					<a href="javascript:void(0);">
+					<a href="APP_MAIN/Member/addMembers">
 						<div class="J_totaltitle">
 							<div class="added">新增会员</div>
 						</div>
@@ -94,7 +94,7 @@
 					</a>
 				</li>
 				<li class="col-cx-3 boirder">
-					<a href="javascript:void(0);">
+					<a href="APP_MAIN/Member/sales">
 						<div class="J_linkIcon "><img src="__TEMP__/{$style}/public/images/icon/xiaoshou.png"/></div>
 						<div class="linkIcon">我的销售</div>
 					</a>
@@ -118,7 +118,7 @@
 					</a>
 				</li>
 				<li class="col-cx-3">
-					<a href="javascript:void(0);">
+					<a href="APP_MAIN/Member/merchant">
 						<div class="J_linkIcon"><img src="__TEMP__/{$style}/public/images/icon/store.png"/></div>
 						<div class="linkIcon">推荐商户</div>
 					</a>
@@ -136,7 +136,7 @@
 					</a>
 				</li>
 				<li class="col-cx-3" onclick="logout()">
-					<a href="APP_MAIN/Member/signOut">
+					<a href="javascript:void(0);">
 						<div class="J_linkIcon"><img src="__TEMP__/{$style}/public/images/icon/signOut.png"/></div>
 						<div class="linkIcon">退出登录</div>
 					</a>
@@ -164,11 +164,10 @@
 					success: function (res) {
 						if (res['code'] > 0) {
 			// 				location.href='SHOP_MAIN';
-							$.msg("退出成功！");
 							window.location.reload();
 						} else {
 							if(res["message"]!=null){
-								$.msg(res["message"]);
+								alert(res["message"]);
 							}
 						}
 					}

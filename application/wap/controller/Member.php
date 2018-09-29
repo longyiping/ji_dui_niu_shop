@@ -96,10 +96,10 @@ class Member extends BaseController
 	{
 		
 		$member = new MemberService();
-		$account = new MemberAccountService();
+		//$account = new MemberAccountService();
 		
         $member_info = $member->getMemberDetail($this->instance_id);
-		$member_account = $account->getMemberBalance($this->instance_id);
+		//$member_account = $account->getMemberBalance($this->instance_id);
 		
         // 头像
         if (! empty($member_info['user_info']['user_headimg'])) {
@@ -125,7 +125,7 @@ class Member extends BaseController
         $this->assign("real_num", $real_num);
         $this->assign('member_info', $member_info);
         $this->assign('member_img', $member_img);
-		$this->assign('member_account', $member_account);
+		//$this->assign('member_account', $member_account);
 		
         return view($this->style . '/Member/mysale');
 	}

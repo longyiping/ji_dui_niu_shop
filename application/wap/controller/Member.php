@@ -94,6 +94,9 @@ class Member extends BaseController
 	//我的分销
 	public function mysale()
 	{
+		$member = new MemberService();
+		$member_info = $member->getMemberDetail();
+		$this->assign('member_info', $member_info);
 		return view($this->style . '/Member/mysale');
 	}
    

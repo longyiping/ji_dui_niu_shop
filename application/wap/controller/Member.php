@@ -1037,9 +1037,9 @@ class Member extends BaseController
     /**
      * 提现页面
      */
-    public function userShopCommission()
+    public function putForward()
     {
-        return view($this->style . "/Member/userShopCommission");
+        return view($this->style . "/Member/putForward");
     }
     /**
      * 安全中心

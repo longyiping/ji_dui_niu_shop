@@ -13,8 +13,12 @@ $(function(){
 		}else if(userCard == ''){
 			$('.msg').html('请输入身份证号!').show();
 			$("#userCard").focus();
+		}else if($('#positiveImg').val() ==''){
+			$('.msg').html('请上传身份证正面!').show();
+		}else if($('#oppositeImg').val() ==''){
+			$('.msg').html('请上传身份证反面!').show();
 		}else{
-			element(userCard);
+			element();
 		}
 	})
 	$("input[id$='Img']").change(function() {
@@ -47,27 +51,90 @@ $(function(){
 		}
     });
 })
-function element(element) {   //身份证号码验证
-    var value = element,
-        isValid = true;
-    var cityCode = {11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",21:"辽宁",22:"吉林",23:"黑龙江 ",31:"上海",32:"江苏",33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",42:"湖北 ",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",51:"四川",52:"贵州",53:"云南",54:"西藏 ",61:"陕西",62:"甘肃",63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外 "};
-    var rFormat =/^\d{6}(19|20)\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$|^\d{6}\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}$/;    // 格式验证
-    if ( !rFormat.test(value) || !cityCode[value.substr(0,2)] ) {
-        isValid = false;
-    }else if (value.length === 18) {// 18位身份证需要验证最后一位校验位
-        var Wi = [ 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1 ];    // 加权因子
-        var Ci = "10X98765432"; // 校验字符
-        // 加权求和
-        var sum = 0;
-        for (var i = 0; i < 17; i++) {
-            sum += value.charAt(i) * Wi[i];
-        }
-        // 计算校验值
-        var C17 = Ci.charAt(sum % 11);
-        // 与校验位比对
-        if ( C17 !== value.charAt(17) ) {
-            isValid =false;
-        }
-    }
-    return isValid || $('.msg').html('请填写正确的身份证号码!').show();
+function element() {   //身份证号码验证
+    var elValue = $('#userCard').val(),
+			isValid = true;
+		if( !(elValue.length == 18 || elValue.length == 15) ){
+			$('.msg').html('身份证错误，请重新输入!').show()
+			isValid = false;
+		}
+		if(/^(\d{18}|\d{17}(\d|X|x))$/.test(elValue)){	//身份证号为18位校检年月日
+			var date = new Date(),	//日期对象
+			oYear = date.getFullYear(),	//当前年份
+			idYear = elValue.substr(6,4);	//获取用户输入的身份证生日年份
+			if(oYear - idYear > 120 || oYear - idYear < 3){
+				$('.msg').html('身份证错误，请重新输入!').show()
+				isValid = false;
+			};
+			var month = elValue.substr(10,2);	//获取用户输入的身份证生日月份
+			if(month<1 || month>12){
+				$('.msg').html('身份证错误，请重新输入!').show()
+				isValid = false;
+			};
+			var day = elValue.substr(12,2);	//获取用户输入的身份证出生日期
+			if(day < 1 || day > 31){
+				$('.msg').html('身份证错误，请重新输入!').show()
+				isValid = false;
+			}
+			if(month == 4 || month == 6 || month == 9 || month == 11){
+				if(day>30){
+					$('.msg').html('身份证错误，请重新输入!').show()
+					isValid = false;
+				}
+			}else if( month == 2){
+				if(idYear%400 == 0 || idYear%4 == 0 && idYear%100 != 0){
+					if(day>29){
+						$('.msg').html('身份证错误，请重新输入!').show()
+						isValid = false;
+					}
+				}else{
+					if(day>28){
+						$('.msg').html('身份证错误，请重新输入!').show()
+						isValid = false;
+					}
+				}
+			}
+			var coefficientArr = [7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2],	//身份证前17位对应系数
+			remainderArr = [1,0,"X",9,8,7,6,5,4,3,2],	//余数对应的数字
+			val = elValue.substr(17,1),	//获取身份证最后一位数
+			sum = 0;	//用于求身份证前17位乘以系数之和
+			for(var i=0, len = coefficientArr.length; i<len; i++){//身份证最后一位校检码求和	前17位乘以系数取模11
+				sum += elValue.charAt(i)*coefficientArr[i];
+			};
+			if(remainderArr[sum%11] != val.toUpperCase()){//验证校检码
+				$('.msg').html('身份证错误，请重新输入!').show()
+				isValid = false;
+			}
+		}else{	//身份证号为15位校检月份日期
+			var idYear = Number(elValue.substr(6,2)) + 1900,	//用户输入的身份证年份
+			month = elValue.substr(8,2);	//用户输入的身份证月份
+			if(month<1 || month>12){
+				$('.msg').html('身份证错误，请重新输入!').show()
+				isValid = false;
+			};
+			var day = elValue.substr(10,2);	//用户输入的身份证日期
+			if(day < 1 || day > 31){
+				$('.msg').html('身份证错误，请重新输入!').show()
+				isValid = false;
+			}
+			if(month == 4 || month == 6 || month == 9 || month == 11){
+				if(day>30){
+					$('.msg').html('身份证错误，请重新输入!').show()
+					isValid = false;
+				}
+			}else if( month == 2){
+				if(idYear%400 == 0 || idYear%4 == 0 && idYear%100 != 0){
+					if(day>29){
+						$('.msg').html('身份证错误，请重新输入!').show()
+						isValid = false;
+					}
+				}else{
+					if(day>28){
+						$('.msg').html('身份证错误，请重新输入!').show()
+						isValid = false;
+					}
+				}
+			}
+		}
+		return isValid; 
 }

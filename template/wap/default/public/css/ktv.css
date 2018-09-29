@@ -219,7 +219,7 @@ a,li{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlig
 	background: url(../images/icon/space.png) no-repeat top center;
 }
 .featured {
-	height: 160px;
+	height:200px;
 	width:100%;
 	margin:0 auto;
 	-webkit-perspective:1200px;
@@ -270,21 +270,31 @@ a,li{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlig
 }
 .vip{
 	width:80%;
-	height:158px;
-	background:#fff url(../images/icon/298icon.png)no-repeat left top;
+	height:200px;
+	background:#fff;
 	border-radius:8px;
 	margin: 0 auto;
 }
 .vip span{
-	width: 86px;
-    transform:rotate(-30deg);
+	width:90px;
     display:inline-block;
     color:#fff;
     font-size:16px;
-    margin-left:10px;
+    background: url(../images/icon/298icon.png)no-repeat left top;
+    height:50px;
+    position:absolute;
 }
-
-
+.vip span div{
+	transform:rotate(-30deg);
+}
+.vip span .super{
+    width: 100px;
+    margin-left: 2px;
+}
+.vip span .bojin,.vip span .zuanshi,.vip span .huangjing{
+    width: 84px;
+    margin-left: 10px;
+}
 .swiper-containers {
 	margin:0 auto;
 	position:relative;

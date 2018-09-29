@@ -12,13 +12,12 @@
 		<div class="box">
 			<div class="register">
 				<div class="reksm cf">
-					<label class="fl">手机</label>
-					<input type="text" name="phone" placeholder="请输入手机号码" maxlength="11" class="fl nameInput" id="phone"/>
+					<label class="fl">账号</label>
+					<input type="text" name="phone" placeholder="请输入手机号码/用户名" maxlength="11" class="fl nameInput" id="phone"/>
 				</div>
 				<div class="reksm cf">
-					<label class="fl">验证码</label>
-					<input type="text" name="code" placeholder="请输入验证码" maxlength="6" class="fl nameInput" id="code"/>
-					<input type="button" id="btn" value="发送验证码" onClick="sendemail()" /> 
+					<label class="fl">密码</label>
+					<input type="password" name="password" placeholder="请输入密码" maxlength="6" class="fl nameInput" id="password"/>
 				</div>
 				<div class="J_register"><a href="APP_MAIN/login/register?num=1">立即注册</a></div>
 			</div>
@@ -30,90 +29,36 @@
 	</body>
 	<script>
 		$(function(){
-			var mobile = /^1[3-9]\d{9}$/;
 			$('#submit').click(function(){
 				if($("#phone").val() == ''){
-					$('.msg').html('请填写您的手机号!').show();
+					$('.msg').html('请填写您的手机号/用户名!').show();
 					$("#phone").focus();
-				}else if(!mobile.test($("#phone").val())){
-					$('.msg').html('请填写有效的手机号!').show();
-					$("#phone").val('');
-					$("#phone").focus();
-				}else if($("#code").val() == ''){
-					$('.msg').html('请输入验证码!').show();
-					$("#code").focus();
+				}else if($("#password").val() == ''){
+					$('.msg').html('请输入密码!').show();
+					$("#password").focus();
 				}else{
 					$.ajax({
 						type : "post",
 						url : "APP_MAIN/Login/index",
 						async : true,
 						data : {
-							"mobile" : $("#phone").val(),
-							"sms_captcha" : $("#code").val()
+							"username" : $("#phone").val(),      //手机或者账号
+							"password" : $("#password").val()		//密码
 						},
 						success : function(data) {
 							 if(data["code"] > 0 ){
 								 if(data["code"] == 1){
 									 setTimeout(function(){location.href = data['url']},1000);						 
 								 }else{
-									 setTimeout(function(){location.href="APP_MAIN/member/index"},1000);
-								 }	 
-							}else if(data["code"] == -10){
-								$('.msg').html('验证码错误,请重新输入!').show();
+									 setTimeout(function(){location.href = "APP_MAIN/member/index"},1000);
+								 }
 							}else{
 								$('.msg').html(data["message"]).show();
 							} 
 						}
-					});	
+					});
 				}
 			})
 		})
-		var countdown=60; 
-		function sendemail(){
-		    var obj = $("#btn");
-		    var mobile = $("#phone").val();
-			var vertification = $("#code").val();
-		    $.ajax({       //判断手机号是否注册
-		    	type: "post",
-				url: "APP_MAIN/login/checkMobileIsHas",
-				data: {"mobile":mobile},
-		    	dataType:'json',
-		    	success:function(data){
-		    		if(data == '0'){
-		    			$('.msg').html('该手机号还未注册,请先注册!').show();
-		    		}else{
-		    			$.ajax({       
-					    	type: "post",
-							url: "APP_MAIN/login/sendSmsRegisterCode",
-							data: {"mobile":mobile},
-					    	dataType:'json',
-					    	success:function(data){
-					    		if(data['code']=='0'){
-									settime(obj);
-								}else{
-									$('.msg').html(data["message"]).show();
-									return false;
-								}
-					    	},
-					    });
-		    		}
-		    	},
-		    });
-	    }
-		function settime(obj) { //发送验证码倒计时
-		    if(countdown == 0) { 
-		        obj.attr('disabled',false); 
-		        //obj.removeattr("disabled"); 
-		        obj.val("发送验证码");
-		        countdown = 60; 
-		        return;
-		    }else { 
-		        obj.attr('disabled',true);
-		        obj.val("重新发送(" + countdown + ")");
-		        countdown--; 
-		    } 
-		setTimeout(function() { 
-		    settime(obj) 
-		},1000)}
 	</script>
 </html>

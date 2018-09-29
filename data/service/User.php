@@ -42,7 +42,7 @@ class User extends BaseService implements IUser
      * 
      * @return unknown
      */
-    public function getUserInfo()
+     public function getUserInfo()
     {
         $res = $this->user->getInfo('uid=' . $this->uid, 'user_name,user_status,user_headimg');
         return $res;
@@ -57,6 +57,7 @@ class User extends BaseService implements IUser
          
         return $res;
     }
+    
     /**
      * 根据用户名获取用户信息
      */

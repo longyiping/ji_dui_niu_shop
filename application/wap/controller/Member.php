@@ -31,6 +31,7 @@ use think\Session;
 use data\service\Promotion;
 use data\service\UnifyPay;
 use data\service\Config;
+use data\model\NsMemberModel as NsMemberModel;
 
 /**
  * 会员
@@ -1052,6 +1053,25 @@ class Member extends BaseController
      */
     public function sales()
     {
+		$nsmember = new NsMemberModel();
+		$team=$nsmember->where("path_pid","like","%#".$this->uid."%")->select();
+		$tot_mem=0;$tot_jingli=0;$tot_zongjian=0;
+		$zhi_mem=0;$zhi_jingli=0;$zhi_zongjian=0;
+		$cong_mem=0;$cong_jingli=0;$cong_zongjian=0;
+		foreach($team as $key=>$val){
+			$once=explode("#".$this->uid,$val['path_pid']);
+			if(substr_count($once[1],"#")<2){
+				if(substr_count($once[1],"#")==1){
+					if($val['grade']==2){$cong_jingli++;} elseif($val['grade']==5){$cong_zongjian++;} else {$cong_mem++;}
+				} else {
+					if($val['grade']==2){$zhi_jingli++;} elseif($val['grade']==5){$zhi_zongjian++;} else {$zhi_mem++;}
+				}
+				if($val['grade']==2){$tot_jingli++;} elseif($val['grade']==5){$tot_zongjian++;} else {$tot_mem++;}
+			}
+		}
+		$this->assign("mem_num", array("tot_mem"=>$tot_mem,"tot_jingli"=>$tot_jingli,"tot_zongjian"=>$tot_zongjian));
+		$this->assign("zhi_num", array("zhi_mem"=>$zhi_mem,"zhi_jingli"=>$zhi_jingli,"zhi_zongjian"=>$zhi_zongjian));
+		$this->assign("cong_num", array("cong_mem"=>$cong_mem,"cong_jingli"=>$cong_jingli,"cong_zongjian"=>$cong_zongjian));
         return view($this->style . "/Member/sale");
     }
     /**

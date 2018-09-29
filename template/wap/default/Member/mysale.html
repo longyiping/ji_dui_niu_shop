@@ -164,11 +164,10 @@
 					success: function (res) {
 						if (res['code'] > 0) {
 			// 				location.href='SHOP_MAIN';
-							$.msg("退出成功！");
 							window.location.reload();
 						} else {
 							if(res["message"]!=null){
-								$.msg(res["message"]);
+								alert(res["message"]);
 							}
 						}
 					}

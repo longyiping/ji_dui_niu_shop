@@ -593,7 +593,7 @@ class Member extends BaseController
 		return view($this->style . 'member/signOut');
     }
     /**
-     * 接触QQ绑定
+     * 解除QQ绑定
      */
     public function removeBindQQ()
     {

@@ -212,6 +212,7 @@
 		var password_mobile = $("#password_mobile").val();
 		var cfpassword_mobile = $("#cfpassword_mobile").val();
 		var verify_code = $("#verify_code").val();
+		var pid = $("#pid").val();
 		var reg = /^.{6,}$/;
 		
 		if(mobile == ''){
@@ -263,7 +264,8 @@
 	 						async : true,
 	 						data : {
 	 							"mobile" : mobile,
-	 							"password" : password_mobile
+	 							"password" : password_mobile,
+	 							'pid':pid
 	 						},
 	 						success : function(data) {
 	 							 if(data["code"] > 0 ){
@@ -496,6 +498,12 @@ function verifyPassword(password){
 			{if condition = "strpos($reg_config['register_info'],'plain') !== false"}
 			<div id="nk_text1" style="display:block;">
 				<div class="reg-cont" style="margin-top:45px;">
+					<label class="login-txt" for="username"><span style="padding-right:27px;">推荐人</span>
+						<input class="" type="text" name="pid" id="pid" placeholder="请输入推荐人账号"> 
+						<i class="right_login_user"> </i>
+					</label>
+				</div>
+				<div class="reg-cont">
 					<label class="login-txt" for="username"><span style="padding-right:27px;">账号</span><input class="" type="text"
 						name="username" id="username" placeholder="请输入账号"> <i
 						class="right_login_user"> </i>
@@ -671,7 +679,6 @@ function verifyPassword(password){
 				</a>
 			</div>
 		</div>
-<<<<<<< HEAD
 		{/if}
 
 
@@ -689,7 +696,6 @@ function verifyPassword(password){
 		</div>
 	</div>
 </body>
-=======
 		<!--绑定之后的弹窗-->
 	</body>
 	<script>
@@ -814,5 +820,4 @@ function verifyPassword(password){
 //		    settime(obj) 
 //		},1000)}
 	</script>
->>>>>>> e1762ed30b75092c4990eaed4237ed39f734c4e3
 </html>

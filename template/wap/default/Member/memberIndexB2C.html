@@ -1,177 +1,199 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<meta content="yes" name="apple-mobile-web-app-capable"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/ >
-		<link rel="stylesheet" href="__TEMP__/{$style}/public/css/myDistribution.css" />
-		<script type="text/javascript" src="__TEMP__/{$style}/public/js/jquery.min.js" ></script>
-		<title>我的分销</title>
-	</head>
-	<body>
+{extend name="wap/default/base" /}
+{block name="goodsHead"}{/block}
+{block name="resources"}
+<link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/personal.css">
+<link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/member_index.css">
+<style>
+.head{
+	border-bottom:0;
+}
+.panel.memberhead{
+	background:url(__TEMP__/{$style}/public/images/shoptop.png);
+	background-size:100% 100%; 
+}
+.member{
+    width: 64%;
+    float: right;
+    margin-top: 26px;
+	color:#fff;
+}
+.img{
+	width:100%;
+    margin: 5px 0;
+}
+.code{
+    background: #fff;
+	overflow: hidden;
+}
+.rec{
+	height: 17px;
+    /* margin: 5px 10px; */
+    padding: 10px 20px;
+	border-bottom: 1px solid #E2E1E1;
+	line-height:17px;
+}
+
+.module-icon.memberCoupon {
+    background:url(__TEMP__/{$style}/public/images/Coupon.png) no-repeat;
+	width: 22px;
+    height: 22px;
+	float: left;
+    margin-top: 9px;
+	    margin-right: 10px;
+    display: inline-block;
+	background-size:100% 100%;
+}
+.member-info{
+	background: rgba(255,79,79, 0.8);
+	float:left;
+	width:33%;
+	color: #fff;
+	text-align: center;
+	line-height:41px;
+}
+.vertical-bar{
+	border-left: 1px solid rgba(250,250,250,0.6);
+	height: 32px;
+	vertical-align: middle;
+	display: inline-block;
+	margin-top:5px;
+}
+.namer{
+    position: absolute;
+    left: 103px;
+    top: 30px;
+}
+.signin{
+	position: absolute;
+    left: 170px;
+    top: 61px;
+    border-radius: 3px;
+    font-size: 10px;
+    line-height: 14px;
+    padding: 1px 5px;
+}
+.no{
+	color: yellow;
+	border: 1px solid yellow;
+}
+.yes{
+	color: #fff;
+	border: 1px solid #fff;
+}
+</style>
+  {/block}
+  {block name="main" }
 		<div class="header">
-			<div class="userId cf">
-				<div class="portrait fl">
-					{if condition="$member_img neq '' and $member_img neq '0'"}
-						<img src="__UPLOAD__/{$member_img}" />
-					{else /}
-						<img src="__TEMP__/{$style}/public/images/icon/personal.png" />
-					{/if}
-				</div>
-				<div class="nickname fl">
-					<div class="J_nickname">{$member_info.user_info.nick_name}</div>
-					<div class="J_nicknameID">ID:{$real_num}</div>
-					{if condition="$mem['grade'] eq '0'"}
-					<div class="J_nicknameLevel">会员</div>
-					{elseif condition="$mem['grade'] eq '2'" /}
-					<div class="J_nicknameLevel">经理</div>
-					{elseif condition="$mem['grade'] eq '5'" /}
-					<div class="J_nicknameLevel">总监</div>
-					{/if}
-					<span class="explain">规则说明</span>
-				</div>	
-			</div>
-			<div class="sale cf">
-				<div class="J_sale fl">
-					<div class="J_pcire">100<span>.00</span></div>
-					<div class="H_pcire">总销售(元)</div>
-				</div>
-				<div class="J_balance fl">
-					<div class="J_pcire J_pese">300<span>.00</span></div>
-					<div class="H_pcire">可提余额(元)</div>
-				</div>
-				<div class="J_balance fr">
-					<div class="J_pcire J_pese">100<span>.00</span></div>
-					<div class="H_pcire">积分</div>
+			<div class="bg_color"></div>
+			<div class="personal">
+				<a href="APP_MAIN/member/personaldata?shop_id={$shop_id}">
+					<div class="userImg">
+						{eq name="member_img" value="0"}
+							<img src="__TEMP__/{$style}/public/images/member_default.png" class="portrait"/>
+						{else/}
+							<img src="__UPLOAD__/{$member_img}" class="portrait"/>
+						{/eq}
+						<!--<img src="img/man.png" class="sexImg"/>-->
+					</div>
+					<div class="userName">{$member_info["user_info"]['nick_name']}<span style="font-size: 12px;padding-left:10px;font-weight: normal;">{$member_info['level_name']}</span></div>
+				</a>
+				<div class="J_userName cf">
+					<span class="balance">
+						<div class="J_balance">余额</div>
+						<div class="J_balancea">{$member_info['balance']}</div>
+					</span>
+					<span class="integral">
+						<div class="J_integral">积分</div>
+						<div class="J_integrala">{$member_info['point']}</div>
+					</span>
 				</div>
 			</div>
 		</div>
-		<div class="total">
-			<div class="date">2018-09-21(今日)</div>
+		<!--{if condition="$integralconfig['sign_integral'] eq 1"}
+		{if condition="$isSign eq 0"}
+		<span class="signin no" onclick="signIn();">签到</span>
+		{else /}
+		<span class="signin yes">已签到</span>
+		{/if}
+		{/if}-->
+		<!--我的订单-->
+		<div class="myOrder">
+			<div class="title cf">
+				<div class="fl">我的订单</div>
+				<div class="fr"><a href="APP_MAIN/order/myorderlist?shop_id={$shop_id}" class="right_href">全部订单</a></div>
+			</div>
 			<ul class="cf">
-				<li class="col-cx-4">
-					<a href="javascript:void(0);">
-						<div class="J_totaltitle">
-							<div class="added">新增会员</div>
-						</div>
-						<div class="numerical">30</div>
-					</a>
+				<li class="col-cx-5">
+					<a href="APP_MAIN/order/myorderlist?status=0&shop_id={$shop_id}" class="payment">待付款</a>
 				</li>
-				<li class="col-cx-4">
-					<a href="javascript:void(0);">
-						<div class="J_totaltitle">
-							<div class="added">销售额(元)</div>
-						</div>
-						<div class="numerical">30</div>
-					</a>
+				<li class="col-cx-5">
+					<a href="APP_MAIN/order/myorderlist?status=1&shop_id={$shop_id}" class="deliver">待发货</a>
 				</li>
-				<li class="col-cx-4">
-					<a href="javascript:void(0);">
-						<div class="J_totaltitle">
-							<div class="added">可提收入(元)</div>
-						</div>
-						<div class="numerical">300.00</div>
-					</a>
+				<li class="col-cx-5">
+					<a href="APP_MAIN/order/myorderlist?status=2&shop_id={$shop_id}" class="collect">待收货</a>
 				</li>
-				<li class="col-cx-4">
-					<a href="javascript:void(0);">
-						<div class="J_totaltitle">
-							<div class="added">新增积分</div>
-						</div>
-						<div class="numerical">30.00</div>
-					</a>
+				<li class="col-cx-5">
+					<a href="APP_MAIN/order/myorderlist?status=4&shop_id={$shop_id}" class="evaluate">待评价</a>
+				</li>
+				<li class="col-cx-5">
+					<a href="APP_MAIN/order/myorderlist?status=3&shop_id={$shop_id}" class="complete">已完成</a>
 				</li>
 			</ul>
 		</div>
-		<div class="liMenu">
-			<ul class="cf">
-				<li class="col-cx-3">
-					<a href="APP_MAIN/Member/personaldata">
-						<div class="J_linkIcon J_linkIcon01"><img src="__TEMP__/{$style}/public/images/icon/personal.png"/></div>
-						<div class="linkIcon">个人信息</div>
+		<div class='member_list'>
+		{volist name="menu_arr" id="arr_item" }
+			<ul>
+				{volist name="arr_item" id="vo" }
+				<li>
+					<a href="APP_MAIN/{$vo.url}">
+						<i class=" module-icon {$vo.class}" ></i>
+						<span >{$vo.title}</span>
+						<span class='jiantou'></span>
 					</a>
 				</li>
-				<li class="col-cx-3 boirder">
-					<a href="javascript:void(0);">
-						<div class="J_linkIcon "><img src="__TEMP__/{$style}/public/images/icon/xiaoshou.png"/></div>
-						<div class="linkIcon">我的销售</div>
+				{/volist} 
+			</ul>
+		{/volist}
+		</div>
+		<!--<div class="news">
+			<ul>
+				<li>
+					<a href="javascript:void(0);" class="cf">
+						<div class="fl">消息中心</div>
+						<img class="fr" src="img/icon_101.png"/>
 					</a>
 				</li>
-				<li class="col-cx-3">
-					<a href="javascript:void(0);">
-						<div class="J_linkIcon"><img src="__TEMP__/{$style}/public/images/icon/extension.png"/></div>
-						<div class="linkIcon">一键推广</div>
+				<li>
+					<a href="javascript:void(0);" class="cf">
+						<div class="fl">我的会员</div>
+						<img class="fr" src="img/icon_101.png"/>
 					</a>
 				</li>
-				<li class="col-cx-3">
-					<a href="APP_MAIN/Member/putforward">
-						<div class="J_linkIcon J_linkIcon03 "><img src="__TEMP__/{$style}/public/images/icon/apply.png"/></div>
-						<div class="linkIcon">申请提现</div>
-					</a>
-				</li>
-				<li class="col-cx-3 boirder">
-					<a href="javascript:void(0);">
-						<div class="J_linkIcon J_linkIcon01"><img src="__TEMP__/{$style}/public/images/icon/bank.png"/></div>
-						<div class="linkIcon">积分银行</div>
-					</a>
-				</li>
-				<li class="col-cx-3">
-					<a href="javascript:void(0);">
-						<div class="J_linkIcon"><img src="__TEMP__/{$style}/public/images/icon/store.png"/></div>
-						<div class="linkIcon">推荐商户</div>
-					</a>
-				</li>
-				<li class="col-cx-3">
-					<a href="javascript:void(0);">
-						<div class="J_linkIcon J_linkIcon03"><img src="__TEMP__/{$style}/public/images/icon/service.png"/></div>
-						<div class="linkIcon">联系客服</div>
-					</a>
-				</li>
-				<li class="col-cx-3 boirder">
-					<a href="javascript:void(0);">
-						<div class="J_linkIcon J_linkIcon03"><img src="__TEMP__/{$style}/public/images/icon/problem.png"/></div>
-						<div class="linkIcon">常见问题</div>
-					</a>
-				</li>
-				<li class="col-cx-3" onclick="logout()">
-					<a href="APP_MAIN/Member/logOut">
-						<div class="J_linkIcon"><img src="__TEMP__/{$style}/public/images/icon/signOut.png"/></div>
-						<div class="linkIcon">退出登录</div>
+				<li>
+					<a href="javascript:void(0);" class="cf">
+						<div class="fl">设置</div>
+						<img class="fr" src="img/icon_101.png"/>
 					</a>
 				</li>
 			</ul>
-		</div>
-		<script>
-			$(function(){
-				var myDate = new Date();
-				var year=myDate.getFullYear(); //获取当前年份
-				var month=myDate.getMonth()+1; //获取当前月份   
-				var strDate=myDate.getDate(); //获取当前日   
-				if (month >= 1 && month <= 9) {
-		            month = "0" + month;
-		        }
-		        if (strDate >= 0 && strDate <= 9) {
-		            strDate = "0" + strDate;
-		        }
-		        $('.date').html(year +'-'+month+'-'+strDate+' (今日)');
-			})
-			function logout(){
-				$.ajax({
-					url: "SHOP_MAIN/member/logout",
-					type: "post",
-					success: function (res) {
-						if (res['code'] > 0) {
-			// 				location.href='SHOP_MAIN';
-							$.msg("退出成功！");
-							window.location.reload();
-						} else {
-							if(res["message"]!=null){
-								$.msg(res["message"]);
-							}
-						}
-					}
-				})
+		</div>-->
+<script type="text/javascript">
+$(function(){
+	buttomActive('#bottom_member');
+})	
+function signIn(){
+	$.ajax({
+		type : "post",
+		url : "APP_MAIN/member/signIn",
+		data : {
+			"sign" : true
+		},
+		success : function(data){
+			if(data['code']>0){
+				location.reload();
 			}
-		</script>
-	</body>
-</html>
+		}
+	})
+}
+</script>
+{/block}

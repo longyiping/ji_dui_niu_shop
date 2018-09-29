@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/ >
+		<link rel="stylesheet" href="__TEMP__/{$style}/public/css/accountlist.css" />
+		<script type="text/javascript" src="__TEMP__/{$style}/public/js/jquery.min.js" ></script>
+		<title>我的银行卡</title>
+	</head>
+	<body>
+		<div class="box">
+			<div class="head">
+				<!--已有银行卡循环-->
+				{foreach name="account_list" item="vo"}
+				<div class="hasBank cf">
+					<div class="fl bankIcon">
+						<img src="__TEMP__/{$style}/public/images/bank.png"/>
+					</div>
+					<div class="fl bankCard">
+						<div class="bankName">中国招商银行储蓄卡</div>
+						<div class="bankCord">{$vo.account_number}</div>
+					</div>
+				</div>
+				{/foreach}
+				<!--已有银行卡循环end-->
+				<div class="binding"><a href="APP_MAIN/member/addaccount?shop_id={$shop_id}">+ 绑定银行卡</a></div>
+			</div>
+		</div>
+	</body>
+</html>

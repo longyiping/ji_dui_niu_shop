@@ -13,7 +13,7 @@
 			<div class="register">
 				<div class="reksm cf">
 					<label class="fl">账号</label>
-					<input type="text" name="phone" placeholder="请输入手机号码/用户名" maxlength="11" class="fl nameInput" id="phone"/>
+					<input type="text" name="username" placeholder="请输入用户名" maxlength="11" class="fl nameInput" id="username"/>
 				</div>
 				<div class="reksm cf">
 					<label class="fl">密码</label>
@@ -30,9 +30,9 @@
 	<script>
 		$(function(){
 			$('#submit').click(function(){
-				if($("#phone").val() == ''){
-					$('.msg').html('请填写您的手机号/用户名!').show();
-					$("#phone").focus();
+				if($("#username").val() == ''){
+					$('.msg').html('请填写您的用户名!').show();
+					$("#username").focus();
 				}else if($("#password").val() == ''){
 					$('.msg').html('请输入密码!').show();
 					$("#password").focus();
@@ -42,15 +42,16 @@
 						url : "APP_MAIN/Login/index",
 						async : true,
 						data : {
-							"username" : $("#phone").val(),      //手机或者账号
+							"username" : $("#username").val(),      //手机或者账号
 							"password" : $("#password").val()		//密码
 						},
 						success : function(data) {
 							 if(data["code"] > 0 ){
 								 if(data["code"] == 1){
-									 setTimeout(function(){location.href = data['url']},1000);						 
+//									 setTimeout(function(){location.href = data['url']},1000);	
+									 setTimeout(function(){location.href = "APP_MAIN/member/mysale"},1000);
 								 }else{
-									 setTimeout(function(){location.href = "APP_MAIN/member/index"},1000);
+									 setTimeout(function(){location.href = "APP_MAIN/member/mysale"},1000);
 								 }
 							}else{
 								$('.msg').html(data["message"]).show();

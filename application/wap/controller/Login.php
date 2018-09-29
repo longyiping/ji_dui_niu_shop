@@ -406,12 +406,21 @@ class Login extends Controller
             $password = isset($_POST['password']) ? $_POST['password'] : '';
             $email = isset($_POST['email']) ? $_POST['email'] : '';
             $mobile = isset($_POST['mobile']) ? $_POST['mobile'] : '';
+			$pid=isset($_POST['pid']) ? $_POST['pid'] : 0;
+			//根据用户提交的推荐人的名称获取其id
+			if(empty($pid)){
+				$path_pid='';
+			} else {
+				$user  = new User();
+				$user_data=$user->getUserInfoByUsername($pid);
+				print_r($user_data);exit;
+			}
             $sendMobile = Session::get('sendMobile');
             if (empty($mobile)) {
-                $retval = $member->registerMember($user_name, $password, $email, $mobile, '', '', '', '', '');
+                $retval = $member->registerMember($user_name, $password, $email, $mobile, '', '', '', '', '',$pid, $path_pid);
             } else {
                 if ($sendMobile == $mobile) {
-                    $retval = $member->registerMember($user_name, $password, $email, $mobile, '', '', '', '', '');
+                    $retval = $member->registerMember($user_name, $password, $email, $mobile, '', '', '', '', '',$pid, $path_pid);
                 } else {
                     $retval = - 10;
                 }
@@ -471,7 +480,7 @@ class Login extends Controller
     }
     // 判断手机号存在不
     public function mobile()
-    {
+    { 
         if (request()->isAjax()) {
             // 获取数据库中的用户列表
             $user_mobile = $_POST['mobile'];

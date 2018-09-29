@@ -465,11 +465,11 @@ class Login extends Controller
 				$path_pid 	= $mem_data['path_pid'].'#'.$pid;
 			}else{
 				$pid 		= 0;
-				$path_pid 	= 0;
+				$path_pid 	= '';
 			}
 				}else{
 					$pid 		= 0;
-					$path_pid 	= 0;
+					$path_pid 	= '';
 				}
             
 			

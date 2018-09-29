@@ -1432,6 +1432,13 @@ class Member extends User implements IMember
         Session::clear();
         $_SESSION['order_tag'] = ""; // 清空订单
     }
+	
+	//手机端用户退出
+	public function signOut()
+    {
+        Session::clear();
+        $_SESSION['order_tag'] = ""; // 清空订单
+    }
 
     /**
      * (non-PHPdoc)

@@ -581,9 +581,17 @@ class Member extends BaseController
     {
         $member = new MemberService();
         $member->Logout();
-        return AjaxReturn(1);
+        
+		return view($this->style . 'Login/login');
     }
-
+	//手机端我的分销用户退出
+	public function signOut()
+    {
+        $member = new MemberService();
+        $member->signOut();
+        
+		return view($this->style . 'member/signOut');
+    }
     /**
      * 接触QQ绑定
      */
@@ -1060,13 +1068,6 @@ class Member extends BaseController
     public function merchant()
     {
         return view($this->style . "/Member/merchant");
-    }
-    /**
-     * 提现页面
-     */
-    public function putForward()
-    {
-        return view($this->style . "/Member/putForward");
     }
     /**
      * 信息

@@ -322,8 +322,9 @@ class MemberAccount extends BaseService
         $member_account = new NsMemberAccountModel();
         if($shop_id == '')
         {
-            //查询全部积分
-            $point = $member_account->where(['uid'=> $uid])->sum('point');
+            //查询积分
+            //$point = $member_account->where(['uid'=> $uid])->sum('point');
+			$point = $member_account->getInfo(['uid'=> $uid], 'point');//变更为只查询唯一的积分账户
             if(!empty($point))
             {
                 return $point;

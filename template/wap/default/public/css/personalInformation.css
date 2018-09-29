@@ -33,7 +33,7 @@ a,li{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlig
 .box li a .icon,.J_rightIcon{
 	background: url(../images/ARROW.png)no-repeat right center;
 }
-.box li a .icon img{
+.box li a .fr img{
 	width:70px;
 	height:70px;
 	border-radius:50%;

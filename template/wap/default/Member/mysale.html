@@ -9,6 +9,7 @@
 		<title>我的分销</title>
 	</head>
 	<body>
+		<div class="expect">敬请期待</div>
 		<div class="header">
 			<div class="userId cf">
 				<div class="portrait fl">
@@ -111,7 +112,7 @@
 						<div class="linkIcon">申请提现</div>
 					</a>
 				</li>
-				<li class="col-cx-3 boirder">
+				<li class="col-cx-3 boirder J_expect">
 					<a href="javascript:void(0);">
 						<div class="J_linkIcon J_linkIcon01"><img src="__TEMP__/{$style}/public/images/icon/bank.png"/></div>
 						<div class="linkIcon">积分银行</div>
@@ -123,13 +124,13 @@
 						<div class="linkIcon">推荐商户</div>
 					</a>
 				</li>
-				<li class="col-cx-3">
+				<li class="col-cx-3 J_expect">
 					<a href="javascript:void(0);">
 						<div class="J_linkIcon J_linkIcon03"><img src="__TEMP__/{$style}/public/images/icon/service.png"/></div>
 						<div class="linkIcon">联系客服</div>
 					</a>
 				</li>
-				<li class="col-cx-3 boirder">
+				<li class="col-cx-3 boirder J_expect">
 					<a href="javascript:void(0);">
 						<div class="J_linkIcon J_linkIcon03"><img src="__TEMP__/{$style}/public/images/icon/problem.png"/></div>
 						<div class="linkIcon">常见问题</div>
@@ -156,6 +157,12 @@
 		            strDate = "0" + strDate;
 		        }
 		        $('.date').html(year +'-'+month+'-'+strDate+' (今日)');
+		        $('.J_expect').click(function(){
+		        	$('.expect').fadeIn();
+		        	setTimeout(function () {
+		        		$('.expect').fadeOut()
+				    },2000);
+		        })
 			})
 			function logout(){
 				$.ajax({

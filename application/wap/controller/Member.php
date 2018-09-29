@@ -95,9 +95,8 @@ class Member extends BaseController
 	public function mysale()
 	{
 		$member = new MemberService();
-		//$account = new MemberAccountService();
-		
         $member_info = $member->getMemberDetail();
+		//print_r($member_info);exit;
 		//给用户的id前面自动补零变为8位数字-例如00000294
 		//start
 		 $num = $member_info['uid'];
@@ -597,8 +596,7 @@ class Member extends BaseController
     {
         $member = new MemberService();
         $member->Logout();
-        
-		return view($this->style . 'Login/login');
+        return AjaxReturn(1);
     }
 	//手机端我的分销用户退出
 	public function signOut()
@@ -1111,103 +1109,25 @@ class Member extends BaseController
         return view($this->style . "/Member/merchant");
     }
     /**
-     * 信息
+     * 个人信息
      */
     public function information()
     {
-    	
-		
-	        $member = new MemberService();
-	        $platform = new Platform();
-	        $get_shop = empty($this->shop_id) ? '' : '?shop_id=' . $this->shop_id;
-	        $account_flag = $get_shop == '' ? '?flag=1' : '&flag=1';
-        // 基本信息行级显示菜单项
-         $member_menu_arr = array(
-            'personal' => array(
-                '个人资料',
-                'member/personaldata' . $get_shop
-            ),
-            'address' => array(
-                '收货地址',
-                'member/memberAddress?flag=1' . (empty($this->shop_id) ? '' : '&shop_id=' . $this->shop_id)
-            ),
-            'withdrawals' => array(
-                '提现账号',
-                'member/accountList' . $get_shop . $account_flag
-            ),
-            'qr_code' => array(
-                '推广二维码',
-                'member/getWchatQrcode' 
-            ),
-            "shop_code" => array(
-                '店铺二维码',
-                'member/getShopQrcode' . $get_shop
-            ),
-            "memberCoupon" => array(
-                '优惠券',
-                'member/memberCoupon' . $get_shop
-            )
-        );
-		
-        $member_info = $member->getMemberDetail($this->instance_id);
-//		print_r($member);
-//		exit;
-        // 头像
-        if (! empty($member_info['user_info']['user_headimg'])) {
-            $member_img = $member_info['user_info']['user_headimg'];
-        } else {
-            $member_img = '0';
-        }
-		
-//		exit;
-        $index_adv = $platform->getPlatformAdvPositionDetail(1152);
-        // 平台广告位
-        $menu_arr = array(
-            $member_menu_arr
-        );
-        foreach ($menu_arr as $arr_key => $arr_item) {
-            if (empty($arr_item)) {
-                unset($menu_arr[$arr_key]);
-                continue;
-            }
-            foreach ($arr_item as $key => $item) {
-                $class_item = array(
-                    'class' => $key,
-                    'title' => $item[0],
-                    'url' => $item[1]
-                );
-                $menu_arr[$arr_key][$key] = $class_item;
-            }
-        }
-        // 判断是否开启了签到送积分
-        $config = new Config();
-        $integralconfig = $config->getIntegralConfig($this->instance_id);
-        $this->assign('integralconfig', $integralconfig);
-        // dump($integralconfig);
-        // 判断用户是否签到
-        $dataMember = new MemberService();
-        $isSign = $dataMember->getIsMemberSign($this->uid, $this->instance_id);
-		$mem = $member->getMemberInfo(['uid' => $this->uid], '*');
-			
-		//给用户的id前面自动补零变为8位数字-例如00000294
-		//start
-		 $num = $member_info['uid'];
-		 $bit = 8;//产生7位数的数字编号
+        $member = new MemberService();
+        $member_info = $member->getMemberDetail();
+        $this->assign('member_info', $member_info);
+		$num = $member_info['uid'];
+		 $bit = 8;
 		 $num_len = strlen($num);
 		 $zero = '';
 		 for($i=$num_len; $i<$bit-1; $i++){
 		  $zero .= "0";
 		 }
 		 $real_num = "0".$zero.$num;
-		 //end
-		$this->assign("mem", $mem);
-        $this->assign("isSign", $isSign);
-        $this->assign("real_num", $real_num);
-        $this->assign('member_info', $member_info);
-        $this->assign('index_adv', $index_adv["adv_list"][0]);
-        $this->assign('member_img', $member_img);
-        $this->assign('menu_arr', $menu_arr);
-       
+		$this->assign('real_num', $real_num);
+        // 查询账户信息
+        // $user = new UserModel();
+        // $nick_name = $user->getInfo(["uid" => $this->uid], "nick_name");
         return view($this->style . "/Member/information");
     }
 

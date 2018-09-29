@@ -35,7 +35,7 @@
 			</div>
 			<div class="sale cf">
 				<div class="J_sale fl">
-					<div class="J_pcire">100<span>.00</span></div>
+					<div class="J_pcire">1000<span>.00</span></div>
 					<div class="H_pcire">总销售(元)</div>
 				</div>
 				<div class="J_balance fl">
@@ -43,7 +43,7 @@
 					<div class="H_pcire">可提余额(元)</div>
 				</div>
 				<div class="J_balance fr">
-					<div class="J_pcire J_pese">100<span>.00</span></div>
+					<div class="J_pcire J_pese">{$member_info.point.point}</div>
 					<div class="H_pcire">积分</div>
 				</div>
 			</div>
@@ -159,12 +159,12 @@
 			})
 			function logout(){
 				$.ajax({
-					url: "APP_MAIN/member/signOut",
+					url: "/wap/member/logout",
 					type: "post",
 					success: function (res) {
 						if (res['code'] > 0) {
-			// 				location.href='SHOP_MAIN';
-							window.location.reload();
+							location.href='/wap';
+							//window.location.reload();
 						} else {
 							if(res["message"]!=null){
 								alert(res["message"]);

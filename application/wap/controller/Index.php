@@ -201,6 +201,13 @@ class Index extends BaseController
 		return view($this->style . 'index/ktv');
     }
     /**
+     * ktv购买会员套餐详情
+     */
+    public function ktvDetails()
+    {
+		return view($this->style . 'index/ktvDetails');
+    }
+    /**
      * 店铺街
      */
     public function shopStreet()

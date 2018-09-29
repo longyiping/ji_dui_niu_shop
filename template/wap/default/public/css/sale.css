@@ -9,24 +9,67 @@ body{background:#F9FAFB;min-width:320px;max-width:640px;margin:0 auto;}
 li{list-style:none}
 a:active,a:hover {outline: 0;text-decoration:none;}
 a, li, a:hover, a:active, a:focus {text-decoration:none;}
-a{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlight-color: transparent;outline: none;}
+a,img,div,input{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlight-color: transparent;outline: none;}
 .fl { float: left;}
 .fr { float: right;}
 /*清除浮动*/
 .cf:before,.cf:after{display:table;line-height:0;content:"";}
 .cf:after{clear:both;}
 *.cf{zoom:1;}
+.searchHead{
+	border-bottom:1px solid #F6F5FA;
+	padding: 10px;
+	background:#fff;
+}
+.searchHead .title{
+	border-bottom:1px solid #F6F5FA;
+	padding:0 14px 10px 14px;
+}
+.searchHead .title .fl{
+	width:76%;
+}
+.searchHead .title .fl input{
+	background:#F6F5FA;
+	border:1px solid #F6F5FA;
+	border-radius:20px;
+	height:20px;
+	width:100%;
+	line-height:22px;
+	padding:6px 14px;
+}
+.searchHead .title #searchIcon{
+	color:#333;
+	height: 32px;
+	line-height:32px;
+	font-size:14px;
+	cursor: pointer;
+}
+.container .team .href {
+	cursor:pointer;
+}
+.container .team .href .fr{
+	font-size:14px;
+	color:#8A8A8A;
+	background:url(../images/ARROW.png)no-repeat right center;
+	padding-right:16px;
+}
 .container .team{
 	background:#fff;
 	margin-bottom:10px;
 }
+.team .title a{
+	color: #181818;
+}
 .team .title{
 	padding:12px 14px;
 	border-bottom:1px solid #F8F8F8;
-	background:url(../img/flag.png)no-repeat 20px center;
+	background:url(../images/flag.png)no-repeat 20px center;
 	padding-left:32px;
-	font-size: 16px;
+	font-size: 15px;
 	color: #181818;
+}
+.team .title .fr img{
+	cursor:pointer;
 }
 .nav-tabs ul .col-cx-4{
 	width:33.3333%;

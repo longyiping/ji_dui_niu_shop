@@ -1033,7 +1033,20 @@ class Member extends BaseController
             return AjaxReturn($retval);
         }
     }
-
+	/**
+     * 我的销售
+     */
+    public function sales()
+    {
+        return view($this->style . "/Member/sale");
+    }
+    /**
+     * 销售明细
+     */
+    public function salesDetails()
+    {
+        return view($this->style . "/Member/salesDetails");
+    }
     /**
      * 提现页面
      */

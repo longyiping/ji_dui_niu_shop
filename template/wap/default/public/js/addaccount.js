@@ -1,5 +1,6 @@
 var countdown=60; 
 function sendemail(){
+	phone();
     var obj = $("#btn");
     var mobile = $("#phone").val();
 	var vertification = $("#code").val();

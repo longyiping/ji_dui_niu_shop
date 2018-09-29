@@ -194,6 +194,13 @@ class Index extends BaseController
        
     }
     /**
+     * ktv
+     */
+    public function ktv()
+    {
+		return view($this->style . 'index/ktv');
+    }
+    /**
      * 店铺街
      */
     public function shopStreet()

@@ -206,8 +206,6 @@ class Index extends BaseController
     public function ktvDetails()
     {
     	$price = $_GET['price'];
-		print_r($price);
-		exit;
 		
 		return view($this->style . 'index/ktvDetails');
     }

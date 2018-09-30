@@ -10,7 +10,7 @@
 		<script>
 			$(function(){
 				var number = $('#bank_account_number').val();
-				if(number!=''){
+				if(number != undefined){
 					$('.bankcode').html('尾号' +number.substr(number.length-4)+ '储蓄卡');
 					$('.bankCard').html($('.name').html() + number.substr(number.length-3));
 				};
@@ -21,7 +21,7 @@
 		<div class="box" id="forwardTwo">
 			<div class="header cf">
 				{if condition="count($account_list) eq 0"}
-                	<a href="APP_MAIN/member/accountlist?shop_id={$shop_id}" style="padding:6px 15px;"><span>请添加提现账号 <br></span></a>
+                	<a href="APP_MAIN/member/accountlist?shop_id={$shop_id}"><span>请添加提现账号 <br></span></a>
                 {else/}
 	                {volist name="account_list" id="vo"}
 			            <input type="hidden" value="{$vo.id}" id="bank_account_id"/>

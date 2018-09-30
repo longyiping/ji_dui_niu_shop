@@ -48,6 +48,7 @@ class Goods extends BaseController
         }
         $goods = new GoodsService();
         $goods_detail = $goods->getGoodsDetail($goods_id);
+		
         
         //把属性值相同的合并
         $goods_attribute_list = $goods_detail['goods_attribute_list'];

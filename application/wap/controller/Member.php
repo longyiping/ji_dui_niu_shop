@@ -1093,6 +1093,9 @@ class Member extends BaseController
      */
     public function putForward()
     {
+		$member = new MemberService();
+        $member_info = $member->getMemberDetail();
+		$this->assign('member_info', $member_info);
         return view($this->style . "/Member/putForward");
     }
     /**

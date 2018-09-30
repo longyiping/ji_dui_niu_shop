@@ -44,10 +44,11 @@
 			}
 			@media only screen and (min-width: 374px ) and (max-width:413px) {
 				.J_qrCode canvas{
-					width:100px;
-					height:100px;
-				    transform: rotate(5deg);
-    				margin-top: -3px;
+					width: 78px;
+					height: 78px;
+					transform: rotate(5deg);
+					margin-top: 9px;
+					margin-left: 19px;
 				}
 			}
 			@media only screen and (min-width: 413px ) and (max-width:639px) {
@@ -92,15 +93,16 @@
 			      theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
 			   }
 			}
-//			if(theRequest.id != '' || theRequest.id != null || theRequest.id != undefined){
-//				
-//			}
+			if(theRequest.id != '' || theRequest.id != null || theRequest.id != undefined){
+				
+				var id =theRequest.id;
+			}
 //		   return ;
 			$('#qrcode').qrcode({
 			    render: "canvas", //也可以替换为table
 			    foreground: "#010101",
 			    background: "#FFF",
-			    text: "APP_MAIN/login/register?num=theRequest.id"
+			    text: "APP_MAIN/login/register?id="+id+""
 			});
 		})
 	</script>

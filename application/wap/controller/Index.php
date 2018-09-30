@@ -215,6 +215,13 @@ class Index extends BaseController
 		return view($this->style . 'index/ktvDetails');
     }
     /**
+     * 一键分享
+     */
+    public function qrCode()
+    {
+		return view($this->style . 'index/qrCode');
+    }
+    /**
      * 店铺街
      */
     public function shopStreet()

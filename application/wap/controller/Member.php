@@ -1104,9 +1104,13 @@ class Member extends BaseController
 				}
 			}
 		}
-		//查询对应的进行过提成的订单 直属团队
-		$zhi_orders=Db::table('ns_order')->where(['is_extract'=>1,'buyer_id'=>array('in',$zhi_team_id)])->select();
-		print_r($zhi_orders);exit;
+		//查询对应的进行过提成的订单
+		if($_GET['type']==2){//1是直属团队
+			$extract_orders=Db::table('ns_order')->where(['is_extract'=>1,'buyer_id'=>array('in',$cong_team_id)])->select();
+		} else {
+			$extract_orders=Db::table('ns_order')->where(['is_extract'=>1,'buyer_id'=>array('in',$zhi_team_id)])->select();
+		}
+		$this->assign('extract_orders', $extract_orders);//输出信息需进行处理
         return view($this->style . "/Member/salesDetails");
     }
     /**

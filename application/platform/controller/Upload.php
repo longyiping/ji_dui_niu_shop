@@ -406,26 +406,26 @@ class Upload extends Controller
         $photoArray = array(
             "bigPath" => array(
                 "path" => $upFilePath . time() . iconv("UTF-8", "gb2312", $pic_tag) . "1" . $ext,
-                "width" => 700,
-                "height" => 700,
+                "width" => 698,
+                "height" => 1008,
                 'type' => '1'
             ),
             "middlePath" => array(
                 "path" => $upFilePath . time() . iconv("UTF-8", "gb2312", $pic_tag) . "2" . $ext,
-                "width" => 360,
-                "height" => 360,
+                "width" => 1500,
+                "height" =>1500,
                 'type' => '2'
             ),
             "smallPath" => array(
                 "path" => $upFilePath . time() . iconv("UTF-8", "gb2312", $pic_tag) . "3" . $ext,
-                "width" => 240,
-                "height" => 240,
+                "width" =>1500,
+                "height" => 1500,
                 'type' => '3'
             ),
             "littlePath" => array(
                 "path" => $upFilePath . time() . iconv("UTF-8", "gb2312", $pic_tag) . "4" . $ext,
-                "width" => 60,
-                "height" => 60,
+                "width" => 1500,
+                "height" => 1500,
                 'type' => '4'
             )
         );

@@ -1,44 +1,114 @@
-{extend name="wap/default/base" /} {block name="resources"}
-<link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/mall.css">
-<link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/pre_foot.css">
-<link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/goods_detail.css">
-<script src="__TEMP__/{$style}/public/js/goods_product.js"></script>
-<script language="javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<script type="text/javascript" src="__TEMP__/{$style}/public/js/jscommon.js" language="javascript" charset="gb2312"></script>
-<script src="__TEMP__/{$style}/public/js/jquery.lazyload.js" type="text/javascript"></script>
-<style>
-.js-shelves {
-	display: none;
-}
-</style>
-{/block}
-{block name="goodsHead"}
-<section class="head" style="display:none;">
-	<a class="head_back" onclick="window.history.go(-1)" href="javascript:void(0)"><i class="icon-back"></i></a>
-	<div class="head-title">{$shopname}</div>
-</section>
-{/block}
-{/block}
-{block name="main"}
-	{include file="wap/default/Goods/controlDetail" /}
-	{include file='wap/default/share'/}
-{/block}
-{block name="bottom"}
-<div class="js-bottom-opts bottom-fix">
-	<div class="responsive-wrapper">
-		<a id="global-cart" href="APP_MAIN/goods/cart?shop_id={$shop_id}" class="new-btn buy-cart {if condition="$carcount>0"}buy-cart-msg{/if} ">
-		
-			<i class="iconfont icon-shopping-cart"></i>
-			<span class="desc">购物车</span>
-		</a>
-		<div class="big-btn-2-1">
-			<a href="javascript:;" class="big-btn orange-btn" id="addCart">加入购物车</a>
-			<a href="javascript:;" class="big-btn red-btn" id="buyBtn1">立即购买</a>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/ >
+		<link rel="stylesheet" href="__TEMP__/{$style}/public/css/ktvDetails.css" />
+		<script type="text/javascript" src="__TEMP__/{$style}/public/js/jquery.min.js" ></script>
+		<title>ktv会员详情</title>
+	</head>
+	<body>
+		<div class="box">
+			{foreach name = "goods_detail['img_list']" item = 'img_list' key='key' }
+				<div class="goldktvImg" id="gold">
+					<img src="__ROOT__/{$img_list.pic_cover}" width="100%"/>
+				</div>
+			{/foreach}
 		</div>
-	</div>
-</div>
-<div class="btn_wrap btn_wrap_static btn_wrap_nocart no-server js-shelves">
-	<div class="product-status">该商品已下架</div>
-</div>
-	<input type="hidden" value="{$uid}" id="uid"/>
-{/block}
+		<div class="contentBtn">
+			<div class="link">
+				<a href="APP_MAIN/Index/giftBag">查看更多 >></a>
+			</div>
+			<div class="jiesuan" id="J_gold">
+				<a href="javascript:void(0);">立即购买</a>
+			</div>
+		</div>
+		<input type="hidden" id="goosId" value="{$goods_detail['goods_id']}"/>
+		<input type="hidden" id="price" value="{$goods_detail['price']}"/>
+		<input type="hidden" id="order" value="" />
+	</body>
+	<script>
+		$(function(){
+			$('#J_gold').click(function(){
+				var order = $('#order').val();
+				var goosId = $('#goosId').val();
+				var price = $('#price').val();
+				var pr = {
+					'use_coupon':0,
+					'integral':0,
+					'account_balance':0,
+					'pay_type':0,
+					'shipping_company_id':0,
+					'$shipping_type':1
+				};
+				if(order == ''){
+					$.ajax({
+						type:"get",
+						url:"APP_MAIN/Order/orderCreate",
+						async:true,
+						data:pr,
+						success:function(data){
+							console.log(data);
+						},
+						error:function(data){
+						
+						}
+					});
+				}else{
+					$.ajax({
+						type:"get",
+						url:"APP_MAIN/Pay/wchatPay",
+						async:true,
+						data:{
+							'price':price,
+							'goods_id':goosId
+						},
+						success:function(data){
+							console.log(data);
+						},
+						error:function(data){
+						
+						}
+					});
+				}
+			})
+		})
+//	$(function() {
+//		var url = location.search; //获取url中"?"符后的字串
+//	    	var theRequest = new Object();
+//		if(url.indexOf("?") != -1) {
+//			var str = url.substr(1);
+//		   		strs = str.split("&");
+//		   for(var i = 0; i < strs.length; i ++) {
+//		      theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
+//		   }
+//		}
+//		if(theRequest.price != '' || theRequest.price != null || theRequest.price != undefined){
+//			if(theRequest.price == 298){     //黄金
+//				$('.goldktvImg').hide();
+//				$('.jiesuan').hide();
+//				$('#gold').show();
+//				$('#J_gold').show();
+//			}else if(theRequest.price == 1680){   //铂金
+//				$('.goldktvImg').hide();
+//				$('.jiesuan').hide();
+//				$('#bojin').show();
+//				$('#J_bojin').show();
+//			}else if(theRequest.price == 2980){   //钻石
+//				$('.goldktvImg').hide();
+//				$('.jiesuan').hide();
+//				$('#zuanshi').show();
+//				$('#J_zuanshi').show();
+//			}else if(theRequest.price == 12800){   //超级
+//				$('.goldktvImg').hide();
+//				$('.jiesuan').hide();
+//				$('#super').show();
+//				$('#J_super').show();
+//			}
+//			
+//		}
+//	   return ;
+//	});
+	</script>
+</html>

@@ -23,6 +23,8 @@ use data\service\Order as OrderService;
 use data\service\Platform;
 use data\service\promotion\GoodsExpress;
 use data\service\Address;
+use data\service\Album;
+
 
 /**
  * 商品相关
@@ -99,13 +101,17 @@ class Goods extends BaseController
      */
     public function ktvDetail()
     {
-        $goods_id = isset($_GET['id']) ? $_GET['id'] : 0;
+        $goods_id = isset($_GET['goos_id']) ? $_GET['goos_id'] : 0;
         if ($goods_id == 0) {
             $this->error("没有获取到商品信息");
         }
         $goods = new GoodsService();
         $goods_detail = $goods->getGoodsDetail($goods_id);
         
+//		$album = new Album();
+//		$pic = $album->getAlbumClassList($page_index = 1, $page_size = 0, $condition = '', $order = '', $field = '*');
+//		print_r($pic['pic_cover']);
+//		exit;
         //把属性值相同的合并
         $goods_attribute_list = $goods_detail['goods_attribute_list'];
         $goods_attribute_list_new =array();

@@ -88,6 +88,7 @@
 				</div>
 			</div>
 		</div>
+		<div class="give">会员赠送专区</div>
 		<div class="content">
 	    	<div class="newest">
 	    		<div class="swiper-container banners-container">
@@ -325,9 +326,9 @@
 	    });
 	    $('.banners-container').each(function(){
 			$(this).swiper({
-				slidesPerView:2.5,
+				slidesPerView:3.5,
 				offsetPxBefore:25,
-			offsetPxAfter:10
+			offsetPxAfter:130         //调试最后一个图片与边框的边距
 			})
 		});
 	  	var mySwiper = new Swiper('.featured',{

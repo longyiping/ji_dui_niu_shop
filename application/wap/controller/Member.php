@@ -1070,7 +1070,7 @@ class Member extends BaseController
 				if($val['grade']==2){$tot_jingli++;} elseif($val['grade']==5){$tot_zongjian++;} else {$tot_mem++;}
 			}
 		}
-		$commission=Db::name('member_account_records')->where(['uid'=>$this->uid,'account_type'=>2,'from_type'=>15])->sum('number');
+		$commission=Db::table('ns_member_account_records')->where(['uid'=>$this->uid,'account_type'=>2,'from_type'=>15])->sum('number');
 		$this->assign("mem_num", array("tot_mem"=>$tot_mem,"tot_jingli"=>$tot_jingli,"tot_zongjian"=>$tot_zongjian));
 		$this->assign("zhi_num", array("zhi_mem"=>$zhi_mem,"zhi_jingli"=>$zhi_jingli,"zhi_zongjian"=>$zhi_zongjian));
 		$this->assign("cong_num", array("cong_mem"=>$cong_mem,"cong_jingli"=>$cong_jingli,"cong_zongjian"=>$cong_zongjian));
@@ -1104,8 +1104,8 @@ class Member extends BaseController
 				}
 			}
 		}
-		//查询对应的进行过提成的订单
-		$zhi_orders=Db::name('order')->where(['is_extract'=>1,'buyer_id'=>array('in',array('1','5','8'))])->select();
+		//查询对应的进行过提成的订单 直属团队
+		$zhi_orders=Db::table('ns_order')->where(['is_extract'=>1,'buyer_id'=>array('in',$zhi_team_id)])->select();
 		print_r($zhi_orders);exit;
         return view($this->style . "/Member/salesDetails");
     }

@@ -193,6 +193,6 @@ $(function(){
 		return isValid; 
 	}
 	$('#submit').click(function(){
-		bankcard() && userName() && idCard() && phone() && code();
+		bankcard() && userName() && idCard();
 	})
 });

@@ -55,3 +55,28 @@ a,li{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlig
 	color: #fff;
 	font-size:16px;
 }
+/*ktv列表*/
+.ktvImg{
+	margin: 10px 14px;
+}
+.ktvImg a span{
+	background: url(../images/icon/298icon.png)no-repeat left top;
+    display: block;
+    width: 90px;
+    height: 50px;
+    position: absolute;
+}
+.ktvImg a {
+	color:#fff;
+	font-size:16px;
+}
+.ktvImg a img{
+	width:100%;
+}
+.ktvImg a span div{
+	transform:rotate(-30deg);
+}
+.ktvImg a span .huangjing{
+	width: 84px;
+    margin-left: 10px;
+}

@@ -69,7 +69,11 @@
 					"password" : password
 				},
 				success : function(data) {
-					setTimeout(function(){location.href="APP_MAIN/index/ktv"},500);
+					if(data.code > 0){
+						setTimeout(function(){location.href="APP_MAIN/index/ktv"},1000);
+					}else{
+						$('.msg').html(data["message"]).show();
+					}
 				}
 			});
 		}
@@ -108,7 +112,12 @@
 							 	$('.msg').html(data["message"]).show();
 								login($('#userName').val(),$("#oldPwa").val());
 							}else{
-								$('.msg').html(data["message"]).show();
+								if(data["code"] == -2004){
+									$('.msg').html(data["message"] + '将自动登录').show();
+									login($('#userName').val(),$("#oldPwa").val());
+								}else{
+									$('.msg').html(data["message"]).show();
+								}
 							} 
 						},
 						error:function(data){

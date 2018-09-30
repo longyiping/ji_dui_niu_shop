@@ -16,6 +16,9 @@ a,input,button,select,li{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0)
 .cf:before,.cf:after{display:table;line-height:0;content:"";}
 .cf:after{clear:both;}
 *.cf{zoom:1;}
+select{
+	background:none;
+}
 .box{
 	padding:10px 0 4px 0;
 	background:#fff;

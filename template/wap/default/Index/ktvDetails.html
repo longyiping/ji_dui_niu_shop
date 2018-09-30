@@ -9,6 +9,9 @@
 		<title>ktv会员详情</title>
 	</head>
 	<body>
+		{block name="main"}
+			{include file="wap/default/Goods/controlDetail" /}
+		{/block}
 		<div class="box">
 			<div class="goldktvImg" id="gold">
 				<img src="__TEMP__/{$style}/public/images/default/gold.png" width="100%"/>
@@ -39,6 +42,8 @@
 						'id':goosId
 					},
 					success:function(data){
+						if(data)
+						location.href="APP_MAIN/order/myorderlist"
 					},
 					error:function(data){
 						

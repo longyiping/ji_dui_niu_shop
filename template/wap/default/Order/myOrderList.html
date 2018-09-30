@@ -25,9 +25,9 @@
     <!--topbar end-->
     <div class="main myorder">
     <section class="head">
-    <a class="head_back" id="backoutapp" onclick="window.history.go(-1)"
+    <!--<a class="head_back" id="backoutapp" onclick="window.history.go(-1)"
 			href="javascript:void(0)"><i class="icon-back"></i></a>
-		<div class="head-title">我的订单</div>
+		<div class="head-title">我的订单</div>-->
 		<div class="cf-container" data-reactid="2">
     		<div class="cf-edge" data-reactid="3"></div>
 			<ul class="cf-content" data-reactid="4">
@@ -81,10 +81,11 @@
         			showLoadMaskLayer();
         		},
         		success:function(data){
+        			console.log(data);
         			var datahtml="";
         			if(data.length==0){
-        				datahtml+='<div class="myorder-none" ><i class="icon-none"></i><span class="none_01">您还没有相关的订单</span><span class="none_02">去看看大家都在买什么吧</span><span class="none_03"><a href="APP_MAIN/goods/goodslist">随便逛逛</a></span></div>';
-        			
+//      				datahtml+='<div class="myorder-none" ><i class="icon-none"></i><span class="none_01">您还没有相关的订单</span><span class="none_02">去看看大家都在买什么吧</span><span class="none_03"><a href="APP_MAIN/goods/goodslist">随便逛逛</a></span></div>';
+        				datahtml+='<div class="myorder-none" ><i class="icon-none"></i><span class="none_01">您还没有相关的订单</span><span class="none_02">去看看大家都在买什么吧</span><span class="none_03"></span></div>';
         			}else{
         				for(var i=0;i<data.length;i++){
 	        				var ordersitem=data[i];
@@ -153,7 +154,7 @@
         //app端返回值
         $("#backoutapp").click(function (){
             var json ={
-            		"center" : "1",
+            		"center" : "1",none_03
                 }
             window.webkit.messageHandlers.center.postMessage(json);
         })

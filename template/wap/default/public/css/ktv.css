@@ -126,12 +126,12 @@ a,li{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlig
 	margin-right:5px;
 }
 .content .newest {
-	background:#fff;
+	/*background:#fff;*/
 }
 .content .newest ul{
 	width:94%;
 	margin: 0 auto;
-	padding: 14px 10px 0 10px !important;
+	padding: 14px 10px 20px 10px !important;
 }
 .col-sm-4 a img{
 	width:100%;
@@ -151,7 +151,9 @@ a,li{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlig
 }
 .newest .price{
 	color:#F83271;
+	font-size:16px;
 }
+.swiper-container{}
 .newest .price .J_price{
 	display:inline-block;
 }

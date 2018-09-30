@@ -43,7 +43,7 @@ class Index extends BaseController
         $platform = new Platform();
         // 轮播图
         $plat_adv_list = $platform->getPlatformAdvPositionDetail(1105);
-        $this->assign('plat_adv_list', $plat_adv_list);
+        $this->assign('plat_adv_list', $plat_adv_list)
         // 促销模块
         $class_list = $platform->getPlatformGoodsRecommendClass();
         $this->assign("class_list", $class_list);
@@ -205,6 +205,10 @@ class Index extends BaseController
      */
     public function ktvDetails()
     {
+    	$price = $_GET['price'];
+		
+		//print_r($price);
+		
 		return view($this->style . 'index/ktvDetails');
     }
     /**

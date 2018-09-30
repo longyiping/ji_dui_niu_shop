@@ -19,7 +19,7 @@
 					<label class="fl">密码</label>
 					<input type="password" name="password" placeholder="请输入密码" maxlength="6" class="fl nameInput" id="password"/>
 				</div>
-				<div class="J_register"><a href="APP_MAIN/login/register?num=1">立即注册</a></div>
+				<div class="J_register"><a href="APP_MAIN/login/register">立即注册</a></div>
 			</div>
 			<div class="badgeBtn">
 				<div class="msg">手机号码有误</div>
@@ -49,9 +49,9 @@
 							 if(data["code"] > 0 ){
 								 if(data["code"] == 1){
 //									 setTimeout(function(){location.href = data['url']},1000);	
-									 setTimeout(function(){location.href = "APP_MAIN/member/mysale"},1000);
+									 setTimeout(function(){location.href = "APP_MAIN/index/ktv"},500);
 								 }else{
-									 setTimeout(function(){location.href = "APP_MAIN/member/mysale"},1000);
+									 setTimeout(function(){location.href = "APP_MAIN/index/ktv"},500);
 								 }
 							}else{
 								$('.msg').html(data["message"]).show();

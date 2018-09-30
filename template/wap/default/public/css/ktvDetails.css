@@ -17,19 +17,21 @@ a,li{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlig
 .cf:after{clear:both;}
 *.cf{zoom:1;}
 .box{
-	margin:0px 14px 10px 14px;
+	margin:0px 14px 0px 14px;
+	height:100%;
 }
 #bojin,#zuanshi,#super{
 	display:none;
 }
 .contentBtn{
-	position:absolute;
-	bottom:10px;
+	position:fixed;
+	bottom:0;
 	left:0;
 	right:0;
 	width:100%;
 	max-width:640px;
 	min-width:300px;
+	background:#fff;
 }
 .contentBtn .link{
 	width:50%;
@@ -50,6 +52,9 @@ a,li{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlig
 	background: linear-gradient(to right, #FC6C61, #F83271); 
 	border-radius:10px;
 	padding:14px 0;
+}
+.goldktvImg img{
+	margin-bottom:130px;
 }
 .contentBtn .jiesuan a{
 	color: #fff;

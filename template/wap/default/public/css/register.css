@@ -89,13 +89,14 @@ a,input,button{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-t
 	width:90%;
 	margin:auto;
 	text-align:center;
-	margin-top:30px;
+	margin-top:46px;
 }
 .badgeBtn .msg{
     color: #F83271;
     font-size: 14px;
     height:30px;
     display:none;
+    text-align: center;
 }
 .badgeBtn button,.badgeBtn a{
 	width:100%;
@@ -183,4 +184,11 @@ a,input,button{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-t
 	display: block;
 	margin:0 auto;
 	margin-bottom:10px;
+}
+.already {
+	margin:14px 15px;
+}
+.already a{
+	color:#F34048;
+	font-size:13px;
 }

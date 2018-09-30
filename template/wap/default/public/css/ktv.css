@@ -287,7 +287,6 @@ a,li{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlig
 .vip{
 	width:80%;
 	height:200px;
-	background:#fff;
 	border-radius:8px;
 	margin: 0 auto;
 }
@@ -299,6 +298,8 @@ a,li{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlig
     background: url(../images/icon/298icon.png)no-repeat left top;
     height:50px;
     position:absolute;
+    margin-left: 10px;
+    margin-top: 9px;
 }
 .vip span div{
 	transform:rotate(-30deg);

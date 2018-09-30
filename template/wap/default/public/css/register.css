@@ -184,3 +184,10 @@ a,input,button{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-t
 	margin:0 auto;
 	margin-bottom:10px;
 }
+.already {
+	margin:14px 15px;
+}
+.already a{
+	color:#F34048;
+	font-size:13px;
+}

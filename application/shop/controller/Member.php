@@ -1317,10 +1317,10 @@ class Member extends BaseController
                 $list['data'][$k]['status'] = '已拒绝';
             }
         }
-        // 用户在该店铺的账户余额总数
+        // 改为用户余额数
         $account_type = 2;
         $accountAccount = new MemberAccount();
-        $accountSum = $accountAccount->getMemberAccount($shop_id, $this->uid, $account_type);
+        $accountSum = $accountAccount->getMemberBalance($this->uid);
         $this->assign("sum", number_format($accountSum, 2));
         // 店铺名称
         // $shop_name = $this->user->getShopNameByShopId($shop_id);

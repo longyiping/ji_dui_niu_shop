@@ -92,6 +92,65 @@ class Goods extends BaseController
         $this->assign('evaluates_count', $evaluates_count);
         return view($this->style . 'Goods/goodsDetail');
     }
+	/**
+     * KTV商品详情
+     *
+     * @return Ambigous <\think\response\View, \think\response\$this, \think\response\View>
+     */
+    public function ktvDetail()
+    {
+        $goods_id = isset($_GET['id']) ? $_GET['id'] : 0;
+        if ($goods_id == 0) {
+            $this->error("没有获取到商品信息");
+        }
+        $goods = new GoodsService();
+        $goods_detail = $goods->getGoodsDetail($goods_id);
+        
+        //把属性值相同的合并
+        $goods_attribute_list = $goods_detail['goods_attribute_list'];
+        $goods_attribute_list_new =array();
+        foreach($goods_attribute_list as $item){
+            $attr_value_name = '';
+            foreach ($goods_attribute_list as $key=>$item_v){
+                if($item_v['attr_value_id'] == $item['attr_value_id']){
+                    $attr_value_name .= $item_v['attr_value_name']. ',';
+                    unset($goods_attribute_list[$key]);
+                }
+            }
+            if(!empty($attr_value_name)){
+                array_push($goods_attribute_list_new, array('attr_value_id'=>$item['attr_value_id'],'attr_value'=>$item['attr_value'],'attr_value_name'=>rtrim($attr_value_name,',')));
+            }
+             
+        }
+        $goods_detail['goods_attribute_list'] = $goods_attribute_list_new;
+
+        $user_location = get_city_by_ip();
+        $this->assign("user_location", get_city_by_ip()); // 获取用户位置信息
+        if ($user_location['status'] == 1) {
+            // 定位成功，查询当前城市的运费
+            $goods_express = new GoodsExpress();
+            $address = new Address();
+            $province = $address->getProvinceId($user_location["province"]);
+            $city = $address->getCityId($user_location["city"]);
+            $express = $goods_express->getGoodsExpressTemplate($goods_id, $province['province_id'], $city['city_id']);
+            $goods_info["shipping_fee_name"] = $express;
+        }
+      
+        $this->assign('goods_info',$goods_info['shipping_fee_name']);
+        //var_dump($goods_info['shipping_fee_name']);
+        $this->assign("goods_detail", $goods_detail);
+        $this->assign("shopname", $this->shop_name);
+        $this->assign("price", intval($goods_detail["promotion_price"]));
+        $this->assign("goods_id", $goods_id);
+        $this->getCartInfo($goods_id);
+        // 分享
+        $ticket = $this->getShareTicket();
+        $this->assign("signPackage", $ticket);
+        // 评价数量
+        $evaluates_count = $goods->getGoodsEvaluateCount($goods_id);
+        $this->assign('evaluates_count', $evaluates_count);
+        return view($this->style . 'Goods/ktvDetail');
+    }
 
     /**
      * 功能：商品评论

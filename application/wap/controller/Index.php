@@ -210,6 +210,13 @@ class Index extends BaseController
 		return view($this->style . 'index/ktvDetails');
     }
     /**
+     * ktv大礼包
+     */
+    public function giftBag()
+    {
+		return view($this->style . 'index/giftBag');
+    }
+    /**
      * 一键分享
      */
     public function qrCode()

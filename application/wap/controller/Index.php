@@ -43,7 +43,7 @@ class Index extends BaseController
         $platform = new Platform();
         // 轮播图
         $plat_adv_list = $platform->getPlatformAdvPositionDetail(1105);
-        $this->assign('plat_adv_list', $plat_adv_list)
+        $this->assign('plat_adv_list', $plat_adv_list);
         // 促销模块
         $class_list = $platform->getPlatformGoodsRecommendClass();
         $this->assign("class_list", $class_list);
@@ -201,20 +201,13 @@ class Index extends BaseController
 		return view($this->style . 'index/ktv');
     }
     /**
-     * ktv列表
-     */
-    public function ktvList()
-    {
-		return view($this->style . 'index/ktvList');
-    }
-    /**
      * ktv购买会员套餐详情
      */
     public function ktvDetails()
     {
     	$price = $_GET['price'];
-		
-		//print_r($price);
+		print_r($price);
+		exit;
 		
 		return view($this->style . 'index/ktvDetails');
     }

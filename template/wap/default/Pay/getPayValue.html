@@ -3,6 +3,40 @@
 <!-- <link rel="stylesheet" href="__TEMP__/{$style}/public/css/order.css"> -->
 <!-- <link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/member_index.css"> -->
 <link rel="stylesheet" href="__TEMP__/{$style}/public/css/pay/get_pay_value.css"/>
+<style>
+	.codeQr{
+		width: 100%;
+	    max-width: 640px;
+	    min-width: 320px;
+	    position: fixed;
+	    height: 100%;
+	    z-index: 99;
+	    text-align: center;
+	    top: 0;
+	    bottom: 0;
+	    right: 0;
+	    left: 0;
+	    margin: auto;
+	    display: none;
+	}
+	.codeQrBg{
+		background: rgba(0,0,0,.5);
+	    position: fixed;
+	    top: 0;
+	    bottom: 0;
+	    left: 0;
+	    right: 0;
+	    height: 100%;
+	    width: 100%;
+	    margin: auto;
+	    z-index:-1;
+	}
+	.codeQr img{
+		width:60%;
+		height:auto;
+		margin-top: 50%;
+	}
+</style>
 {/block}
 
 {block name="goodsHead"}
@@ -14,7 +48,8 @@
 
 {block name="main"}
 <div class="head-info">
-	<div class="head-pay">向{$shopname}支付</div>
+	<!--<div class="head-pay">向{$shopname}支付</div>-->
+	<div class="head-pay">支付金额</div>
 	<div class="head-pay-value">￥{$pay_value.pay_money}</div>
 </div>
 
@@ -68,15 +103,23 @@
 	</div>
 </div>
 {include file="wap/default/controlCopyRight"}
-
+<!--<div class = "codeQr">
+	<div class="codeQrBg"></div>
+	<img src="__TEMP__/{$style}/public/images/icon/codeQr.jpg"/>
+</div>-->
 <section class="s-btn" style="position: fixed; left: 0; right: 0; bottom: 0; height: 50px; padding: 0; z-index: 5;">
-	<button class="alipay" type="button" onclick="calculate()">确认支付￥{$pay_value.pay_money}</button>
+	<!--<button class="alipay" type="button" onclick="calculate()">确认支付￥{$pay_value.pay_money}</button>-->
+	<button class="alipay" type="button" onclick="calculate()">确认支付</button>
 </section>
 <script>
 $(function(){
 // 	$("#pay_type").val(0);//默认是微信支付
 	$("#wchatpay").html("<img src='" + __IMG__ + "/segou.png'>");
 	$("#alipay").html("<img src='" + __IMG__ + "/hgou.png'>");
+	$('.codeQrBg').click(function(){
+		$('.codeQr').hide();
+		window.location.href = "APP_MAIN/index/ktv";
+	})
 })
 
 var __IMG__ = '__TEMP__/{$style}/public/images';
@@ -85,6 +128,7 @@ function calculate() {
 	var out_trade_no = $("#out_trade_no").val();
 	if (pay_type == 0) {
 		//微信支付
+		//$('.codeQr').show();
 		window.location.href = "APP_MAIN/pay/wchatpay?no=" + out_trade_no;
 	} else if (pay_type == 1) {
 		//支付宝支付

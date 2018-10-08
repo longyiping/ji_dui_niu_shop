@@ -365,8 +365,8 @@ class Login extends Controller
      */
     public function wchatOauth()
     {
-        $this->redirect('wchat/auth');
-        // echo "<a href='http://" . $_SERVER['HTTP_HOST'] . "/wap/wchat/auth'>点击授权</a>";
+        //$this->redirect('wchat/auth');
+        echo "<a href='http://" . $_SERVER['HTTP_HOST'] . "/wap/wchat/auth'>点击授权</a>";
     }
 
     /**

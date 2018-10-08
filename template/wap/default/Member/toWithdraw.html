@@ -49,7 +49,7 @@
 				<div>4. 用户在平台所有收益都会扣除需缴纳的税点</div>
 			</div>
 			<div class="btn">
-				<button class="but" id="availableBtn" disabled="disabled">提交申请</button>
+				<button class="but" id="availableBtn">提交申请</button>
 			</div>
 		</div>
 		<div class="box" id="sucssess">
@@ -132,6 +132,10 @@
 				if(bank_account_id == null || bank_account_id == ""){
 	            	alert("未添加提现账号");
 		            return;
+	            }
+				if($("#amount").val() == ''){
+					alert('请输入提现金额');
+	            	return;
 	            }
 				var mun = Number($('#amount').val());
 				var available = Number($('#available').html());

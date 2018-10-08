@@ -172,7 +172,7 @@ class Pay extends Controller
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
             $pay = new UnifyPay();
             $check_sign = $pay->checkSign($postObj, $postObj->sign);
-            if ($postObj->result_code == 'SUCCESS'&&$check_sign == 1) {
+            if ($postObj->result_code == 'SUCCESS' && $check_sign == 1) {
              
                 
                 $retval = $pay->onlinePay($postObj->out_trade_no, 1);

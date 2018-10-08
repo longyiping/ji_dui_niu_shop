@@ -30,6 +30,15 @@
 					<label class="fl">确认密码:</label>
 					<input type="password" name="password" placeholder="请确认密码" maxlength="6" class="fl nameInput" id="newsPwa"/>
 				</div>
+				<div class="reksm cf">
+					<label class="fl">手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机</label>
+					<input type="text" name="phone" placeholder="请输入手机号码" maxlength="11" class="fl nameInput" id="phone"/>
+				</div>
+				<div class="reksm cf">
+					<label class="fl">验&nbsp;&nbsp;证&nbsp;&nbsp;码</label>
+					<input type="text" name="code" placeholder="请输入验证码" maxlength="6" class="fl nameInput" id="code"/>
+					<input type="button" id="btn" value="发送验证码" onClick="sendemail()" /> 
+				</div>
 				<div class="already fr">
 					<a href="APP_MAIN/login/index">已有账号，立即登录</a>
 				</div>
@@ -142,51 +151,51 @@
 		   return ;
 		})
 		
-//		var countdown=60; 
-//		function sendemail(){
-//		    var obj = $("#btn");
-//		    $.ajax({           //判断手机是否已经注册
-//				type: "post",
-//				url: "APP_MAIN/login/mobile",
-//				data: {"mobile":$("#phone").val()},
-//				dataType:'json',
-//				success: function(data){
-//					if(data){
-//						$('.msg').html('该手机号已注册!').show();
-//						return false;
-//					}else{
-//						$.ajax({
-//							type: "post",
-//							url: "APP_MAIN/Login/sendSmsRegisterCode",
-//							data: {"mobile":$("#phone").val()},
-//							success: function(data){
-//								if(data.code == '0'){
-//									settime(obj);
-//								}else{
-//									$('.msg').html(data.message).show();
-//									//$(".verifyimg").attr("src",'{:captcha_src()}');
-//									return false;
-//								}
-//							}
-//						});
-//					}
-//				} 
-//			});
-//	    }
-//		function settime(obj) { //发送验证码倒计时
-//		    if(countdown == 0) { 
-//		        obj.attr('disabled',false); 
-//		        //obj.removeattr("disabled"); 
-//		        obj.val("发送验证码");
-//		        countdown = 60; 
-//		        return;
-//		    }else { 
-//		        obj.attr('disabled',true);
-//		        obj.val("重新发送(" + countdown + ")");
-//		        countdown--; 
-//		    } 
-//		setTimeout(function() { 
-//		    settime(obj) 
-//		},1000)}
+		var countdown=60; 
+		function sendemail(){
+		    var obj = $("#btn");
+		    $.ajax({           //判断手机是否已经注册
+				type: "post",
+				url: "APP_MAIN/login/mobile",
+				data: {"mobile":$("#phone").val()},
+				dataType:'json',
+				success: function(data){
+					if(data){
+						$('.msg').html('该手机号已注册!').show();
+						return false;
+					}else{
+						$.ajax({
+							type: "post",
+							url: "APP_MAIN/Login/sendSmsRegisterCode",
+							data: {"mobile":$("#phone").val()},
+							success: function(data){
+								if(data.code == '0'){
+									settime(obj);
+								}else{
+									$('.msg').html(data.message).show();
+									//$(".verifyimg").attr("src",'{:captcha_src()}');
+									return false;
+								}
+							}
+						});
+					}
+				} 
+			});
+	    }
+		function settime(obj) { //发送验证码倒计时
+		    if(countdown == 0) { 
+		        obj.attr('disabled',false); 
+		        //obj.removeattr("disabled"); 
+		        obj.val("发送验证码");
+		        countdown = 60; 
+		        return;
+		    }else { 
+		        obj.attr('disabled',true);
+		        obj.val("重新发送(" + countdown + ")");
+		        countdown--; 
+		    } 
+		setTimeout(function() { 
+		    settime(obj) 
+		},1000)}
 	</script>
 </html>

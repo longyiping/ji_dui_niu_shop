@@ -164,6 +164,9 @@ class Pay extends Controller
             $path = getQRcode($code_url, "upload/qrcode/pay", $out_trade_no);
             $this->assign("path", __ROOT__ . '/' . $path);
             $pay_value = $pay->getPayInfo($out_trade_no);
+			if (request()->isMobile()) {$loca_site="/wap/order/myorderlist";}
+			else {$loca_site="/member/orderlist";}
+			$this->assign('loca_site', $loca_site);
             $this->assign('pay_value', $pay_value);
             return view($this->style . "/Pay/pcWeChatPay");
         } else {

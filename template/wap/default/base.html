@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="format-detection" content="telephone=no">
-<title>{$platform_shopname}{if condition="$seoconfig.seo_title neq ''"}-{$seoconfig.seo_title}{/if}</title>
+<title>{if condition="$platform_shopname neq ''"}{$platform_shopname}-{/if}{if condition="$seoconfig.seo_title neq ''"}{$seoconfig.seo_title}{/if}</title>
 <meta name="keywords" content="{$seoconfig.seo_meta}" />
 <meta name="description" content="{$seoconfig.seo_desc}"/>
 <link rel="shortcut  icon" type="image/x-icon" href="__TEMP__/{$style}/public/images/icon.ico" media="screen"/>

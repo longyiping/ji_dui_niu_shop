@@ -13,9 +13,9 @@ $(function(){
 		}else if(userCard == ''){
 			$('.msg').html('请输入身份证号!').show();
 			$("#userCard").focus();
-		}else if($('#positiveImg').val() ==''){
+		}else if($('#positiveImg').val() =='' && $('#positiveImg').next('img').attr('src')==''){
 			$('.msg').html('请上传身份证正面!').show();
-		}else if($('#oppositeImg').val() ==''){
+		}else if($('#oppositeImg').val() =='' && $('#oppositeImg').next('img').attr('src')==''){
 			$('.msg').html('请上传身份证反面!').show();
 		}else{
 			element();
@@ -136,5 +136,10 @@ function element() {   //身份证号码验证
 				}
 			}
 		}
-		return isValid; 
+		if(isValid){
+			$('#formEdit').attr('action',urls);
+			$('#submit').attr('type','submit').submit()
+		}else{
+			return isValid; 
+		}
 }

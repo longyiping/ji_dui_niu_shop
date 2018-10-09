@@ -40,10 +40,27 @@
 		<div class="box">
 			<ul>
 				<li>
+					{if condition="$member_info.user_info.card_state eq 0"}
 					<a href="APP_MAIN/Member/realNameSystem" class="cf padding">
 						<span class="title fl">身份证</span>
-						<span class="J_skcjs fr J_rightIcon">已认证</span>
+						<span class="J_skcjs fr J_rightIcon">待认证</span>
 					</a>
+					{elseif condition="$member_info.user_info.card_state eq 1"}
+					<a href="javascript:void(0);" class="cf padding">
+						<span class="title fl">身份证</span>
+						<span class="J_skcjs fr">审核中</span>
+					</a>
+					{elseif condition="$member_info.user_info.card_state eq 2"}
+					<a href="APP_MAIN/Member/realNameSystem" class="cf padding">
+						<span class="title fl">身份证</span>
+						<span class="J_skcjs fr J_rightIcon">未通过</span>
+					</a>
+					{else/}
+					<a href="javascript:void(0);" class="cf padding">
+						<span class="title fl">身份证</span>
+						<span class="J_skcjs fr">已认证</span>
+					</a>
+					{/if}
 				</li>
 				<li>
 					<!--<a href="APP_MAIN/Member/cellPhone" class="cf padding">-->
@@ -71,13 +88,23 @@
 				<li>
 					<a href="javascript:void(0);" class="cf padding">
 						<span class="title fl">邀请人</span>
-						<span class="J_skcjs fr">ID:00000079</span>
+						{if condition="$member_info['pid'] eq 0 or $member_info['pid'] eq ''"}
+							<span class="J_skcjs fr">无推荐人</span>	
+						{else/}
+							<span class="J_skcjs fr">ID:{$real_num1}</span>	
+						{/if}
+						
 					</a>
 				</li>
 				<li>
 					<a href="javascript:void(0);" class="cf padding">
 						<span class="title fl">团队</span>
-						<span class="J_skcjs fr">20</span>
+						{if condition="$member_info['path_pid'] neq ''"}
+							<span class="J_skcjs fr">{$result}</span>
+						{else/}
+							<span class="J_skcjs fr">1</span>
+						{/if}
+						
 					</a>
 				</li>
 			</ul>

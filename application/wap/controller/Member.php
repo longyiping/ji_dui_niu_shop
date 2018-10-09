@@ -1128,6 +1128,11 @@ class Member extends BaseController
      */
     public function securityCenter()
     {
+    	$member = new MemberService();
+        $member_info = $member->getMemberDetail($this->instance_id);
+        $this->assign('member_info', $member_info);
+        
+        
         return view($this->style . "/Member/securityCenter");
     }
     /**
@@ -1215,18 +1220,41 @@ class Member extends BaseController
         $member = new MemberService();
         $member_info = $member->getMemberDetail();
         $this->assign('member_info', $member_info);
+		//给用户的id前面补零---例如299变为00000299
 		$num = $member_info['uid'];
-		 $bit = 8;
-		 $num_len = strlen($num);
-		 $zero = '';
-		 for($i=$num_len; $i<$bit-1; $i++){
-		  $zero .= "0";
-		 }
-		 $real_num = "0".$zero.$num;
+		$bit = 8;
+		$num_len = strlen($num);
+		$zero = '';
+		for($i=$num_len; $i<$bit-1; $i++){
+		 $zero .= "0";
+		}
+		$real_num = "0".$zero.$num;
 		$this->assign('real_num', $real_num);
-        // 查询账户信息
-        // $user = new UserModel();
-        // $nick_name = $user->getInfo(["uid" => $this->uid], "nick_name");
+        
+        //推荐人的id前面补零---例如299变为00000299
+        $num1 = $member_info['pid'];
+		$bit1 = 8;
+		$num_len1 = strlen($num1);
+		$zero1 = '';
+		for($i=$num_len1; $i<$bit1-1; $i++){
+		 $zero1 .= "0";
+		}
+		$real_num1 = "0".$zero1.$num1;
+		$this->assign('real_num1', $real_num1);
+		
+		
+		//根据path_pid获取团队的人数
+		$str = $member_info['path_pid'];
+		$list = explode('#', $str);
+		$totle = 0;
+		foreach($list as $v){
+		    if($v !==''){
+		    	$res = $member->getMemberInfo(['pid'=>$v]);
+				$totle += count($res['uid']);
+		    }
+		}
+		$result = $totle+count($res['uid']);
+		$this->assign('result', $result);
         return view($this->style . "/Member/information");
     }
 

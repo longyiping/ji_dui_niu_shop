@@ -25,8 +25,8 @@
 				</li>
 				<li>
 					<a href="javascript:void(0);" class="cf padding">
-						<span class="title fl">昵称--{$$member_info.user_info.card_state}</span>
-						<span class="J_skcjs fr J_rightIcon">{$member_info.user_info.nick_name}</span>
+						<span class="title fl">昵称</span>
+						<span class="J_skcjs fr J_rightIcon">{$user_info.nick_name}</span>
 					</a>
 				</li>
 				<li>
@@ -40,17 +40,17 @@
 		<div class="box">
 			<ul>
 				<li>
-					{if condition="$member_info.user_info.card_state eq 0"}
+					{if condition="$user_info.card_state eq 0"}
 					<a href="APP_MAIN/Member/realNameSystem" class="cf padding">
 						<span class="title fl">身份证</span>
 						<span class="J_skcjs fr J_rightIcon">待认证</span>
 					</a>
-					{elseif condition="$member_info.user_info.card_state eq 1"}
+					{elseif condition="$user_info.card_state eq 1"}
 					<a href="javascript:void(0);" class="cf padding">
 						<span class="title fl">身份证</span>
 						<span class="J_skcjs fr">审核中</span>
 					</a>
-					{elseif condition="$member_info.user_info.card_state eq 2"}
+					{elseif condition="$user_info.card_state eq 2"}
 					<a href="APP_MAIN/Member/realNameSystem" class="cf padding">
 						<span class="title fl">身份证</span>
 						<span class="J_skcjs fr J_rightIcon">未通过</span>
@@ -63,8 +63,8 @@
 					{/if}
 				</li>
 				<li>
-					<a href="APP_MAIN/Member/cellPhone" class="cf padding">
-					<!--<a href="javascript:void(0);" class="cf padding">-->
+					<!--<a href="APP_MAIN/Member/cellPhone" class="cf padding">-->
+					<a href="javascript:void(0);" class="cf padding">
 						<span class="title fl">手机</span>
 						<span class="J_skcjs fr J_rightIcon">
 							{if condition="$member_info.user_info.user_tel neq ''"}

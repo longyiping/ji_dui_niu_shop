@@ -6,24 +6,45 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/ >
 		<link rel="stylesheet" href="__TEMP__/{$style}/public/css/login.css" />
 		<script type="text/javascript" src="__TEMP__/{$style}/public/js/jquery.min.js" ></script>
+		<link rel="shortcut  icon" type="image/x-icon" href="__TEMP__/{$style}/public/images/icon.ico" media="screen"/>
 		<title>登录</title>
 	</head>
 	<body>
 		<div class="box">
-			<div class="register">
+			<div class="loginLogo">
+				<img src="__TEMP__/{$style}/public/images/login/logo.png" class="logoImg"/>
+			</div>
+			<div class="loginLogo">
+				<img src="__TEMP__/{$style}/public/images/login/eng.png" class="eng"/>
+			</div>
+			<div class="register cf">
 				<div class="reksm cf">
-					<label class="fl">账号</label>
+					<label class="fl"><img src="__TEMP__/{$style}/public/images/login/user.png"/></label>
 					<input type="text" name="username" placeholder="请输入用户名" class="fl nameInput" id="username"/>
 				</div>
 				<div class="reksm cf">
-					<label class="fl">密码</label>
+					<label class="fl"><img src="__TEMP__/{$style}/public/images/login/key.png"/></label>
 					<input type="password" name="password" placeholder="请输入密码" maxlength="6" class="fl nameInput" id="password"/>
+					<a class="lookat" href="javascript:void(0)"><img src="__TEMP__/{$style}/public/images/login/eye_no.png" class="eye_no"/></a>
 				</div>
-				<div class="J_register"><a href="APP_MAIN/login/register">立即注册</a></div>
+				<div class="J_register">
+					<a href="APP_MAIN/login/register" class="H_register">还没有账号？立即注册</a>
+					<a href="APP_MAIN/login/register" class="H_paw">忘记密码？</a>
+				</div>
 			</div>
 			<div class="badgeBtn">
 				<div class="msg">手机号码有误</div>
 				<button class="but" type="submit" id="submit">登录</button>
+			</div>
+			<div class="party">
+				<div class="party_l">
+					<div>使用以下账号登录</div>
+				</div>
+				<div class="{if condition='$loginCount eq 1'}login_wei{elseif condition='$loginCount eq 2'}login_wei_two{else}login_wei_three{/if}">
+					<a href="APP_MAIN/login/oauthlogin?type=WCHAT">
+						<img src="__TEMP__/{$style}/public/images/weixin.png" />
+					</a>
+				</div> 
 			</div>
 		</div>
 	</body>
@@ -58,6 +79,17 @@
 							} 
 						}
 					});
+				}
+			})
+			$('.lookat').click(function(){
+				if($(this).children('img').hasClass('eye_no')){
+					$(this).children('img').removeClass('eye_no');
+					$(this).children('img').attr('src','__TEMP__/{$style}/public/images/login/eye.png');
+					$('#password').attr('type','text');
+				}else{
+					$(this).children('img').addClass('eye_no');
+					$(this).children('img').attr('src','__TEMP__/{$style}/public/images/login/eye_no.png');
+					$('#password').attr('type','password');
 				}
 			})
 		})

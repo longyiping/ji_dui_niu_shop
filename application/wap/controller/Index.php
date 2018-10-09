@@ -37,6 +37,7 @@ class Index extends BaseController
      */
     public function index()
         {
+		$this->redirect('/wap/index/ktv');//临时变更
         // 分享
         $ticket = $this->getShareTicket();
         $this->assign("signPackage", $ticket);

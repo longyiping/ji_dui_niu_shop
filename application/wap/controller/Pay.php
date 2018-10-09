@@ -67,6 +67,19 @@ class Pay extends Controller
     {
         return view($this->style . '/Pay/demoVersion');
     }
+	/*异步获取支付状态信息*/
+	public function ajaxgetPay()
+    {
+        $out_trade_no = isset($_POST['out_trade_no']) ? $_POST['out_trade_no'] : '';
+        if (empty($out_trade_no)) {
+            return 0;
+        }
+        
+        $pay = new UnifyPay();
+        $pay_value = $pay->getPayInfo($out_trade_no);
+		if($pay_value['pay_status']==1){return 1;}//这个数据表状态为1时表示已经支付
+		else {return 0;}
+	}
 
     /**
      * 获取支付相关信息
@@ -142,6 +155,7 @@ class Pay extends Controller
         if (! isWeixin()) {
             // 扫码支付
             $res = $pay->wchatPay($out_trade_no, 'NATIVE', $red_url);
+			//if($res['result_code']=='FAIL'){$this->error("订单已经支付");}
             if ($res["return_code"] == "SUCCESS") {
                 $code_url = $res['code_url'];
             } else {

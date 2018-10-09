@@ -155,7 +155,7 @@ class Pay extends Controller
         if (! isWeixin()) {
             // 扫码支付
             $res = $pay->wchatPay($out_trade_no, 'NATIVE', $red_url);
-			if($res['result_code']=='FAIL'){$this->error("订单已经支付");}
+			if($res['result_code']=='FAIL'){$this->error("订单已经支付或有错误");}
             if ($res["return_code"] == "SUCCESS") {
                 $code_url = $res['code_url'];
             } else {

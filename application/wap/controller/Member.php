@@ -1157,7 +1157,6 @@ class Member extends BaseController
     	$member = new MemberService();
         $member_info = $member->getMemberDetail();
         $this->assign('member_info', $member_info);
-		//print_r($member_info);exit;
 		$update_info_status = ""; // 修改信息状态 
         $upload_card_status = ""; //上传身份证状态 
         if (isset($_POST["submit"])) {
@@ -1196,6 +1195,7 @@ class Member extends BaseController
                 $ID_card_positive = $path . $file_name;
 				$ID_card_reverse = $path . $file_name1;
                 $upload_card_status = $this->user->updateMemberCard("", "","", $ID_card_positive, $ID_card_reverse, $card_state);
+				$this->redirect('/wap/member/information');
             } else {
                 $this->error("请上传图片");
             }
@@ -1262,6 +1262,9 @@ class Member extends BaseController
 			}
 		}
 		$this->assign('totle', $totle);
+		//银行卡数
+        $account_list = $member->getMemberBankAccount();
+		$this->assign('account_tot', count($account_list));
         return view($this->style . "/Member/information");
     }
 

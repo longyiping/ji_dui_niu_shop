@@ -1217,12 +1217,9 @@ class Member extends BaseController
      */
     public function information()
     {
-		$user = new UserModel();
-        $user_info = $user->getInfo(["uid" => $this->uid], "*");
         $member = new MemberService();
         $member_info = $member->getMemberDetail();
         $this->assign('member_info', $member_info);
-		$this->assign('user_info', $user_info);
 		//给用户的id前面补零---例如299变为00000299
 		$num = $member_info['uid'];
 		$bit = 8;

@@ -1141,15 +1141,14 @@ class Member extends BaseController
     public function realNameSystem()
     {
     	$member = new MemberService();
-        $member_info = $member->getMemberDetail($this->instance_id);
+        $member_info = $member->getMemberDetail();
         $this->assign('member_info', $member_info);
-		$card_state = 1;
-		$authentication_time = time();
-//		print_r($authentication_time);
-//		exit;
+		//print_r($member_info);exit;
 		$update_info_status = ""; // 修改信息状态 
         $upload_card_status = ""; //上传身份证状态 
         if (isset($_POST["submit"])) {
+			$card_state = 1;
+			$authentication_time = time();
             $real_name = isset($_POST["real_name"]) ? $_POST["real_name"] : "";
             $ID_card = isset($_POST["ID_card"]) ? $_POST["ID_card"] : "";
             $ID_card_positive = isset($_POST["ID_card_positive"]) ? $_POST["ID_card_positive"] : "";
@@ -1164,7 +1163,7 @@ class Member extends BaseController
                 if ($_FILES["ID_card_positive"]["error"] > 0 && $_FILES["ID_card_reverse"]["error"] > 0 ) {
                     
                 }
-				       
+				     
                 $file_name = date("YmdHis") .'z'. rand(0, date("is")); // 文件名
                 $ext = explode(".", $_FILES["ID_card_positive"]["name"]);
                 $file_name .= "." . $ext[1];
@@ -1187,9 +1186,6 @@ class Member extends BaseController
                 $this->error("请上传图片");
             }
         }
-        
-        $member_detail = $this->user->getMemberDetail($this->instance_id);
-        $this->assign("member_detail", $member_detail);
         
         return view($this->style . "/Member/realNameSystem");
     }

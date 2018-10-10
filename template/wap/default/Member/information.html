@@ -42,22 +42,22 @@
 				<li>
 					{if condition="$member_info.user_info.card_state eq 0"}
 					<a href="APP_MAIN/Member/realNameSystem" class="cf padding">
-						<span class="title fl">身份证</span>
+						<span class="title fl">身份认证</span>
 						<span class="J_skcjs fr J_rightIcon">待认证</span>
 					</a>
 					{elseif condition="$member_info.user_info.card_state eq 1"}
 					<a href="javascript:void(0);" class="cf padding">
-						<span class="title fl">身份证</span>
+						<span class="title fl">身份认证</span>
 						<span class="J_skcjs fr">审核中</span>
 					</a>
 					{elseif condition="$member_info.user_info.card_state eq 2"}
 					<a href="APP_MAIN/Member/realNameSystem" class="cf padding">
-						<span class="title fl">身份证</span>
+						<span class="title fl">身份认证</span>
 						<span class="J_skcjs fr J_rightIcon">未通过</span>
 					</a>
 					{else/}
 					<a href="javascript:void(0);" class="cf padding">
-						<span class="title fl">身份证</span>
+						<span class="title fl">身份认证</span>
 						<span class="J_skcjs fr">已认证</span>
 					</a>
 					{/if}

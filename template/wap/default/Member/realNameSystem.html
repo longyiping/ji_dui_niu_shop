@@ -13,6 +13,12 @@
 		<title>实名制认证</title>
 	</head>
 	<body>
+	{if condition="$member_info.user_info.card_state eq 0 or $member_info.user_info.card_state eq 2"}
+		{if condition="$member_info.user_info.card_state eq 2"}
+		<div class="success">
+				<img src="__TEMP__/{$style}/public/images/success.png" />您的实名认证未通过，请重新提交。
+		</div>
+		{/if}
 		<form name="formEdit" action="" method="POST" id="formEdit" enctype="multipart/form-data">
 			<div class="box" id="frist">
 				<div class="head">
@@ -48,11 +54,12 @@
 					</div>
 				</div>
 				<div class="badgeBtn">
-					<div class="msg">手机号码有误</div>
+					<div class="msg"></div>
 					<button class="but" type="button" name="submit" id="submit">保存</button>
 				</div>
 			</div>
 		</form>
+	{elseif condition="$member_info.user_info.card_state eq 1"/}
 		<!--认证审核中-->
 		<div class="box" id="two">
 			<div class="examine cf">
@@ -63,29 +70,21 @@
 				</div>
 			</div>
 			<div class="badgeBtn">
-				<button class="but" type="submit" id="J_badgeBtn">完成</button>
+				<a class="but" id="J_badgeBtn" href="APP_MAIN/Member/information">返回</a>
 			</div>
 		</div>
 		<!--认证审核中end-->
+	{elseif condition="$member_info.user_info.card_state eq 3"/}
 		<!--认证通过-->
 		<div class="box" id="three">
 			<div class="success">
 				<img src="__TEMP__/{$style}/public/images/success.png" />您的实名认证已通过验证
 			</div>
 			<div class="badgeBtn">
-				<button class="but" type="submit" id="through">完成</button>
+				<a class="but" id="J_badgeBtn" href="APP_MAIN/Member/information">返回</a>
 			</div>
 		</div>
 		<!--认证通过end-->
-		<!--认证未通过-->
-		<div class="box" id="four">
-			<div class="success">
-				<img src="__TEMP__/{$style}/public/images/success.png" />您的实名认证未通过
-			</div>
-			<div class="badgeBtn">
-				<button class="but" type="submit" id="again">重新申请</button>
-			</div>
-		</div>
-		<!--认证通过end-->
+	{/if}
 	</body>
 </html>

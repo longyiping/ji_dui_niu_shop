@@ -1238,19 +1238,16 @@ class Member extends BaseController
 		$real_num1 = "0".$zero1.$num1;
 		$this->assign('real_num1', $real_num1);
 		
-		
-		//根据path_pid获取团队的人数
-		$str = $member_info['path_pid'];
-		$list = explode('#', $str);
+		//获取团队的人数
+		$result=Db::table("ns_member")->where('path_pid','like','%#'.$member_info['uid'].'%')->select();
 		$totle = 0;
-		foreach($list as $v){
-		    if($v !==''){
-		    	$res = $member->getMemberInfo(['pid'=>$v]);
-				$totle += count($res['uid']);
-		    }
+		foreach($result as $key=>$val){
+			$once=explode('#'.$member_info['uid'],$val['path_pid']);
+			if(substr_count($once[1],'#')<2){
+				$totle++;
+			}
 		}
-		$result = $totle+count($res['uid']);
-		$this->assign('result', $result);
+		$this->assign('totle', $totle);
         return view($this->style . "/Member/information");
     }
 

@@ -1,25 +1,3 @@
-var countdown=60; 
-function sendemail(){
-	phone();
-    var obj = $("#btn");
-    var mobile = $("#phone").val();
-	var vertification = $("#code").val();
-//  $.ajax({       //获取验证码
-//  	type: "post",
-//		url: "APP_MAIN/login/sendSmsRegisterCode",
-//		data: {"mobile":mobile},
-//  	dataType:'json',
-//  	success:function(data){
-//  		if(data['code']=='0'){
-//				settime(obj);
-//			}else{
-//				$('.msg').html(data["message"]).show();
-//				return false;
-//			}
-//  	},
-//  });
-settime(obj);
-}
 function settime(obj) { //发送验证码倒计时
     if(countdown == 0) { 
         obj.attr('disabled',false); 
@@ -192,7 +170,72 @@ $(function(){
 		}
 		return isValid; 
 	}
+	function branch_bank_name(){
+		var code = $('#branch_bank_name').val();
+		var isValid = true;
+		if(code == ''){
+			$('.msg').html('请填写支行信息!').show();
+			$("#branch_bank_name").focus();
+			isValid = false;
+		}else{
+			$.ajax({
+				type : "post",
+				url : "APP_MAIN/member/addaccount",
+				dataType : "json",
+				data : {
+					"realname":$('#userName').val(),
+					"mobile":$('#phone').val(),
+					"bank_type":$('#bank_type').val(),
+					"account_number":$('#bank').val(),
+					"branch_bank_name":$('#branch_bank_name').val()
+				},
+				success : function(data) {
+					//alert(JSON.stringify(data));
+					if(data['code']>1){
+						$('.msg').html("添加成功").show();
+						window.location.href = "APP_MAIN/member/accountlist?shop_id="+shop_id;
+					}else{
+						$('.msg').html("添加失败").show();
+					}
+					
+				}
+			})
+		}
+		return isValid; 
+	}
 	$('#submit').click(function(){
-		bankcard() && userName() && idCard();
+//		bankcard() && userName() &&idCard()&&phone()&& code();
+		bankcard() && userName() &&idCard()&&phone()&&branch_bank_name();
 	})
 });
+var countdown=60; 
+function sendemail(){
+	var isValid = true;
+	var mobile = /^1[3-9]\d{9}$/;
+	var phone = $("#phone").val();
+	if(phone == ''){
+		$('.msg').html('请填写手机号码!').show();
+		$("#phone").focus();
+		isValid = false;
+	}else if(!mobile.test(phone)){
+		$('.msg').html('请填写有效的手机号!').show();
+		$("#phone").focus();
+		isValid = false;
+	}
+    var obj = $("#btn");
+    $.ajax({       //获取验证码
+    	type: "post",
+		url: "APP_MAIN/login/sendSmsRegisterCode",
+		data: {"mobile":mobile},
+    	dataType:'json',
+    	success:function(data){
+    		if(data['code']=='0'){
+				settime(obj);
+			}else{
+				$('.msg').html(data["message"]).show();
+				return false;
+			}
+    	},
+    });
+settime(obj);
+}

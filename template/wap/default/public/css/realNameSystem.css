@@ -16,9 +16,6 @@ a,input,button,div{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webk
 .cf:before,.cf:after{display:table;line-height:0;content:"";}
 .cf:after{clear:both;}
 *.cf{zoom:1;}
-#two,#three,#four{
-	display:none;
-}
 .head {
 	border-bottom:6px solid #F6F5FA;
 	padding-left:14px;

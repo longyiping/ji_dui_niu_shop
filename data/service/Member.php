@@ -478,13 +478,14 @@ class Member extends User implements IMember
      *修改或者保存实名认证的信息
      * @see \data\api\IMember::addMemberExpressAddress()
      */
-	public function updateMemberCard($real_name, $ID_card,$authentication_time, $ID_card_positive, $ID_card_reverse)
+	public function updateMemberCard($real_name, $ID_card,$authentication_time, $ID_card_positive, $ID_card_reverse, $card_state)
     {
         $useruser = new UserModel();
         $data = array(
             "real_name" => $real_name,
-            "ID_card"	=>$ID_card,
-            "authentication_time"=>$authentication_time
+            "ID_card"	=> $ID_card,
+            "authentication_time" => $authentication_time,
+            "card_state" => $card_state
         );
         $data2 = array(
             "ID_card_positive" => $ID_card_positive,

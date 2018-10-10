@@ -1155,30 +1155,29 @@ class Member extends BaseController
     public function realNameSystem()
     {
     	$member = new MemberService();
-        $member_info = $member->getMemberDetail($this->instance_id);
+        $member_info = $member->getMemberDetail();
         $this->assign('member_info', $member_info);
-		
-		$authentication_time = time();
-//		print_r($authentication_time);
-//		exit;
+		//print_r($member_info);exit;
 		$update_info_status = ""; // 修改信息状态 
         $upload_card_status = ""; //上传身份证状态 
         if (isset($_POST["submit"])) {
+			$card_state = 1;
+			$authentication_time = time();
             $real_name = isset($_POST["real_name"]) ? $_POST["real_name"] : "";
             $ID_card = isset($_POST["ID_card"]) ? $_POST["ID_card"] : "";
             $ID_card_positive = isset($_POST["ID_card_positive"]) ? $_POST["ID_card_positive"] : "";
             $ID_card_reverse = isset($_POST["ID_card_reverse"]) ? $_POST["ID_card_reverse"] : "";
 
             // 把从前台显示的内容转变为可以存储到数据库中的数据
-            $update_info_status = $this->user->updateMemberCard($real_name, $ID_card,$authentication_time, $ID_card_positive, $ID_card_reverse);
+            $update_info_status = $this->user->updateMemberCard($real_name, $ID_card,$authentication_time, $ID_card_positive, $ID_card_reverse, $card_state);
         }
 		
         if ($_FILES && isset($_POST["submit"])) {
             if ((($_FILES["ID_card_positive"]["type"] == "image/gif" && $_FILES["ID_card_reverse"]["type"] == "image/gif") || ($_FILES["ID_card_positive"]["type"] == "image/jpeg" && $_FILES["ID_card_reverse"]["type"] == "image/jpeg") || ($_FILES["ID_card_positive"]["type"] == "image/pjpeg" && $_FILES["ID_card_reverse"]["type"] == "image/pjpeg") || ($_FILES["ID_card_positive"]["type"] == "image/png" && $_FILES["ID_card_reverse"]["type"] == "image/png")) && ($_FILES["ID_card_positive"]["size"] < 10000000 && $_FILES["ID_card_reverse"]["size"] < 10000000)) {
                 if ($_FILES["ID_card_positive"]["error"] > 0 && $_FILES["ID_card_reverse"]["error"] > 0 ) {
-                    // echo "错误： " . $_FILES["user_headimg"]["error"] . "<br />";
+                    
                 }
-				       
+				     
                 $file_name = date("YmdHis") .'z'. rand(0, date("is")); // 文件名
                 $ext = explode(".", $_FILES["ID_card_positive"]["name"]);
                 $file_name .= "." . $ext[1];
@@ -1196,14 +1195,11 @@ class Member extends BaseController
                 move_uploaded_file($_FILES["ID_card_reverse"]["tmp_name"], $path . $file_name1);
                 $ID_card_positive = $path . $file_name;
 				$ID_card_reverse = $path . $file_name1;
-                $upload_card_status = $this->user->updateMemberCard("", "","", $ID_card_positive, $ID_card_reverse);
+                $upload_card_status = $this->user->updateMemberCard("", "","", $ID_card_positive, $ID_card_reverse, $card_state);
             } else {
                 $this->error("请上传图片");
             }
         }
-        
-        $member_detail = $this->user->getMemberDetail($this->instance_id);
-        $this->assign("member_detail", $member_detail);
         
         return view($this->style . "/Member/realNameSystem");
     }
@@ -1231,12 +1227,9 @@ class Member extends BaseController
      */
     public function information()
     {
-		$user = new UserModel();
-        $user_info = $user->getInfo(["uid" => $this->uid], "*");
         $member = new MemberService();
         $member_info = $member->getMemberDetail();
         $this->assign('member_info', $member_info);
-		$this->assign('user_info', $user_info);
 		//给用户的id前面补零---例如299变为00000299
 		$num = $member_info['uid'];
 		$bit = 8;

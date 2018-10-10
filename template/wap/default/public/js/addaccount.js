@@ -185,6 +185,8 @@ $(function(){
 				dataType : "json",
 				data : {
 					"realname":$('#userName').val(),
+					"card_type":$('#card_type').val(),
+					"card_num":$('#userCard').val(),
 					"mobile":$('#phone').val(),
 					"bank_type":$('#bank_type').val(),
 					"account_number":$('#bank').val(),
@@ -194,7 +196,7 @@ $(function(){
 					//alert(JSON.stringify(data));
 					if(data['code']>1){
 						$('.msg').html("添加成功").show();
-						window.location.href = URL+"?shop_id="+shop_id;
+					//	window.location.href = URL+"?shop_id="+shop_id;
 					}else{
 						$('.msg').html("添加失败").show();
 					}

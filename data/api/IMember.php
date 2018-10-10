@@ -546,7 +546,7 @@ interface IMember extends IUser
     /**
      * 添加会员提现账号
      */
-    function addMemberBankAccount($uid, $bank_type, $branch_bank_name, $realname, $account_number, $mobile);
+    function addMemberBankAccount($uid, $bank_type, $branch_bank_name, $realname,$card_type,$card_num, $account_number, $mobile);
 
     /**
      * 修改会员提现账号

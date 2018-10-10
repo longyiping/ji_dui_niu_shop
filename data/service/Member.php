@@ -1670,7 +1670,7 @@ class Member extends User implements IMember
      *
      * @see \data\api\IMember::addMemberBankAccount()
      */
-    public function addMemberBankAccount($uid, $bank_type, $branch_bank_name, $realname, $account_number, $mobile)
+    public function addMemberBankAccount($uid, $bank_type, $branch_bank_name, $realname,$card_type,$card_num, $account_number, $mobile)
     {
         $member_bank_account = new NsMemberBankAccountModel();
         $member_bank_account->startTrans();
@@ -1680,6 +1680,8 @@ class Member extends User implements IMember
                 'bank_type' => $bank_type,
                 'branch_bank_name' => $branch_bank_name,
                 'realname' => $realname,
+                'card_type'=> '身份证',
+                'card_num' => $card_num,
                 'account_number' => $account_number,
                 'mobile' => $mobile,
                 'create_date' => date("Y-m-d H:i:s", time()),

@@ -684,11 +684,13 @@ class Member extends BaseController
             $member = new MemberService();
             $uid = $this->uid;
             $realname = isset($_POST['realname']) ? $_POST['realname'] : '';
+			$card_type = isset($_POST['$card_type']) ? $_POST['$card_type'] : '';
+            $card_num = isset($_POST['card_num']) ? $_POST['card_num'] : '';
             $mobile = isset($_POST['mobile']) ? $_POST['mobile'] : '';
             $bank_type = isset($_POST['bank_type']) ? $_POST['bank_type'] : '1';
             $account_number = isset($_POST['account_number']) ? $_POST['account_number'] : '';
             $branch_bank_name = isset($_POST['branch_bank_name']) ? $_POST['branch_bank_name'] : '';
-            $retval = $member->addMemberBankAccount($uid, $bank_type, $branch_bank_name, $realname, $account_number, $mobile);
+            $retval = $member->addMemberBankAccount($uid, $bank_type, $branch_bank_name, $realname,$card_type,$card_num, $account_number, $mobile);
             return AjaxReturn($retval);
         } else {
             return view($this->style . "/Member/addAccount");

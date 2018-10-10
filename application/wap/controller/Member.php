@@ -1157,6 +1157,7 @@ class Member extends BaseController
     	$member = new MemberService();
         $member_info = $member->getMemberDetail();
         $this->assign('member_info', $member_info);
+		$authentication_time = date("Y-m-d H:i:s",time());
 		$update_info_status = ""; // 修改信息状态 
         $upload_card_status = ""; //上传身份证状态 
         if (isset($_POST["submit"])) {

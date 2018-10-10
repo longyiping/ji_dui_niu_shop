@@ -1143,7 +1143,7 @@ class Member extends BaseController
     	$member = new MemberService();
         $member_info = $member->getMemberDetail($this->instance_id);
         $this->assign('member_info', $member_info);
-		
+		$card_state = 1;
 		$authentication_time = time();
 //		print_r($authentication_time);
 //		exit;
@@ -1156,13 +1156,13 @@ class Member extends BaseController
             $ID_card_reverse = isset($_POST["ID_card_reverse"]) ? $_POST["ID_card_reverse"] : "";
 
             // 把从前台显示的内容转变为可以存储到数据库中的数据
-            $update_info_status = $this->user->updateMemberCard($real_name, $ID_card,$authentication_time, $ID_card_positive, $ID_card_reverse);
+            $update_info_status = $this->user->updateMemberCard($real_name, $ID_card,$authentication_time, $ID_card_positive, $ID_card_reverse, $card_state);
         }
 		
         if ($_FILES && isset($_POST["submit"])) {
             if ((($_FILES["ID_card_positive"]["type"] == "image/gif" && $_FILES["ID_card_reverse"]["type"] == "image/gif") || ($_FILES["ID_card_positive"]["type"] == "image/jpeg" && $_FILES["ID_card_reverse"]["type"] == "image/jpeg") || ($_FILES["ID_card_positive"]["type"] == "image/pjpeg" && $_FILES["ID_card_reverse"]["type"] == "image/pjpeg") || ($_FILES["ID_card_positive"]["type"] == "image/png" && $_FILES["ID_card_reverse"]["type"] == "image/png")) && ($_FILES["ID_card_positive"]["size"] < 10000000 && $_FILES["ID_card_reverse"]["size"] < 10000000)) {
                 if ($_FILES["ID_card_positive"]["error"] > 0 && $_FILES["ID_card_reverse"]["error"] > 0 ) {
-                    // echo "错误： " . $_FILES["user_headimg"]["error"] . "<br />";
+                    
                 }
 				       
                 $file_name = date("YmdHis") .'z'. rand(0, date("is")); // 文件名
@@ -1182,7 +1182,7 @@ class Member extends BaseController
                 move_uploaded_file($_FILES["ID_card_reverse"]["tmp_name"], $path . $file_name1);
                 $ID_card_positive = $path . $file_name;
 				$ID_card_reverse = $path . $file_name1;
-                $upload_card_status = $this->user->updateMemberCard("", "","", $ID_card_positive, $ID_card_reverse);
+                $upload_card_status = $this->user->updateMemberCard("", "","", $ID_card_positive, $ID_card_reverse, $card_state);
             } else {
                 $this->error("请上传图片");
             }

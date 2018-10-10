@@ -1,0 +1,49 @@
+/*common style*/
+*,body{
+	padding: 0;
+	margin: 0;
+	font: normal 100% 'Microsoft Yahei', Arial, sans-serif;
+}
+html, body { width:100%; margin:0; padding:0; font-size: 12px;}
+body{background:#fff;min-width:320px;max-width:640px;margin:0 auto;}
+li{list-style:none}
+a:active,a:hover {outline: 0;text-decoration:none;}
+a, li, a:hover, a:active, a:focus {text-decoration:none;}
+a,input,button{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlight-color: transparent;outline: none;}
+.fl { float: left;}
+.fr { float: right;}
+/*清除浮动*/
+.cf:before,.cf:after{display:table;line-height:0;content:"";}
+.cf:after{clear:both;}
+*.cf{zoom:1;}
+.box {
+	width: 95%;
+	margin:20px auto 14px auto;
+}
+.box .title{
+	margin: 0 0 14px 8px;
+	background: url(../images/tixian.png)no-repeat left center;
+	height:18px;
+	padding-left:30px;
+	font-size:16px;
+	line-height:18px;
+}
+.myBagImg{
+	text-align: center;
+    margin: 0 auto;
+}
+.myBagImg a {
+	display:inline-block;
+	position:relative;
+}
+.myBagImg a img{
+	width:100%;
+}
+.myBagImg a .date{
+	color:#8B7D5C;
+	font-size:14px;
+	position: absolute;
+    top: 42%;
+    left: 21%;
+}
+

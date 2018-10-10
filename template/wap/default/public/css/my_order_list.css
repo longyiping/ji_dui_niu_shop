@@ -1,5 +1,5 @@
 .list-myorder li {
-	border-bottom: 1px solid #ccc;
+	border-bottom:none;
 }
 .list-myorder .div-button {
 	border-top: 0;
@@ -34,9 +34,9 @@
 	text-align: center;
 }
 .cf-container .cf-tab-item.select a {
-	border-bottom: 2px solid #FF6600;
+	border-bottom: 2px solid #F9396F;
 	padding-bottom: 0px;
-	color: #F15050;
+	color: #F9396F;
 }
 .cf-container .cur-cf-tab {
 	border-bottom: 2px solid #ff2741;

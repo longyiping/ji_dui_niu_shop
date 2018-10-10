@@ -990,4 +990,12 @@ class Login extends Controller
         }
         return $result;
     }
+    /*
+     * 忘记密码
+     * 
+     */
+    public function forgetPassword()
+    {
+        return view($this->style . '/login/forgetPassword');
+    }
 }

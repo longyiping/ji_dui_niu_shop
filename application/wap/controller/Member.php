@@ -1085,6 +1085,20 @@ class Member extends BaseController
         return view($this->style . "/Member/addMembers");
     }
     /**
+     * 卡的权益
+     */
+    public function myBagData()
+    {
+        return view($this->style . "/Member/myBagData");
+    }
+    /**
+     * 我的卡包
+     */
+    public function myBag()
+    {
+        return view($this->style . "/Member/myBag");
+    }
+    /**
      * 销售明细
      */
     public function salesDetails()

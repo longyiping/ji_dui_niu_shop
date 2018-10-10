@@ -1262,6 +1262,9 @@ class Member extends BaseController
 			}
 		}
 		$this->assign('totle', $totle);
+		//银行卡数
+        $account_list = $member->getMemberBankAccount();
+		$this->assign('account_tot', count($account_list));
         return view($this->style . "/Member/information");
     }
 

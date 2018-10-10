@@ -205,7 +205,7 @@ $(function(){
 	}
 	$('#submit').click(function(){
 //		bankcard() && userName() &&idCard()&&phone()&& code();
-		bankcard() && userName() &&idCard()&&phone()&&branch_bank_name();
+		bankcard() && userName()&& phone() && branch_bank_name();
 	})
 });
 var countdown=60; 

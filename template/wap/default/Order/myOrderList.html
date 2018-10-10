@@ -31,20 +31,15 @@
 		<div class="cf-container" data-reactid="2">
     		<div class="cf-edge" data-reactid="3"></div>
 			<ul class="cf-content" data-reactid="4">
-
-	    			<li class="cf-tab-item" data-index="1" data-reactid="7" statusid="all"><a href="javascript:GetDataList('all');" >全部</a></li>
-	    			<li class="cf-tab-item" data-index="1" data-reactid="7" statusid="0"><a href="javascript:GetDataList(0);" >待付款</a></li>
-					<li class="cf-tab-item" data-index="1" data-reactid="7" statusid="1"><a href="javascript:GetDataList(1);" >待发货</a></li>
-					<li class="cf-tab-item" data-index="1" data-reactid="7" statusid="2"><a href="javascript:GetDataList(2);" >待收货</a></li>
-					<li class="cf-tab-item" data-index="1" data-reactid="7" statusid="3"><a href="javascript:GetDataList(3);" >已收货</a></li>
-					<li class="cf-tab-item" data-index="1" data-reactid="7" statusid="4"><a href="javascript:GetDataList(4);" >退款/售后</a></li>
-				
+    			<li class="cf-tab-item" data-index="1" data-reactid="7" statusid="all"><a href="javascript:GetDataList('all');" >全部</a></li>
+    			<li class="cf-tab-item" data-index="1" data-reactid="7" statusid="0"><a href="javascript:GetDataList(0);" >待付款</a></li>
+				<li class="cf-tab-item" data-index="1" data-reactid="7" statusid="1"><a href="javascript:GetDataList(1);" >待发货</a></li>
+				<li class="cf-tab-item" data-index="1" data-reactid="7" statusid="2"><a href="javascript:GetDataList(2);" >待收货</a></li>
+				<li class="cf-tab-item" data-index="1" data-reactid="7" statusid="3"><a href="javascript:GetDataList(3);" >已收货</a></li>
+				<li class="cf-tab-item" data-index="1" data-reactid="7" statusid="4"><a href="javascript:GetDataList(4);" >退款/售后</a></li>
 	    	</ul>
 		</div>
 	</section>
-    	
-    	
-
 		<div class="tabs-content">
 			<div class="content active" id="list_content">
 			</div>
@@ -89,8 +84,8 @@
         			}else{
         				for(var i=0;i<data.length;i++){
 	        				var ordersitem=data[i];
-	        				datahtml+='<div class="list-myorder" style="margin-top:30px">';
-	        				datahtml+='<div class="ordernumber" style="height:auto;overflow:hidden;line-height:22px;"><span class="order-num" style="font-size: 12px;">'+ordersitem['order_no']+'</span><span class="order-date" style="font-size: 12px;">'+ordersitem['create_time']+'</span></div>';
+	        				datahtml+='<div class="list-myorder">';
+	        				datahtml+='<div class="ordernumber" style="border:none;height:auto;overflow:hidden;line-height:22px;"><span class="order-num" style="font-size: 12px;">'+ordersitem['order_no']+'</span><span class="order-date" style="font-size:14px;color:#F5386E;">'+ordersitem['status_name']+'</span></div>';
 	        				datahtml+='<ul class="ul-product">';
 	        				
 	        				for(var j=0;j<ordersitem['order_item_list'].length;j++){
@@ -103,12 +98,11 @@
 	        					datahtml+='<div class="text">';
 	        					datahtml+='<span class="pro-name" style="font-size: 12px;">'+goodsitem['goods_name']+'</span>';
 	        					
-	        					datahtml+='<div class="pro-pric" style="margin-top: 5px;"><span style="font-size: 12px;">价&nbsp;&nbsp;&nbsp;格:</span><b style="font-size:12px;font-weight:normal;">￥'+goodsitem['price']+'</b></div>';
-	        					
-	        					datahtml+='<div class="pro-pric" style="margin-top: 0px;"><span style="font-size: 12px;">规&nbsp;&nbsp;&nbsp;格:</span><b style="font-size:12px;font-weight:normal;">'+goodsitem['sku_name']+'</b></div>';
-	        					datahtml+='<div class="pro-pric" style="margin-top: 5px;"><span style="font-size: 12px;">数量:</span><b style="font-size:12px;font-weight:normal;">'+goodsitem['num']+'件</b></div>';
+	        					datahtml+='<div class="pro-pric" style="margin-top: 5px;text-align:right;"><span style="font-size: 12px;"></span><b style="font-size:16px;font-weight:normal;color:#404141">￥'+goodsitem['price']+'</b></div>';
+	        					datahtml+='<div class="pro-pric" style="margin-top: 5px;text-align:right;"><span style="font-size: 12px;"></span><b style="font-size:10px;font-weight:normal;margin-left:6px">X'+goodsitem['num']+'</b></div>';
+	        					datahtml+='<div class="pro-pric" style="margin-top: 0px;text-align:right;"><span style="font-size: 12px;"></span><b style="font-size:12px;font-weight:normal;color:#B2B2B2">'+goodsitem['sku_name']+'</b></div>';
 	        					datahtml+='</div></a>';
-	        					datahtml+='<div class="div-return">';
+	        					datahtml+='<div class="div-return" style="text-align:right;margin-top:10px">';
 	        					if(ordersitem['payment_type']==4){
 	        						if(ordersitem['is_refund']==1 && goodsitem['refund_status']==0 && ordersitem['order_status']==2){
 		        						datahtml+='<input type="button" onclick="window.location.href=\'APP_MAIN/Order/refundDetail?order_goods_id='+goodsitem['order_goods_id']+'\'" style="-webkit-border-radius:3px;-moz-border-radius:3px;-o-border-radius:3px;border-radius:3px;border:1px solid red;color:#F37872;background-color:white;font-size: 12px;padding:5px 10px 5px 10px;" value="退款/退货" />';
@@ -132,7 +126,7 @@
 	        				}
 							datahtml+='</ul>';
 							datahtml+='<div class="totle">';
-							datahtml+='<span class="status">'+ordersitem['status_name']+'</span>';
+//							datahtml+='<span class="status">'+ordersitem['status_name']+'</span>';
 							datahtml+='<span class="price">￥'+ordersitem['order_money']+'</span>';
 							datahtml+='<span class="pric-lable">总价</span>';
 							datahtml+='<span class="prc-num"></span></div>';
@@ -140,7 +134,11 @@
 							if(ordersitem['member_operation']!=''){
 								for(var x=0;x<ordersitem['member_operation'].length;x++){
 									operationitem=ordersitem['member_operation'][x];
-									datahtml+='<a href="javascript:void(0)" class="button [radius round] red" style="background-color: '+operationitem['color']+';border: 1px solid '+operationitem['color']+';" onclick="operation(\''+operationitem['no']+'\','+ordersitem['order_id']+')">'+operationitem['name']+'</a>';
+									if(operationitem['no'] == 'close'){
+										datahtml+='<a href="javascript:void(0)" class="button [radius round] red" style="border:1px solid #bbb;background:#fff;color:#333;" onclick="operation(\''+operationitem['no']+'\','+ordersitem['order_id']+')">取消订单</a>';
+									}else{
+										datahtml+='<a href="javascript:void(0)" class="button [radius round] red" style="background-color: '+operationitem['color']+';border: 1px solid '+operationitem['color']+';" onclick="operation(\''+operationitem['no']+'\','+ordersitem['order_id']+')">'+operationitem['name']+'</a>';
+									}
 								}
 							}
 							datahtml+='</div></div>';

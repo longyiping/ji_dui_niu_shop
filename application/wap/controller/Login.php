@@ -410,12 +410,13 @@ class Login extends Controller
             $mobile = isset($_POST['mobile']) ? $_POST['mobile'] : '';
 			$code= isset($_POST['code']) ? $_POST['code'] : '';
 			$pid=isset($_POST['pid']) ? $_POST['pid'] : 0;
-			//根据用户提交的推荐人的名称获取其id
+			//根据用户提交的推荐人的名称或电话获取其id
 			if(empty($pid)){
 				$path_pid='';
 			} else {
 				$user  = new User();
 				$user_data=$user->getUserInfoByUsername($pid);
+				if(empty($user_data)){$user_data=$user->getUserInfoByMobile($pid);}
 				if(empty($user_data)){
 					$path_pid='';
 				} else {
@@ -434,12 +435,11 @@ class Login extends Controller
 			if($code==$onerec['code'] && $difference<300)  //验证码5分钟内有效
 			{  //可以增加一个前端的-2004 的功能
 				$retval = $member->registerMember($user_name, $password, $email, $mobile, '', '', '', '', '',$pid, $path_pid);
+				return AjaxReturn($retval);
 			} else {
-				$retval = - 10;
+				return array('code'=>0,'message'=>'验证码无效');
 			}
             /*获取存储的验证码结束*/
-            
-            return AjaxReturn($retval);
         } else {
             $config = new Config();
             $instanceid = 0;

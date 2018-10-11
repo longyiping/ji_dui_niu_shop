@@ -45,7 +45,7 @@
 						type : "post",
 						url : "APP_MAIN/member/check_dynamic_code",
 						async : true,
-						data: { "vertification": $("#code").val()},
+						data: { "mobile_code": $("#code").val(),"mobile":$("#phone").val()},
 						success : function(data) {
 							if(data.code == -1){
 								$('.msg').html('验证码错误,请重新输入!').show();
@@ -54,14 +54,9 @@
 									$.ajax({
 										type: "post",
 										url: "APP_MAIN/member/sendbindcode",
-										data: {"mobile":$("#phone").val(),"vertification":$("#code").val(),"type":"mobile"},
+										data: {"mobile":$("#phone").val(),"type":"mobile"},
 										success: function(data){
-											if(data['code']== 0){
-												window.location.href="APP_MAIN/Member/information";	
-											}else{
-												$('.msg').html(data.message).show();
-												return false;
-											}
+											window.location.href="APP_MAIN/Member/information";
 										}
 									});
 								}else{   //修改手机

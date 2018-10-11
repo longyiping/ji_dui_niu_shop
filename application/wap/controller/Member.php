@@ -1211,9 +1211,8 @@ class Member extends BaseController
      */
     public function cellPhone()
     {
-    	
 	    $member = new MemberService();
-        $member_info = $member->getMemberDetail($this->instance_id);
+        $member_info = $member->getMemberDetail();
         $this->assign('member_info', $member_info);
         
         return view($this->style . "/Member/cellPhone");
@@ -1316,55 +1315,42 @@ class Member extends BaseController
      * @return number[]|string[]|string|mixed
      */
     function sendBindCode(){
-        if(request()->isAjax()){
-            $params['email'] = request()->post('email', '');
-            $params['mobile'] = request()->post('mobile','');
+            $email = request()->post('email', '');
+            $mobile = request()->post('mobile','');
             $type = request()->post("type",'');
-            $vertification = request()->post('vertification', '');
-            if ($this->login_verify_code["value"]["pc"] == 1) {
-                if (! captcha_check($vertification)) {
-                    $result = [
-                        'code' => -1,
-                        'message' => "验证码错误"
-                    ];
-                    return $result;
-                }else{
-                    $params['shop_id'] = 0;
-                    if($type == 'email'){
-                        $result = runhook('Notify', 'bindEmail', $params);
-                        Session::set('VerificationCode',$result['param']);
-                    }elseif($type == 'mobile'){
-                        $result = runhook('Notify', 'bindMobile', $params);
-                        Session::set('VerificationCode',$result['param']);
-                    }
-                }
-                return $result;
-            }else{
-                $params['shop_id'] = 0;
-                if($type == 'email'){
-                    $result = runhook('Notify', 'bindEmail', $params);
-                    Session::set('VerificationCode',$result['param']);
-                }elseif($type == 'mobile'){
-                    $result = runhook('Notify', 'bindMobile', $params);
-                    Session::set('VerificationCode',$result['param']);
-                }
-                return $result;
-            }
-        }
+            
+			if($type == 'email'){
+				$result = Db::table('sys_user')->where('uid',$this->uid)->update(['user_email' => $email]);
+			}elseif($type == 'mobile'){
+				$result = Db::table('sys_user')->where('uid',$this->uid)->update(['user_tel' => $mobile]);
+			}
+			return 1;
     }
     /**
      * 检侧动态验证码是否输入正确
      */
     public function check_dynamic_code(){
         if(request()->isAjax()){
-            $code = request()->post("vertification",'');
-            $verificationCode = Session::get("VerificationCode");
-            if($code != $verificationCode){
-                return $result = array(
+            $code = request()->post("mobile_code",'');
+			$mobile=request()->post("mobile",'');
+			/*获取存储的验证码并进行比较*/
+			$onerec=Db::table("ns_mobile_msgs")->where("mobile",$mobile)->order('id desc')->find();
+			$sendtime=strtotime($onerec['send_time']);
+			$difference=time()-$sendtime;
+			if($code==$onerec['code'] && $difference<300)  //验证码5分钟内有效
+			{  
+				return $result = array(
+                    "code" => 1,
+                    "message" => "动态验证码一致"
+                );
+			} else {
+				return $result = array(
                     "code" => -1,
                     "message" => "动态验证码不一致"
                 );
-            }
+			}
+            /*获取存储的验证码并比较结束*/
+            
         }
     }
     /**

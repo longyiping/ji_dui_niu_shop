@@ -21,7 +21,7 @@ use data\service\Member as MemberService;
 use data\service\Platform;
 use data\service\Config as Config;
 use think\Session;
-
+use think\Db;
 /**
  * 组件控制器
  * 创建时间：2017年2月7日 11:01:19
@@ -213,16 +213,25 @@ class Components extends BaseController
         $vertification = request()->post('vertification', '');
         $member = new MemberService();
         $is_bin_mobile = $member->memberIsMobile($mobile); // 判断手机号是否已被绑定
-     /*   if ($is_bin_mobile) {
+        if ($is_bin_mobile) {
             return array(
-                'code' => 0,
+                'code' => 1,
                 'message' => '该手机号已被绑定'
             );
-        } */
-        
-/*         $code = rand(100000, 999999);
-        $time = '60秒';
-        Session::set('mobileVerificationCode', $code);
+        }
+		
+		$send_num=empty(Session::get('send_num')) ? 0 : Session::get('send_num');
+        $code = rand(100000, 999999);
+		/*更换短信*/
+		if($send_num<=3){$smsinfo=luosimaoSmsSend($mobile,$code);Session::set('send_num', $send_num++);}
+		else {
+			return array(
+				'code' => 1,
+				'message' => '短信发送超过三次不能再发送'
+			);
+		}
+		/*更换短信结束*/
+		/*
         $sen = new Send();
         $result = $sen->sms([
             'param' => [
@@ -231,14 +240,20 @@ class Components extends BaseController
             ],
             'mobile' => $mobile,
             'template' => 'SMS_43210099'
-        ]);
-        if ($result !== true) {
-            return AjaxReturn(0);
-        }
-        return array(
-            'code' => 1,
-            'time' => $time
-        ); */
+        ]); */
+        if ($smsinfo == 'success') {
+			$status=Db::table("ns_mobile_msgs")->insert(array("mobile"=>$mobile,"msg"=>"【积兑商城】，验证码：".$code,"code"=>$code,"status"=>1));
+			return array(
+				'code' => 0,
+				'message' => '短信发送成功'
+			);
+        } else {
+			return array(
+				'code' => 1,
+				'message' => '短信发送失败'
+			);
+		}
+		/*
         if ($this->login_verify_code["value"]["pc"] == 1) {
             if (!captcha_check($vertification)) {
                 $result = [
@@ -272,11 +287,9 @@ class Components extends BaseController
                 $params["user_id"]=$this->uid;
                 $result = runhook('Notify', 'bindMobile', $params);
                 Session::set('mobileVerificationCode',$result['param']);
-            }
+            } 
             return $result;
-        }
-        
-        
+        } */
     }
 
     /**

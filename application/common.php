@@ -499,6 +499,24 @@ define('ORDER_COMPLETE_REFUND', -2);
             return false;
         }
     }
+	/*luosimao.com短信发送*/
+	function luosimaoSmsSend($mobile,$code){
+		require 'data/extend/sms.php';
+		//api key可在后台查看 短信->触发发送下面查看
+		$sms = new Sms( array('api_key' => '208d8d5e761455c573d01765573e730e' , 'use_ssl' => FALSE ) );
+
+		//send 单发接口，签名需在后台报备
+		$res = $sms->send( $mobile, '验证码：'.$code.'【积兑商城】');
+		if( $res ){
+			if( isset( $res['error'] ) &&  $res['error'] == 0 ){
+				return 'success';
+			}else{
+				return 'failed,code:'.$res['error'].',msg:'.$res['msg'];
+			}
+		}else{
+			return $sms->last_error();
+		}
+    }
     /**
      * 阿里大于短信发送
      * @param unknown $appkey

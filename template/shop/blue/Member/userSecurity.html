@@ -237,7 +237,7 @@
 						<label class="con_un">手机验证码：</label>
 						<input name="mobile_code" id="mobile_code" type="text" tabindex="2" placeholder="请输入手机验证码" class="text text_te" />
 						<input id="sendOutCode" name="code_mobile" type="button" value="获取手机验证码" class="code" />
-						<span class="error">不可为空!</span>
+						<span class="error">请输入验证码!</span>
 					</div>
 					{/if}
 					<div class="item">
@@ -252,55 +252,46 @@
 </div>
 <script type="text/javascript">
 //手机绑定
-function bindingMobile(){
+function bindingMobile(){ 
 	var mobile=$('#mobile').val();
 	var mobile_code=$('#mobile_code').val();
-	var vertification = $("#captcha").val();
+	//var vertification = $("#captcha").val();
 	
 	if(mobile==''){
 		$('#mobile').parent().children('.error').show();
 		return false;
 	}
 	$('#mobile').parent().children('.error').hide();
-	{if condition = "$login_verify_code['pc'] == 1"}
-		if(vertification == ''){
-			$("#captcha").trigger("focus");
-			$("#vertify").addClass("error").text("请输入验证码").show();
-			return false;
-		}
-		{if condition="$notice['noticeMobile'] neq 1"}
+
+	if(mobile_code == ''){
+		//$("#captcha").trigger("focus");
+		$('#mobile_code').parent().children('.error').show();
+		return false;
+	}
+	$('#mobile_code').parent().children('.error').hide();
+		
 			var result = '';
 			$.ajax({
 				type : "post",
 				url : "SHOP_MAIN/member/vertify",
-				data : {"vertification" : vertification},
+				data : {"vertification" : mobile_code,"mobile" : mobile},
 				async : false,
 				dataType:'json',
 				success : function(res){
 					if(res['code']== 1){
 						result = true;
 					}else{
-						$("#vertify").addClass("error").text("验证码错误").show();
+						$('#mobile_code').parent().children('.error').text("验证码错误").show();
 						result = false;
 					}
 					return result;
 				}
 			});
-			if(!result){
-				return false;
-			}
-		{/if}
-	{/if}
-	$("#vertify").hide();
-	
-	if(mobile_code==''){
-		$('#mobile_code').parent().children('.error').show();
-		return false;
-	}
-	$('#mobile_code').parent().children('.error').hide();
+			
+	//$("#vertify").hide();
 	$.ajax({
 		url: "SHOP_MAIN/member/modifymobile",
-		data: {"mobile": mobile,"mobile_code":mobile_code,"vertification":vertification},
+		data: {"mobile": mobile,"mobile_code":mobile_code},
 		type: "post",
 		success: function (res) {
 			if (res["code"] > 0) {
@@ -612,7 +603,7 @@ function updateEndTime() {
 }
 //发送手机验证码
 $(function(){
-	$('#sendOutCode').click(function(){
+	$('#sendOutCode').click(function(){ 
 		{if condition = "$login_verify_code['pc'] == 1"}
 			var vertification = $("#captcha").val();
 		{else /}
@@ -652,7 +643,12 @@ $(function(){
 				}
 			});
 
+<<<<<<< HEAD
+		}else if($(this).attr('name')=='code_email'){
+			//邮箱验证
+=======
 		}else if($(this).attr('name')=='code_email'){                          //邮箱验证
+>>>>>>> 8dfd51218b5a714187b451fd1b4db74ed79fd02e
 			var email = $('#email').val();
 			if(email == ''){
 				$('#email').parent().children('.error').text('邮箱不可为空').show();

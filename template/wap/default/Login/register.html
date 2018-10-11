@@ -19,8 +19,8 @@
 					<input type="text" name="pid" placeholder="请输入推荐人账号" class="fl nameInput" id="pid"/>
 				</div>
 				<div class="reksm cf">
-					<label class="fl">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称: </label>
-					<input type="text" name="name" placeholder="请输入昵称(非中文)" class="fl nameInput" id="userName"/>
+					<label class="fl">用户名: </label>
+					<input type="text" name="name" placeholder="请输入用户名" class="fl nameInput" id="userName"/>
 				</div>
 				<div class="reksm cf">
 					<label class="fl">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</label>
@@ -90,23 +90,29 @@
 			var mobile = /^1[3-9]\d{9}$/;
 			$('#submit').click(function(){
 				if($('#userName').val() == ''){
-					$('.msg').html('请填写您的昵称!').show();
+					$('.msg').html('请填写您的用户名!').show();
 					$("#userName").focus();
 				}else if($("#oldPwa").val() == ''){
 					$('.msg').html('请输入密码!').show();
 					$("#oldPwa").focus();
-				}else if($("#oldPwa").val().length < 6){
+				} else if($("#newsPwa").val() ==''){
+					$('.msg').html('请确认密码!').show();
+					$("#newsPwa").focus();
+				} else if($("#oldPwa").val().length < 6){
 					$('.msg').html('请输入6位密码!').show();
 					$("#oldPwa").val('');
 					$("#oldPwa").focus();
-				}else if($("#newsPwa").val() ==''){
-					$('.msg').html('请确认密码!').show();
-					$("#newsPwa").focus();
-				}else if($("#newsPwa").val() != $("#oldPwa").val()){
+				} else if($("#newsPwa").val() != $("#oldPwa").val()){
 					$('.msg').html('两次密码不一致,请重新输入!').show();
 					$("#newsPwa").val('');
 					$("#newsPwa").focus();
-				}else{
+				} else if($("#phone").val() == ''){
+					$('.msg').html('请输入手机号!').show();
+					$("#phone").focus();
+				} else if($("#code").val() == ''){
+					$('.msg').html('请输入验证码!').show();
+					$("#code").focus();
+				} else{
 					$.ajax({
 						type : "post",
 						url : "register",
@@ -114,7 +120,9 @@
 						data : {
 							"username" : $('#userName').val(),
 							"password" : $("#oldPwa").val(),
-							"pid" :$("#pid").val()
+							"pid" :$("#pid").val(),
+							"code" :$("#code").val(),
+							"mobile" :$("#phone").val(),
 						},
 						success : function(data) {
 							 if(data["code"] > 0 ){
@@ -153,27 +161,34 @@
 		
 		var countdown=60; 
 		function sendemail(){
-		    //var obj = $("#btn");
-		    var mobile=$('#phone').val();
-			
-			$.ajax({
+		    var obj = $("#btn");
+		    $.ajax({           //判断手机是否已经注册
 				type: "post",
-				url: "SHOP_MAIN/components/abcd",
-				data: {"mobile":mobile},
+				url: "APP_MAIN/login/mobile",
+				data: {"mobile":$("#phone").val()},
+				dataType:'json',
 				success: function(data){
-				  console.log(data);
-				/*
-					if(data.code == '0'){
-						settime(obj);
-					}else{
-						$('.msg').html(data.message).show();
-						//$(".verifyimg").attr("src",'{:captcha_src()}');
+					if(data){
+						$('.msg').html('该手机号已注册!').show();
 						return false;
+					}else{
+						$.ajax({
+							type: "post",
+							url: "APP_MAIN/Login/sendSmsRegisterCode",
+							data: {"mobile":$("#phone").val()},
+							success: function(data){
+								if(data.code == '0'){
+									settime(obj);
+								}else{
+									$('.msg').html(data.message).show();
+									//$(".verifyimg").attr("src",'{:captcha_src()}');
+									return false;
+								}
+							}
+						});
 					}
-					*/
-				}
+				} 
 			});
-					
 	    }
 		function settime(obj) { //发送验证码倒计时
 		    if(countdown == 0) { 

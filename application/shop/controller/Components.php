@@ -207,8 +207,6 @@ class Components extends BaseController
      * 
      * @return number
      */
-	public function abcd()
-    {  return 888;}
     public function mobileVerificationCode()
     {
         $mobile= isset($_POST['mobile']) ? $_POST['mobile'] : '';

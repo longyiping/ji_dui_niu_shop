@@ -153,34 +153,27 @@
 		
 		var countdown=60; 
 		function sendemail(){
-		    var obj = $("#btn");
-		    $.ajax({           //判断手机是否已经注册
+		    //var obj = $("#btn");
+		    var mobile=$('#phone').val();
+			
+			$.ajax({
 				type: "post",
-				url: "APP_MAIN/login/mobile",
-				data: {"mobile":$("#phone").val()},
-				dataType:'json',
+				url: "SHOP_MAIN/components/abcd",
+				data: {"mobile":mobile},
 				success: function(data){
-					if(data){
-						$('.msg').html('该手机号已注册!').show();
-						return false;
+				  console.log(data);
+				/*
+					if(data.code == '0'){
+						settime(obj);
 					}else{
-						$.ajax({
-							type: "post",
-							url: "APP_MAIN/Login/sendSmsRegisterCode",
-							data: {"mobile":$("#phone").val()},
-							success: function(data){
-								if(data.code == '0'){
-									settime(obj);
-								}else{
-									$('.msg').html(data.message).show();
-									//$(".verifyimg").attr("src",'{:captcha_src()}');
-									return false;
-								}
-							}
-						});
+						$('.msg').html(data.message).show();
+						//$(".verifyimg").attr("src",'{:captcha_src()}');
+						return false;
 					}
-				} 
+					*/
+				}
 			});
+					
 	    }
 		function settime(obj) { //发送验证码倒计时
 		    if(countdown == 0) { 

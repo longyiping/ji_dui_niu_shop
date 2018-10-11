@@ -28,6 +28,7 @@ use data\service\User;
 use data\service\Config;
 use think\Session;
 use think\Log;
+use think\Db;
 use data\model\NsMemberModel as NsMemberModel;
 \think\Loader::addNamespace('data', 'data/');
 
@@ -407,6 +408,7 @@ class Login extends Controller
             $password = isset($_POST['password']) ? $_POST['password'] : '';
             $email = isset($_POST['email']) ? $_POST['email'] : '';
             $mobile = isset($_POST['mobile']) ? $_POST['mobile'] : '';
+			$code= isset($_POST['code']) ? $_POST['code'] : '';
 			$pid=isset($_POST['pid']) ? $_POST['pid'] : 0;
 			//根据用户提交的推荐人的名称获取其id
 			if(empty($pid)){
@@ -425,16 +427,17 @@ class Login extends Controller
 				}
 				
 			}
-            $sendMobile = Session::get('sendMobile');
-            if (empty($mobile)) {
-                $retval = $member->registerMember($user_name, $password, $email, $mobile, '', '', '', '', '',$pid, $path_pid);
-            } else {
-                if ($sendMobile == $mobile) {
-                    $retval = $member->registerMember($user_name, $password, $email, $mobile, '', '', '', '', '',$pid, $path_pid);
-                } else {
-                    $retval = - 10;
-                }
-            }
+			/*获取存储的验证码*/
+			$onerec=Db::table("ns_mobile_msgs")->where("mobile",$mobile)->order('id desc')->find();
+			$sendtime=strtotime($onerec['send_time']);
+			$difference=time()-$sendtime;
+			if($code==$onerec['code'] && $difference<300)  //验证码5分钟内有效
+			{  //可以增加一个前端的-2004 的功能
+				$retval = $member->registerMember($user_name, $password, $email, $mobile, '', '', '', '', '',$pid, $path_pid);
+			} else {
+				$retval = - 10;
+			}
+            /*获取存储的验证码结束*/
             
             return AjaxReturn($retval);
         } else {
@@ -469,24 +472,6 @@ class Login extends Controller
             $this->assign("loginConfig", $loginConfig);
             return view($this->style . '/Login/register');
         }
-        /*
-         * if ($_POST) {
-         * $member = new Member();
-         * $user_name = isset($_POST['username']) ? $_POST['username'] : '';
-         * $password = isset($_POST['password']) ? $_POST['password'] : '';
-         * $email = isset($_POST['email']) ? $_POST['email'] : '';
-         * $mobile = isset($_POST['mobile']) ? $_POST['mobile'] : '';
-         * $retval = $member->registerMember($user_name, $password, $email, $mobile, '', '', '', '');
-         * if ($retval > 0) {
-         * $this->success("注册成功", "Login/index");
-         * } else {
-         * $res = AjaxReturn($retval);
-         * $this->success($res['message'], "Login/register");
-         *
-         * }
-         * }
-         * return view($this->style . '/Login/register');
-         */
     }
     // 判断手机号存在不
     public function mobile()
@@ -971,24 +956,30 @@ class Login extends Controller
      */
     public function sendSmsRegisterCode()
     {
-        $params['mobile'] = request()->post('mobile', '');
-        $vertification = request()->post('vertification', '');
-        
-        $web_config = new WebConfig();
-        $code_config = $web_config->getLoginVerifyCodeConfig($this->instance_id);
-        
-        if ($code_config["value"]['pc'] == 1 && ! captcha_check($vertification)) {
-            $result = [
-                'code' => - 1,
-                'message' => "验证码错误"
-            ];
+        $mobile = request()->post('mobile', '');
+        $send_num=empty(Session::get('send_num')) ? 0 : Session::get('send_num');
+        $code = rand(100000, 999999);
+		/*更换短信*/
+		if($send_num<=3){$smsinfo=luosimaoSmsSend($mobile,$code);Session::set('send_num', $send_num++);}
+		else {
+			return array(
+				'code' => 1,
+				'message' => '短信发送超过三次不能再发送'
+			);
+		}
+		/*更换短信结束*/
+        if ($smsinfo == 'success') {
+			$status=Db::table("ns_mobile_msgs")->insert(array("mobile"=>$mobile,"msg"=>"【积兑商城】，验证码：".$code,"code"=>$code,"status"=>1));
+			return array(
+				'code' => 0,
+				'message' => '短信发送成功'
+			);
         } else {
-            $params['shop_id'] = 0;
-            $result = runhook('Notify', 'registBefor', $params);
-            Session::set('mobileVerificationCode', $result['param']);
-            Session::set('sendMobile', $params['mobile']);
-        }
-        return $result;
+			return array(
+				'code' => 1,
+				'message' => '短信发送失败'
+			);
+		}
     }
     /*
      * 忘记密码

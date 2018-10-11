@@ -109,6 +109,10 @@
 				} else if($("#phone").val() == ''){
 					$('.msg').html('请输入手机号!').show();
 					$("#phone").focus();
+				}else if(!mobile.test($("#phone").val())){
+					$('.msg').html('请填写有效的手机号!').show();
+					$("#phone").val('');
+					$("#phone").focus();
 				} else if($("#code").val() == ''){
 					$('.msg').html('请输入验证码!').show();
 					$("#code").focus();
@@ -162,33 +166,43 @@
 		var countdown=60; 
 		function sendemail(){
 		    var obj = $("#btn");
-		    $.ajax({           //判断手机是否已经注册
-				type: "post",
-				url: "APP_MAIN/login/mobile",
-				data: {"mobile":$("#phone").val()},
-				dataType:'json',
-				success: function(data){
-					if(data){
-						$('.msg').html('该手机号已注册!').show();
-						return false;
-					}else{
-						$.ajax({
-							type: "post",
-							url: "APP_MAIN/Login/sendSmsRegisterCode",
-							data: {"mobile":$("#phone").val()},
-							success: function(data){
-								if(data.code == '0'){
-									settime(obj);
-								}else{
-									$('.msg').html(data.message).show();
-									//$(".verifyimg").attr("src",'{:captcha_src()}');
-									return false;
+		    var mobile = /^1[3-9]\d{9}$/;
+		     if($("#phone").val() == ''){
+				$('.msg').html('请填写您的手机号!').show();
+				$("#phone").focus();
+			}else if(!mobile.test($("#phone").val())){
+				$('.msg').html('请填写有效的手机号!').show();
+				$("#phone").val('');
+				$("#phone").focus();
+			}else{
+			    $.ajax({           //判断手机是否已经注册
+					type: "post",
+					url: "APP_MAIN/login/mobile",
+					data: {"mobile":$("#phone").val()},
+					dataType:'json',
+					success: function(data){
+						if(data){
+							$('.msg').html('该手机号已注册!').show();
+							return false;
+						}else{
+							$.ajax({
+								type: "post",
+								url: "APP_MAIN/Login/sendSmsRegisterCode",
+								data: {"mobile":$("#phone").val()},
+								success: function(data){
+									if(data.code == '0'){
+										settime(obj);
+									}else{
+										$('.msg').html(data.message).show();
+										//$(".verifyimg").attr("src",'{:captcha_src()}');
+										return false;
+									}
 								}
-							}
-						});
-					}
-				} 
-			});
+							});
+						}
+					} 
+				});
+			}
 	    }
 		function settime(obj) { //发送验证码倒计时
 		    if(countdown == 0) { 

@@ -1382,4 +1382,31 @@ class Member extends BaseController
             }
         }
     }
+    /**
+     * 设置用户支付密码
+     */
+    public function setUserPaymentPassword()
+    {
+        if (request()->isAjax()) {
+            $uid = $this->uid;
+            $payment_password = request()->post("payment_password", '');
+            $member = new MemberService();
+            $res = $member->setUserPaymentPassword($uid, $payment_password);
+            return AjaxReturn($res);
+        }
+    }
+    /**
+     * 修改用户支付密码
+     */
+    public function updateUserPaymentPassword()
+    {
+        if (request()->isAjax()) {
+            $uid = $this->uid;
+            $old_payment_password = request()->post("old_payment_password", '');
+            $new_payment_password = request()->post("new_payment_password", '');
+            $member = new MemberService();
+            $res = $member->updateUserPaymentPassword($uid, $old_payment_password, $new_payment_password);
+            return AjaxReturn($res);
+        }
+    }
 }

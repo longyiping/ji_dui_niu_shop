@@ -153,7 +153,7 @@ class Login extends Controller
                 if (! empty($_SESSION['login_pre_url'])) {
                     $this->redirect($_SESSION['login_pre_url']);
                 } else
-                    $this->redirect("Member/index");
+                    $this->redirect("index/index");
             }
         }
     }
@@ -997,5 +997,41 @@ class Login extends Controller
     public function forgetPassword()
     {
         return view($this->style . '/login/forgetPassword');
+    }
+    /**
+     * 找回密码密码重置
+     *
+     * @return unknown[]
+     */
+    public function setNewPasswordByEmailOrmobile()
+    {
+        $userInfo = isset($_POST['userInfo']) ? $_POST['userInfo'] : '';
+        $password = isset($_POST['password']) ? $_POST['password'] : '';
+        $type = isset($_POST['type']) ? $_POST['type'] : '';
+        if ($type == "email") {
+            $codeEmail = Session::get("codeEmail");
+            if ($userInfo != $codeEmail) {
+                return $retval = array(
+                    "code" => - 1,
+                    "message" => "该邮箱与验证邮箱不符"
+                );
+            } else {
+                $res = $this->user->updateUserPasswordByEmail($userInfo, $password);
+                Session::delete("codeEmail");
+            }
+        } else 
+            if ($type == "mobile") {
+                $codeMobile = Session::get("codeMobile");
+                if ($userInfo != $codeMobile) {
+                    return $retval = array(
+                        "code" => - 1,
+                        "message" => "该手机号与验证手机不符"
+                    );
+                } else {
+                    $res = $this->user->updateUserPasswordByMobile($userInfo, $password);
+                    Session::delete("codeMobile");
+                }
+            }
+        return AjaxReturn($res);
     }
 }

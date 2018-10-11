@@ -6,6 +6,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/ >
 		<link rel="stylesheet" href="__TEMP__/{$style}/public/css/accountlist.css" />
 		<script type="text/javascript" src="__TEMP__/{$style}/public/js/jquery.min.js"></script>
+		<script>
+			var addAccount = 'APP_MAIN/member/addAccount';
+			var URL = 'APP_MAIN/member/accountlist'
+		</script>
 		<script type="text/javascript" src="__TEMP__/{$style}/public/js/addaccount.js" ></script>
 		<title>我的银行卡</title>
 	</head>
@@ -22,7 +26,7 @@
 				</div>
 				<div class="mont">
 					<label><font>*</font>证件类型</label>
-					<input name="" type="text" placeholder="" value="身份证" readonly="readonly"/>
+					<input name="card_type" type="text" placeholder="" value="身份证" id="card_type" readonly="readonly"/>
 				</div>
 				<div class="mont">
 					<label><font>*</font>证件号码</label>

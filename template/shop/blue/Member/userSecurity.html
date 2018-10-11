@@ -605,9 +605,9 @@ function updateEndTime() {
 $(function(){
 	$('#sendOutCode').click(function(){ 
 		{if condition = "$login_verify_code['pc'] == 1"}
-		var vertification = $("#captcha").val();
+			var vertification = $("#captcha").val();
 		{else /}
-		var vertification = '';
+			var vertification = '';
 		{/if}
 		if($(this).attr('name')=='code_mobile'){
 			var mobile=$('#mobile').val();
@@ -643,8 +643,12 @@ $(function(){
 				}
 			});
 
+<<<<<<< HEAD
 		}else if($(this).attr('name')=='code_email'){
 			//邮箱验证
+=======
+		}else if($(this).attr('name')=='code_email'){                          //邮箱验证
+>>>>>>> 8dfd51218b5a714187b451fd1b4db74ed79fd02e
 			var email = $('#email').val();
 			if(email == ''){
 				$('#email').parent().children('.error').text('邮箱不可为空').show();

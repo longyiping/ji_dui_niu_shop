@@ -684,11 +684,13 @@ class Member extends BaseController
             $member = new MemberService();
             $uid = $this->uid;
             $realname = isset($_POST['realname']) ? $_POST['realname'] : '';
+			$card_type = isset($_POST['$card_type']) ? $_POST['$card_type'] : '';
+            $card_num = isset($_POST['card_num']) ? $_POST['card_num'] : '';
             $mobile = isset($_POST['mobile']) ? $_POST['mobile'] : '';
             $bank_type = isset($_POST['bank_type']) ? $_POST['bank_type'] : '1';
             $account_number = isset($_POST['account_number']) ? $_POST['account_number'] : '';
             $branch_bank_name = isset($_POST['branch_bank_name']) ? $_POST['branch_bank_name'] : '';
-            $retval = $member->addMemberBankAccount($uid, $bank_type, $branch_bank_name, $realname, $account_number, $mobile);
+            $retval = $member->addMemberBankAccount($uid, $bank_type, $branch_bank_name, $realname,$card_type,$card_num, $account_number, $mobile);
             return AjaxReturn($retval);
         } else {
             return view($this->style . "/Member/addAccount");
@@ -1157,6 +1159,7 @@ class Member extends BaseController
     	$member = new MemberService();
         $member_info = $member->getMemberDetail();
         $this->assign('member_info', $member_info);
+		$authentication_time = date("Y-m-d H:i:s",time());
 		$update_info_status = ""; // 修改信息状态 
         $upload_card_status = ""; //上传身份证状态 
         if (isset($_POST["submit"])) {
@@ -1377,6 +1380,33 @@ class Member extends BaseController
                 ];
                 return $result;
             }
+        }
+    }
+    /**
+     * 设置用户支付密码
+     */
+    public function setUserPaymentPassword()
+    {
+        if (request()->isAjax()) {
+            $uid = $this->uid;
+            $payment_password = request()->post("payment_password", '');
+            $member = new MemberService();
+            $res = $member->setUserPaymentPassword($uid, $payment_password);
+            return AjaxReturn($res);
+        }
+    }
+    /**
+     * 修改用户支付密码
+     */
+    public function updateUserPaymentPassword()
+    {
+        if (request()->isAjax()) {
+            $uid = $this->uid;
+            $old_payment_password = request()->post("old_payment_password", '');
+            $new_payment_password = request()->post("new_payment_password", '');
+            $member = new MemberService();
+            $res = $member->updateUserPaymentPassword($uid, $old_payment_password, $new_payment_password);
+            return AjaxReturn($res);
         }
     }
 }

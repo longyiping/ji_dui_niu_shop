@@ -172,6 +172,7 @@ $(function(){
 	}
 	function branch_bank_name(){
 		var code = $('#branch_bank_name').val();
+		var shop_id = $('#shop_id').val()
 		var isValid = true;
 		if(code == ''){
 			$('.msg').html('请填写支行信息!').show();
@@ -180,10 +181,12 @@ $(function(){
 		}else{
 			$.ajax({
 				type : "post",
-				url : "APP_MAIN/member/addaccount",
+				url : "addAccount",
 				dataType : "json",
 				data : {
 					"realname":$('#userName').val(),
+					"card_type":$('#card_type').val(),
+					"card_num":$('#userCard').val(),
 					"mobile":$('#phone').val(),
 					"bank_type":$('#bank_type').val(),
 					"account_number":$('#bank').val(),
@@ -193,7 +196,7 @@ $(function(){
 					//alert(JSON.stringify(data));
 					if(data['code']>1){
 						$('.msg').html("添加成功").show();
-						window.location.href = "APP_MAIN/member/accountlist?shop_id="+shop_id;
+						window.location.href = URL+"?shop_id="+shop_id;
 					}else{
 						$('.msg').html("添加失败").show();
 					}
@@ -205,7 +208,7 @@ $(function(){
 	}
 	$('#submit').click(function(){
 //		bankcard() && userName() &&idCard()&&phone()&& code();
-		bankcard() && userName()&& phone() && branch_bank_name();
+		bankcard() && userName() && idCard() && phone() && branch_bank_name();
 	})
 });
 var countdown=60; 

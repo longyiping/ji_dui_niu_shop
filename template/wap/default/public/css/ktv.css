@@ -416,6 +416,11 @@ a,li{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlig
 	border-top:1px solid #F5F6F5;
 	z-index:10;
 }
+@media only screen and (max-width: 375px) {
+	.shops{
+		margin:10px 14px 80px 14px;
+	}
+}
 .fixed ul >li:last-child{
 	border-right:none;
 }

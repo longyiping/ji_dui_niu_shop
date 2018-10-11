@@ -67,6 +67,15 @@ class User extends BaseService implements IUser
          
         return $res;
     }
+	/**
+     * 根据手机号码获取用户信息
+     */
+    public function getUserInfoByMobile($mobile)
+    {
+        $res = $this->user->getInfo(['user_tel'=>$mobile],'*');
+         
+        return $res;
+    }
     /**
      * 根据用户名修改密码
      */

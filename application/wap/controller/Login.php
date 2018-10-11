@@ -416,6 +416,7 @@ class Login extends Controller
 			} else {
 				$user  = new User();
 				$user_data=$user->getUserInfoByUsername($pid);
+				if(empty($user_data)){$user_data=$user->getUserInfoByMobile($pid);}
 				if(empty($user_data)){
 					$path_pid='';
 				} else {

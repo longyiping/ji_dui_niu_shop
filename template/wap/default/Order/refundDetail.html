@@ -132,7 +132,7 @@ a.button{display:block;width:80%;margin:30px auto 0;text-align:center;background
 				<label>退款说明：</label>
 			</div>
 		</div>
-		<textarea rows="5" id="description" style="padding:5px 15px;"></textarea>
+		<textarea rows="5" id="description"></textarea>
 		<a class="button" href="javascript:void(0)" onclick="btnSave()">提交退款申请</a>
 	</div>
 	{elseif condition="$detail.refund_status eq -3" /}
@@ -416,4 +416,4 @@ a.button{display:block;width:80%;margin:30px auto 0;text-align:center;background
             onBridgeReady();
         }*/
     </script>
-{/block}
+{/block}{block name="bottom"} {/block}

@@ -55,14 +55,14 @@ article button{
 	<h3>付款失败</h3>
 	<p style="color:#FF3C3C;">订单号{$out_trade_no}付款失败！</p>
 	{/if}
-	<button onclick="enterOrderList()">进入会员中心</button>
+	<button onclick="enterOrderList()">进入订单列表</button>
 {/if}
 </article>
 <script>
 function enterOrderList(){
 	if($(window).width()<768){
 		//手机端
-		location.href = 'APP_MAIN/member';
+		location.href = 'APP_MAIN/Order/myOrderList';
 	}else{
 		//PC端
 		location.href = 'SHOP_MAIN/member';

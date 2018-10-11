@@ -105,16 +105,16 @@
 	        					datahtml+='<div class="div-return" style="text-align:right;margin-top:10px">';
 	        					if(ordersitem['payment_type']==4){
 	        						if(ordersitem['is_refund']==1 && goodsitem['refund_status']==0 && ordersitem['order_status']==2){
-		        						datahtml+='<input type="button" onclick="window.location.href=\'APP_MAIN/Order/refundDetail?order_goods_id='+goodsitem['order_goods_id']+'\'" style="-webkit-border-radius:3px;-moz-border-radius:3px;-o-border-radius:3px;border-radius:3px;border:1px solid red;color:#F37872;background-color:white;font-size: 12px;padding:5px 10px 5px 10px;" value="退款/退货" />';
+		        						datahtml+='<input type="button" onclick="window.location.href=\'APP_MAIN/Order/refundDetail?order_goods_id='+goodsitem['order_goods_id']+'\'" style="-webkit-border-radius:3px;-moz-border-radius:3px;-o-border-radius:3px;border-radius:3px;border:1px solid red;color:#F37872;background:#fff;font-size: 12px;padding:5px 10px 5px 10px;" value="退款/退货" />';
 	        						}
 	        					}else{
 	        						if(ordersitem['is_refund']==1 && goodsitem['refund_status']==0){
-		        						datahtml+='<input type="button" onclick="window.location.href=\'APP_MAIN/Order/refundDetail?order_goods_id='+goodsitem['order_goods_id']+'\'" style="-webkit-border-radius:3px;-moz-border-radius:3px;-o-border-radius:3px;border-radius:3px;border:1px solid red;color:#F37872;background-color:white;font-size: 12px;padding:5px 10px 5px 10px;" value="退款/退货" />';
+		        						datahtml+='<input type="button" onclick="window.location.href=\'APP_MAIN/Order/refundDetail?order_goods_id='+goodsitem['order_goods_id']+'\'" style="-webkit-border-radius:3px;-moz-border-radius:3px;-o-border-radius:3px;border-radius:3px;border:1px solid red;color:#F37872;background:#fff;font-size: 12px;padding:5px 10px 5px 10px;" value="退款/退货" />';
 		        					}
 	        					}
 	        					
 	        					if(goodsitem['refund_status']!=0){
-	        						datahtml+='<input type="button" onclick="window.location.href=\'APP_MAIN/Order/refundDetail?order_goods_id='+goodsitem['order_goods_id']+'\'" style="-webkit-border-radius:3px;-moz-border-radius:3px;-o-border-radius:3px;border-radius:3px;border:1px solid red;color:#F37872;background-color:white;font-size: 12px;padding:5px 10px 5px 10px;" value="'+goodsitem['status_name']+'" />';
+	        						datahtml+='<input type="button" onclick="window.location.href=\'APP_MAIN/Order/refundDetail?order_goods_id='+goodsitem['order_goods_id']+'\'" style="-webkit-border-radius:3px;-moz-border-radius:3px;-o-border-radius:3px;border-radius:3px;border:1px solid red;color:#F37872;background:#fff;font-size: 12px;padding:5px 10px 5px 10px;" value="'+goodsitem['status_name']+'" />';
 	        					}
 	        					
 	        					datahtml+='</div>';

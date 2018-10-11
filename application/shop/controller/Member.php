@@ -36,6 +36,7 @@ use data\service\promotion\GoodsExpress as GoodsExpressService;
 use data\service\Express;
 use data\service\WebSite;
 use data\model\NsPointConfigModel;
+use think\Db;
 
 /**
  * 会员控制器
@@ -1583,19 +1584,9 @@ class Member extends BaseController
             $mobile = isset($_POST['mobile']) ? $_POST['mobile'] : '';
             $mobile_code = isset($_POST['mobile_code']) ? $_POST['mobile_code'] : '';
             if ($this->notice['noticeMobile'] == 1) {
-                $verification_code = Session::get('mobileVerificationCode');
-                if ($mobile_code == $verification_code && ! empty($verification_code)) {
                     $member = new MemberService();
                     $retval = $member->modifyMobile($uid, $mobile);
-                    if ($retval == 1)
-                        Session::delete('mobileVerificationCode');
                     return AjaxReturn($retval);
-                } else {
-                    return array(
-                        'code' => 0,
-                        'message' => '手机验证码输入错误'
-                    );
-                }
             } else {
                 // 获取手机是否被绑定
                 $member = new MemberService();
@@ -1768,15 +1759,21 @@ class Member extends BaseController
     public function vertify()
     {
         $vertification = $_POST['vertification'];
-        if (! captcha_check($vertification)) {
-            $retval = [
-                'code' => 0,
-                'message' => "验证码错误"
-            ];
-        } else {
+		$mobile = $_POST['mobile'];
+        //if (! captcha_check($vertification)) 
+		$onerec=Db::table("ns_mobile_msgs")->where("mobile",$mobile)->order('id desc')->find();
+		$sendtime=strtotime($onerec['send_time']);
+		$difference=time()-$sendtime;
+		if($vertification==$onerec['code'] && $difference<300)  //验证码5分钟内有效
+		{
             $retval = [
                 'code' => 1,
                 'message' => "验证码正确"
+            ];
+        } else {
+            $retval = [
+                'code' => 0,
+                'message' => "验证码错误"
             ];
         }
         return $retval;

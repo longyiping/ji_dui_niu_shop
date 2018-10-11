@@ -24,11 +24,13 @@ a,input,button{border: none;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-t
 	color:#fff;
 	font-size:14px;
 	padding-left:20px;
+	text-align: center;
 }
 .head .money{
 	color:#fff;
 	font-size:36px;
-	padding:24px 0 20px 20px;
+	padding:8px 0 20px 20px;
+	text-align: center;
 }
 .head .J_forward{
 	background: rgba(255,255,255,.5);

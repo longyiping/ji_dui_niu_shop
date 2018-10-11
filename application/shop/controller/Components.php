@@ -210,7 +210,7 @@ class Components extends BaseController
 	public function abcd()
     {  return 888;}
     public function mobileVerificationCode()
-    {  return 888;
+    {
         $mobile= isset($_POST['mobile']) ? $_POST['mobile'] : '';
         $member = new MemberService();
         $is_bin_mobile = $member->memberIsMobile($mobile); // 判断手机号是否已被绑定

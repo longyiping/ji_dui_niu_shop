@@ -1057,19 +1057,20 @@ class Member extends BaseController
     public function sales()
     {
 		$nsmember = new NsMemberModel();
-		$team=$nsmember->where("path_pid","like","%#".$this->uid."%")->select();
+		$team=$nsmember->where('path_pid','like','%#'.$this->uid.'#%')->whereOr('pid',$this->uid)->select();
 		$tot_mem=0;$tot_jingli=0;$tot_zongjian=0;
 		$zhi_mem=0;$zhi_jingli=0;$zhi_zongjian=0;
 		$cong_mem=0;$cong_jingli=0;$cong_zongjian=0;
 		foreach($team as $key=>$val){
-			$once=explode("#".$this->uid,$val['path_pid']);
-			if(substr_count($once[1],"#")<2){
-				if(substr_count($once[1],"#")==1){
-					if($val['grade']==2){$cong_jingli++;} elseif($val['grade']==5){$cong_zongjian++;} else {$cong_mem++;}
-				} else {
-					if($val['grade']==2){$zhi_jingli++;} elseif($val['grade']==5){$zhi_zongjian++;} else {$zhi_mem++;}
-				}
+			if($val['pid']==$this->uid){
+				if($val['grade']==2){$zhi_jingli++;} elseif($val['grade']==5){$zhi_zongjian++;} else {$zhi_mem++;}
 				if($val['grade']==2){$tot_jingli++;} elseif($val['grade']==5){$tot_zongjian++;} else {$tot_mem++;}
+			} else {
+				$once=explode('#'.$this->uid.'#',$val['path_pid']);
+				if(substr_count($once[1],'#')==0){
+					if($val['grade']==2){$cong_jingli++;} elseif($val['grade']==5){$cong_zongjian++;} else {$cong_mem++;}
+					if($val['grade']==2){$tot_jingli++;} elseif($val['grade']==5){$tot_zongjian++;} else {$tot_mem++;}
+				}
 			}
 		}
 		$commission=Db::table('ns_member_account_records')->where(['uid'=>$this->uid,'account_type'=>2,'from_type'=>15])->sum('number');
@@ -1106,16 +1107,16 @@ class Member extends BaseController
     public function salesDetails()
     {
 		$nsmember = new NsMemberModel();
-		$team=$nsmember->where("path_pid","like","%#".$this->uid."%")->select();
+		$team=$nsmember->where('path_pid','like','%#'.$this->uid.'#%')->whereOr('pid',$this->uid)->select();
 		$zhi_team_id=array();
 		$cong_team_id=array();
 		foreach($team as $key=>$val){
-			$once=explode("#".$this->uid,$val['path_pid']);
-			if(substr_count($once[1],"#")<2){
-				if(substr_count($once[1],"#")==1){
+			if($val['pid']==$this->uid){
+				$zhi_team_id[]=$val['uid'];
+			} else {
+				$once=explode('#'.$this->uid.'#',$val['path_pid']);
+				if(substr_count($once[1],'#')==0){
 					$cong_team_id[]=$val['uid'];
-				} else {
-					$zhi_team_id[]=$val['uid'];
 				}
 			}
 		}

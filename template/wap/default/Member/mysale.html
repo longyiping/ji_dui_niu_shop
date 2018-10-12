@@ -14,11 +14,11 @@
 		<div class="header">
 			<div class="userId cf">
 				<div class="portrait fl">
-					{if condition="$member_img neq '' and $member_img neq '0'"}
-						<img src="__UPLOAD__/{$member_img}" />
+					{empty name="$member_info.user_info.user_headimg"}
+						<img src="__TEMP__/{$style}/public/images/member_default.png" />
 					{else /}
-						<img src="__TEMP__/{$style}/public/images/detault_team_logo.png" />
-					{/if}
+						<img src="__UPLOAD__/{$member_info.user_info.user_headimg}" />
+					{/empty}
 				</div>
 				<div class="nickname fl">
 					<div class="J_nickname">{$member_info.user_info.user_name}</div>

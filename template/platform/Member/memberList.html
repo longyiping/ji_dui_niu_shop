@@ -419,7 +419,7 @@ $(function(){
 						}else{
 							html += '<td class="tal">' + data["data"][i]["level_name"] + '</td>';
 						}
-						html += '<td class="tal">' + data["data"][i]["point"] + '</td>';
+						html += '<td class="tal">' + data["data"][i]["point"].point + '</td>';
 						html += '<td class="tal">'+'¥'+ data["data"][i]["balance"] +'</td>';
 						html += '<td class="tal">' +'注册时间 : '+ data["data"][i]["reg_time"] +'<br>'+'最后登录 : '+ data["data"][i]["current_login_time"]+'</td>';
 						html += data["data"][i]["user_status"] == 0 ? '<td style="color:red;">锁定</td>' : '<td style="color:green;">正常</td>';

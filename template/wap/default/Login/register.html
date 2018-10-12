@@ -13,7 +13,7 @@
 			<span id="refereeNum">
 				<div class="referee">注册会员</div>
 			</span>
-			<div class="register">
+			<div class="register cf">
 				<div class="reksm cf">
 					<label class="fl">推&nbsp;&nbsp;荐&nbsp;&nbsp;人: </label>
 					<input type="text" name="pid" placeholder="推荐人账号/手机号" class="fl nameInput" id="pid"/>
@@ -103,13 +103,13 @@
 				}else if($("#oldPwa").val() == ''){
 					$('.msg').html('请输入密码!').show();
 					$("#oldPwa").focus();
-				}else if($("#newsPwa").val() ==''){
-					$('.msg').html('请确认密码!').show();
-					$("#newsPwa").focus();
 				}else if($("#oldPwa").val().length < 6){
 					$('.msg').html('请输入6位密码!').show();
 					$("#oldPwa").val('');
 					$("#oldPwa").focus();
+				}else if($("#newsPwa").val() ==''){
+					$('.msg').html('请确认密码!').show();
+					$("#newsPwa").focus();
 				}else if($("#newsPwa").val() != $("#oldPwa").val()){
 					$('.msg').html('两次密码不一致,请重新输入!').show();
 					$("#newsPwa").val('');

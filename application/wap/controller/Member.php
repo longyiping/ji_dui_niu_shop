@@ -1113,7 +1113,6 @@ class Member extends BaseController
 			$once=explode("#".$this->uid,$val['path_pid']);
 			if(substr_count($once[1],"#")<2){
 				if(substr_count($once[1],"#")==1){
-					
 					$cong_team_id[]=$val['uid'];
 				} else {
 					$zhi_team_id[]=$val['uid'];
@@ -1121,7 +1120,7 @@ class Member extends BaseController
 			}
 		}
 		//查询对应的进行过提成的订单
-		if($_GET['type']==2){    //1是直属团队
+		if($_GET['type']==2){    //2指从属团队；1是直属团队
 			if(empty($cong_team_id)){ $extract_orders=array(); } else {
 				$extract_orders=Db::table('ns_order')->where(['is_extract'=>1,'buyer_id'=>array('in',$cong_team_id)])->select();
 			}
@@ -1259,12 +1258,15 @@ class Member extends BaseController
 		$this->assign('real_num1', $real_num1);
 		
 		//获取团队的人数
-		$result=Db::table("ns_member")->where('path_pid','like','%#'.$member_info['uid'].'%')->select();
+		$result=Db::table("ns_member")->where('path_pid','like','%#'.$member_info['uid'].'#%')->whereOr('pid',$member_info['uid'])->select();
 		$totle = 0;
 		foreach($result as $key=>$val){
-			$once=explode('#'.$member_info['uid'],$val['path_pid']);
-			if(substr_count($once[1],'#')<2){
-				$totle++;
+			if($val['pid']==$member_info['uid']){ $totle++; } 
+			else {
+				$once=explode('#'.$member_info['uid'].'#',$val['path_pid']);
+				if(substr_count($once[1],'#')==0){
+					$totle++;
+				}
 			}
 		}
 		$this->assign('totle', $totle);

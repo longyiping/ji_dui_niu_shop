@@ -13,28 +13,61 @@
 		<div class="box">
 			<div class="title">卡</div>
 			<div class="myBag">
+				{if condition="$res.goods_id eq 396"}
 				<div class="myBagImg">
 					<a href="APP_MAIN/Member/myBagData?price=298"><img src="__TEMP__/{$style}/public/images/default/-s-card_gold.png"/></a>
 				</div>
+				{elseif condition="$res.goods_id eq 397"}
 				<div class="myBagImg">
 					<a href="APP_MAIN/Member/myBagData?price=1680">
 						<img src="__TEMP__/{$style}/public/images/default/-s-bojin.png"/>
-						<div class="date">2019-9-30号到期</div> 
+						<div class="date">{$time1}号到期</div> 
 					</a>
 				</div>
+				{elseif condition="$res.goods_id eq 398"}
 				<div class="myBagImg">
 					<a href="APP_MAIN/Member/myBagData?price=2980">
 						<img src="__TEMP__/{$style}/public/images/default/zuanshi_bg.png"/>
-						<div class="date">2019-9-30号到期</div> 
+						<div class="date">{$time1}号到期</div> 
 					</a>
 				</div>
+				{elseif condition="$res.goods_id eq 399"}
 				<div class="myBagImg">
 					<a href="APP_MAIN/Member/myBagData?price=12800">
 						<img src="__TEMP__/{$style}/public/images/default/super_bg.png"/>
-						<div class="date">2019-9-30号到期</div> 
+						<div class="date">{$time1}号到期</div> 
 					</a>
 				</div>
+				{/if}
 			</div>
 		</div>
 	</body>
+	<script>
+		$(function(){
+			var time ='{$time1}' ;
+			var myDate = new Date();
+			var year=myDate.getFullYear(); //获取当前年份
+			var month=myDate.getMonth()+1; //获取当前月份   
+			var strDate=myDate.getDate(); //获取当前日   
+			if (month >= 1 && month <= 9) {
+	            month = "0" + month;
+	        }
+	        if (strDate >= 0 && strDate <= 9) {
+	            strDate = "0" + strDate;
+	        }
+	        var b = year +'-'+month+'-'+strDate;             //当前时间
+			for(var i=0;i<$('.myBagImg').length;i++){
+				var days = daysBetween(b,time);  
+		        function daysBetween(sDate1,sDate2){
+					//Date.parse() 解析一个日期时间字符串，并返回1970/1/1 午夜距离该日期时间的毫秒数
+					var time1 = Date.parse(new Date(sDate1));
+					var time2 = Date.parse(new Date(sDate2));
+					var nDays = Math.abs(parseInt((time2 - time1)/1000/3600/24));
+					if(nDays == 0){
+						$('.myBagImg').eq(i).hide();
+					}
+				};
+			}
+		})
+	</script>
 </html>

@@ -133,7 +133,7 @@
 				</li>
 				<li class="col-cx-3 boirder">
 					<a href="APP_MAIN/Member/myBag">
-						<div class="J_linkIcon J_linkIcon03"><img src="__TEMP__/{$style}/public/images/icon/card.png"/></div>
+						<div class="J_linkIcon J_linkIcon03" style="line-height: 56px;"><img src="__TEMP__/{$style}/public/images/icon/card.png"/></div>
 						<div class="linkIcon">我的卡包</div>
 					</a>
 				</li>
@@ -169,6 +169,9 @@
 	    </div>
 		<script>
 			$(function(){
+				if($(document.body).height() == '554'){
+					$('.liMenu').css('padding-bottom','80px');
+				}
 				var myDate = new Date();
 				var year=myDate.getFullYear(); //获取当前年份
 				var month=myDate.getMonth()+1; //获取当前月份   

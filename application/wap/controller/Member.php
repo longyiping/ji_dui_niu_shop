@@ -1223,6 +1223,9 @@ class Member extends BaseController
 			 $real_num = "0".$zero.$num;
 			 $once['buyer_id']=$real_num;
 			 $once['price']=$order_goods['price'];
+			$order=Db::table('ns_order')->where(['order_id'=>$order_goods['order_id']])->find();
+			$once['order_no']=$order['order_no'];
+			$once['pay_time']=$order['pay_time'];
 			$commission_orders[]=$once;
 		}
 		

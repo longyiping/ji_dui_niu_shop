@@ -19,11 +19,11 @@
 			<!--销售明细循环-->
 			{foreach name="commission_orders" item="vo"}
 			<div class="detailedContent">
-				<div class="title">订单编号：20200020190811002</div>
+				<div class="title">订单编号：{$vo.order_no}</div>
 				<div class="cf amount">
 					<div class="J_amount fl">
 						<div class="order">订单商品金额： {$vo.price}元</div>
-						<div class="date">2018-09-19 14:53</div>
+						<div class="date">{$vo.pay_time}</div>
 					</div>
 					<div class="profit fr">
 						<div class="order">佣金：<span>{$vo.number}</span>元</div>

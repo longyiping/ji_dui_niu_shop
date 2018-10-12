@@ -169,6 +169,9 @@
 	    </div>
 		<script>
 			$(function(){
+				if($(document.body).height() == '554'){
+					$('.liMenu').css('padding-bottom','80px');
+				}
 				var myDate = new Date();
 				var year=myDate.getFullYear(); //获取当前年份
 				var month=myDate.getMonth()+1; //获取当前月份   

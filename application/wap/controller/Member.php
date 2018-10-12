@@ -1101,11 +1101,56 @@ class Member extends BaseController
     {
         return view($this->style . "/Member/myBag");
     }
+	/**
+     * 会员卡的分红佣金计算
+     */
+    public function card_commission()
+    {
+		$group_id_array=array();
+		$card_ids=Db::table('ns_goods')->where(['group_id_array'=>111])->field('goods_id')->select(); //会员卡的编号是111
+		foreach($card_ids as $k=>$v){
+			$group_id_array[]=$v['goods_id'];
+		}
+        $notake_ordergoods=Db::table('ns_order_goods')->where(['is_take'=>0,'goods_id'=>array('in',$group_id_array)])->select();
+		foreach($notake_ordergoods as $k=>$v){
+			$pay_status=Db::table('ns_order')->where(['order_id'=>$v['order_id']])->value('pay_status');
+			if($pay_status==2){
+				$path_pid=Db::table('ns_member')->where(['uid'=>$v['buyer_id']])->value('path_pid');
+				if(empty($path_pid)){
+					Db::table('ns_order_goods')->where(['order_goods_id'=>$v['order_goods_id']])->update(['is_take' =>2]); //2表示另一种情形
+				} else {
+					$path_arr=explode('#',$path_pid);
+					$count=count($path_arr);
+					if(!empty($path_arr[$count-1])){
+						if($v['price']==1680){$zhi_comm=400;} elseif ($v['price']==2980){$zhi_comm=400;} elseif ($v['price']==12800){$zhi_comm=500;} else {$zhi_comm=0;}
+						if($zhi_comm>0){
+							Db::table('ns_order_goods')->where(['order_goods_id'=>$v['order_goods_id']])->update(['is_take' =>1]);//金额可以调整
+							Db::table('ns_member')->where(['uid'=>$path_arr[$count-1]])->setInc('achievement',$zhi_comm); //直推（记录用）
+							Db::table('ns_member_account')->where(['uid'=>$path_arr[$count-1]])->setInc('balance',$zhi_comm); //直推（只可使用余额）
+							$data = ['uid' =>$path_arr[$count-1],'account_type' =>2,'sign' =>1,'number' =>$zhi_comm,'from_type'=>15,'data_id'=>$v['order_goods_id'],'text'=>'会员卡销售分红','create_time'=>date('Y-m-d h:i:s', time())];
+							Db::table('ns_member_account_records')->insert($data);
+						}
+					}
+					if(!empty($path_arr[$count-2])){
+						if($v['price']==1680){$jian_comm=200;} elseif ($v['price']==2980){$jian_comm=200;} elseif ($v['price']==12800){$jian_comm=1000;} else {$jian_comm=0;}
+						if($jian_comm>0){
+							Db::table('ns_order_goods')->where(['order_goods_id'=>$v['order_goods_id']])->update(['is_take' =>1]);//金额可以调整
+							Db::table('ns_member')->where(['uid'=>$path_arr[$count-2]])->setInc('achievement', $jian_comm); //间推（记录用）
+							Db::table('ns_member_account')->where(['uid'=>$path_arr[$count-2]])->setInc('balance', $jian_comm); //间推（只可使用余额）
+							$data = ['uid' =>$path_arr[$count-2],'account_type' =>2,'sign' =>1,'number' =>$jian_comm,'from_type'=>15,'data_id'=>$v['order_goods_id'],'text'=>'会员卡销售分红','create_time'=>date('Y-m-d h:i:s', time())];
+							Db::table('ns_member_account_records')->insert($data);
+						}
+					}
+				}
+			}
+		}
+    }
     /**
      * 销售明细
      */
     public function salesDetails()
     {
+		$this->card_commission(); //先计算分红
 		$nsmember = new NsMemberModel();
 		$team=$nsmember->where('path_pid','like','%#'.$this->uid.'#%')->whereOr('pid',$this->uid)->select();
 		$zhi_team_id=array();
@@ -1120,7 +1165,16 @@ class Member extends BaseController
 				}
 			}
 		}
-		//查询对应的进行过提成的订单
+		//查询会员卡销售分红记录
+		$account_records=Db::table('ns_member_account_records')->where(['uid'=>$this->uid,'from_type'=>15,'account_type' =>2])->select();
+		foreach($account_records as $key=>$val){
+			$order_goods=Db::table('ns_order_goods')->where(['order_goods_id'=>$val['data_id']])->find();
+			
+		}
+		
+		
+		//print_r($account_records);exit;
+		
 		if($_GET['type']==2){    //2指从属团队；1是直属团队
 			if(empty($cong_team_id)){ $extract_orders=array(); } else {
 				$extract_orders=Db::table('ns_order')->where(['is_extract'=>1,'buyer_id'=>array('in',$cong_team_id)])->select();

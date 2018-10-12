@@ -448,6 +448,15 @@ class Member extends BaseController
         return view($this->style . '/Member/balanceWater');
     }
     /**
+     * 
+     * 客服
+     * 
+     */
+    public function customer()
+    {
+        return view($this->style . '/Member/customer');
+    }
+    /**
      * 余额提现记录
      */
     public function balanceWithdraw(){

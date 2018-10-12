@@ -44,6 +44,7 @@
 	</body>
 	<script>
 		$(function(){
+			var time ='{$time1}' ;
 			var myDate = new Date();
 			var year=myDate.getFullYear(); //获取当前年份
 			var month=myDate.getMonth()+1; //获取当前月份   
@@ -56,8 +57,7 @@
 	        }
 	        var b = year +'-'+month+'-'+strDate;             //当前时间
 			for(var i=0;i<$('.myBagImg').length;i++){
-				var date = $('.myBagImg').eq(i).find('.date').html();            //有效期时间
-				var days = daysBetween(b,date);  
+				var days = daysBetween(b,time);  
 		        function daysBetween(sDate1,sDate2){
 					//Date.parse() 解析一个日期时间字符串，并返回1970/1/1 午夜距离该日期时间的毫秒数
 					var time1 = Date.parse(new Date(sDate1));

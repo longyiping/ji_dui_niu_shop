@@ -1123,6 +1123,7 @@ class Member extends BaseController
 					$count=count($path_arr);
 					if(!empty($path_arr[$count-1])){
 						if($v['price']==1680){$zhi_comm=400;} elseif ($v['price']==2980){$zhi_comm=400;} elseif ($v['price']==12800){$zhi_comm=500;} else {$zhi_comm=0;}
+						$zhi_comm=$zhi_comm*$v['num'];
 						if($zhi_comm>0){
 							Db::table('ns_order_goods')->where(['order_goods_id'=>$v['order_goods_id']])->update(['is_take' =>1]);//金额可以调整
 							Db::table('ns_member')->where(['uid'=>$path_arr[$count-1]])->setInc('achievement',$zhi_comm); //直推（记录用）
@@ -1133,6 +1134,7 @@ class Member extends BaseController
 					}
 					if(!empty($path_arr[$count-2])){
 						if($v['price']==1680){$jian_comm=200;} elseif ($v['price']==2980){$jian_comm=200;} elseif ($v['price']==12800){$jian_comm=1000;} else {$jian_comm=0;}
+						$jian_comm=$jian_comm*$v['num'];
 						if($jian_comm>0){
 							Db::table('ns_order_goods')->where(['order_goods_id'=>$v['order_goods_id']])->update(['is_take' =>1]);//金额可以调整
 							Db::table('ns_member')->where(['uid'=>$path_arr[$count-2]])->setInc('achievement', $jian_comm); //间推（记录用）
@@ -1181,13 +1183,14 @@ class Member extends BaseController
 			 }
 			 $real_num = "0".$zero.$num;
 			 $once['buyer_id']=$real_num;
+			 $once['price']=$order_goods['price'];
 			$commission_orders[]=$once;
 		}
 		
 		
 		//print_r($account_records);exit;
 		
-		if($_GET['type']==2){    //2指从属团队；1是直属团队
+		if($_GET['type']==2){    //2指从属团队；1是直属团队 暂未分！
 			if(empty($cong_team_id)){ $extract_orders=array(); } else {
 				$extract_orders=Db::table('ns_order')->where(['is_extract'=>1,'buyer_id'=>array('in',$cong_team_id)])->select();
 			}

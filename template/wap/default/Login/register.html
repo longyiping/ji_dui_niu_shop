@@ -19,8 +19,8 @@
 					<input type="text" name="pid" placeholder="推荐人账号/手机号" class="fl nameInput" id="pid"/>
 				</div>
 				<div class="reksm cf">
-					<label class="fl">用户名: </label>
-					<input type="text" name="name" placeholder="请输入用户名" class="fl nameInput" id="userName"/>
+					<label class="fl">用&nbsp;&nbsp;户&nbsp;&nbsp;名: </label>
+					<input type="text" name="name" placeholder="请输入用户名" class="fl nameInput" id="userName" maxlength="16"/>
 				</div>
 				<div class="reksm cf">
 					<label class="fl">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</label>
@@ -87,36 +87,44 @@
 			});
 		}
 		$(function(){
-			var mobile = /^1[3-9]\d{9}$/;
+			var mobile = /^1[34578]\d{9}$/;              //手机号码正则
+			var chinese = /^[\u0391-\uFFE5]+$/;        //纯文字正则
+			var regex = /^[0-9]+$/;                   //纯数字正则
 			$('#submit').click(function(){
 				if($('#userName').val() == ''){
 					$('.msg').html('请填写您的用户名!').show();
 					$("#userName").focus();
+				}else if(chinese.test($('#userName').val())){
+					$('.msg').html('用户名只能包含英文字母及数字!').show();
+					$("#userName").focus();
+				}else if(regex.test($('#userName').val())){
+					$('.msg').html('用户名必须包含英文字母!').show();
+					$("#userName").focus();
 				}else if($("#oldPwa").val() == ''){
 					$('.msg').html('请输入密码!').show();
 					$("#oldPwa").focus();
-				} else if($("#newsPwa").val() ==''){
+				}else if($("#newsPwa").val() ==''){
 					$('.msg').html('请确认密码!').show();
 					$("#newsPwa").focus();
-				} else if($("#oldPwa").val().length < 6){
+				}else if($("#oldPwa").val().length < 6){
 					$('.msg').html('请输入6位密码!').show();
 					$("#oldPwa").val('');
 					$("#oldPwa").focus();
-				} else if($("#newsPwa").val() != $("#oldPwa").val()){
+				}else if($("#newsPwa").val() != $("#oldPwa").val()){
 					$('.msg').html('两次密码不一致,请重新输入!').show();
 					$("#newsPwa").val('');
 					$("#newsPwa").focus();
-				} else if($("#phone").val() == ''){
+				}else if($("#phone").val() == ''){
 					$('.msg').html('请输入手机号!').show();
 					$("#phone").focus();
 				}else if(!mobile.test($("#phone").val())){
 					$('.msg').html('请填写有效的手机号!').show();
 					$("#phone").val('');
 					$("#phone").focus();
-				} else if($("#code").val() == ''){
+				}else if($("#code").val() == ''){
 					$('.msg').html('请输入验证码!').show();
 					$("#code").focus();
-				} else{
+				}else{
 					$.ajax({
 						type : "post",
 						url : "register",
@@ -166,7 +174,7 @@
 		var countdown=60; 
 		function sendemail(){
 		    var obj = $("#btn");
-		    var mobile = /^1[3-9]\d{9}$/;
+		    var mobile = /^1[34578]\d{9}$/;
 		     if($("#phone").val() == ''){
 				$('.msg').html('请填写您的手机号!').show();
 				$("#phone").focus();

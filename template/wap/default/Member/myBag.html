@@ -13,8 +13,12 @@
 		<div class="box">
 			<div class="title">卡</div>
 			<div class="myBag">
+<<<<<<< HEAD
 				{volist name="mycard" id="vo"}
 				{if condition="$vo eq 396"}
+=======
+				{if condition="$res.goods_id eq 396"}
+>>>>>>> 92951b2909f01470a0a939736bb57cf895a31c52
 				<div class="myBagImg">
 					<a href="APP_MAIN/Member/myBagData?price=298"><img src="__TEMP__/{$style}/public/images/default/-s-card_gold.png"/></a>
 				</div>
@@ -22,28 +26,37 @@
 				<div class="myBagImg">
 					<a href="APP_MAIN/Member/myBagData?price=1680">
 						<img src="__TEMP__/{$style}/public/images/default/-s-bojin.png"/>
+<<<<<<< HEAD
 
 						<div class="date">{$time1}号到期</div> 
 
 						<div class="date">2019-9-30</div> 
 
+=======
+						<div class="date"><span class="dates">{$time1}</span><span>号到期</span></div> 
+>>>>>>> 92951b2909f01470a0a939736bb57cf895a31c52
 					</a>
 				</div>
 				{elseif condition="$vo eq 398"}
 				<div class="myBagImg">
 					<a href="APP_MAIN/Member/myBagData?price=2980">
 						<img src="__TEMP__/{$style}/public/images/default/zuanshi_bg.png"/>
+<<<<<<< HEAD
 
 						<div class="date">{$time1}号到期</div> 
 
 						<div class="date">2018-10-12</div> 
 
+=======
+						<div class="date"><span class="dates">{$time1}</span><span>号到期</span></div> 
+>>>>>>> 92951b2909f01470a0a939736bb57cf895a31c52
 					</a>
 				</div>
 				{elseif condition="$vo eq 399"}
 				<div class="myBagImg">
 					<a href="APP_MAIN/Member/myBagData?price=12800">
 						<img src="__TEMP__/{$style}/public/images/default/super_bg.png"/>
+<<<<<<< HEAD
 
 						<div class="date">{$time1}号到期</div> 
 
@@ -55,6 +68,12 @@
 				
 				
 				{/volist}
+=======
+						<div class="date"><span class="dates">{$time1}</span><span>号到期</span></div>
+					</a>
+				</div>
+				{/if}
+>>>>>>> 92951b2909f01470a0a939736bb57cf895a31c52
 			</div>
 		</div>
 	</body>
@@ -72,8 +91,8 @@
 	        }
 	        var b = year +'-'+month+'-'+strDate;             //当前时间
 			for(var i=0;i<$('.myBagImg').length;i++){
-				var date = $('.myBagImg').eq(i).find('.date').html();            //有效期时间
-				var days = daysBetween(b,date);  
+				var time =$('.myBagImg').eq(i).find('.dates').html();
+				var days = daysBetween(b,time);  
 		        function daysBetween(sDate1,sDate2){
 					//Date.parse() 解析一个日期时间字符串，并返回1970/1/1 午夜距离该日期时间的毫秒数
 					var time1 = Date.parse(new Date(sDate1));

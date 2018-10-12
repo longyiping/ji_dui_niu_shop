@@ -25,9 +25,6 @@ use data\service\Shop;
 use data\service\WebSite;
 use data\service\Weixin;
 use think\Request;
-use data\service\Goods;
-use data\service\Order as OrderService;
-use data\service\Order\OrderGoods;
 use data\service\promotion\PromoteRewardRule;
 use think;
 use think\Session;
@@ -1027,44 +1024,6 @@ class Member extends BaseController
             return AjaxReturn($res);
         }
     }
-	
-	/**
-     * 设置用户支付密码
-     */
-    public function setUserPaymentPassword()
-    {
-    	 if (request()->isAjax()) {
-            $uid = $this->user->getSessionUid();
-            $payment_password = md5(request()->post("payment_password", ''));
-			
-            $account = new MemberAccount();
-			$res = Db::table("ns_member_account")->where(['uid'=>$uid])->insert(['pay_password'=>$payment_password]);
-            return AjaxReturn($res);
-        }
-        
-    }
-
-    /**
-     * 修改用户支付密码
-     */
-    public function updateUserPaymentPassword()
-    {
-        if (request()->isAjax()) {
-            $uid = $this->uid;
-            $old_payment_password = request()->post("old_payment_password", '');
-            $new_payment_password = request()->post("new_payment_password", '');
-            $account = new MemberAccount();
-			
-        	$res = Db::table("ns_member_account")->where(['uid'=>$uid])->select('pay_password');
-			
-			if($res==md5($old_payment_password)){
-				$res = Db::table("ns_member_account")->where(['uid'=>$uid])->save(['pay_password'=>$new_payment_password]);
-			}
-       print_r($old_payment_password);
-			exit;
-            return AjaxReturn($res);
-        }
-    }
 
     /**
      * 用户充值余额
@@ -1098,19 +1057,20 @@ class Member extends BaseController
     public function sales()
     {
 		$nsmember = new NsMemberModel();
-		$team=$nsmember->where("path_pid","like","%#".$this->uid."%")->select();
+		$team=$nsmember->where('path_pid','like','%#'.$this->uid.'#%')->whereOr('pid',$this->uid)->select();
 		$tot_mem=0;$tot_jingli=0;$tot_zongjian=0;
 		$zhi_mem=0;$zhi_jingli=0;$zhi_zongjian=0;
 		$cong_mem=0;$cong_jingli=0;$cong_zongjian=0;
 		foreach($team as $key=>$val){
-			$once=explode("#".$this->uid,$val['path_pid']);
-			if(substr_count($once[1],"#")<2){
-				if(substr_count($once[1],"#")==1){
-					if($val['grade']==2){$cong_jingli++;} elseif($val['grade']==5){$cong_zongjian++;} else {$cong_mem++;}
-				} else {
-					if($val['grade']==2){$zhi_jingli++;} elseif($val['grade']==5){$zhi_zongjian++;} else {$zhi_mem++;}
-				}
+			if($val['pid']==$this->uid){
+				if($val['grade']==2){$zhi_jingli++;} elseif($val['grade']==5){$zhi_zongjian++;} else {$zhi_mem++;}
 				if($val['grade']==2){$tot_jingli++;} elseif($val['grade']==5){$tot_zongjian++;} else {$tot_mem++;}
+			} else {
+				$once=explode('#'.$this->uid.'#',$val['path_pid']);
+				if(substr_count($once[1],'#')==0){
+					if($val['grade']==2){$cong_jingli++;} elseif($val['grade']==5){$cong_zongjian++;} else {$cong_mem++;}
+					if($val['grade']==2){$tot_jingli++;} elseif($val['grade']==5){$tot_zongjian++;} else {$tot_mem++;}
+				}
 			}
 		}
 		$commission=Db::table('ns_member_account_records')->where(['uid'=>$this->uid,'account_type'=>2,'from_type'=>15])->sum('number');
@@ -1139,68 +1099,90 @@ class Member extends BaseController
      */
     public function myBag()
     {
-    	$uid = $this->uid;
-		$goods = new Goods();
-		$group_id_array=array();
-		 $result= Db::table('ns_goods')->where(['group_id_array'=>111])->field('goods_id')->select();
-		foreach($result as $key=>$val){
-			$group_id_array[]=$val['goods_id'];
-		}
-		
-		//根据买家id和支付状态为已付款----获取订单号
-			
-		$re = Db::table('ns_order_goods')->where(['buyer_id'=>$uid,'goods_id'=>array('in',$group_id_array)])->field('order_id,goods_id')->select();
-		
-		$order_id = array();
-		
-		foreach($re as $key=>$val){
-			$order_id[]=$val['order_id'];
-		}
-		
-		$reg = Db::table('ns_order')->where(['pay_status'=>2, 'buyer_id'=>$uid, 'order_id'=>array('in',$order_id)])->field('order_id')->find();
-		//获取商品类型为会员卡的商品id---6
-		$time = Db::table('ns_order')->where(['pay_status'=>2, 'buyer_id'=>$uid, 'order_id'=>array('in',$order_id)])->field('pay_time')->find();
-		$time = strtotime($time['pay_time']);
-		
-		$time1 = date('Y-m-d',($time+365*24*60*60)-1*24*60*60);
-
-		//根据买家id和订单id和商品是会员卡----获取买家购买的会员卡商品
-    	$oder = new OrderGoods();
-		$res = Db::table('ns_order_goods')->where(['buyer_id'=>$uid, 'order_id'=>array('in',$reg)])->field('goods_id')->find();
-		
-		$num = count($res['goods_id']);
-		
-
-		$this->assign('time1', $time1);
-		$this->assign('num', $num);
-		$this->assign('res', $res);
         return view($this->style . "/Member/myBag");
+    }
+	/**
+     * 会员卡的分红佣金计算
+     */
+    public function card_commission()
+    {
+		$group_id_array=array();
+		$card_ids=Db::table('ns_goods')->where(['group_id_array'=>111])->field('goods_id')->select(); //会员卡的编号是111
+		foreach($card_ids as $k=>$v){
+			$group_id_array[]=$v['goods_id'];
+		}
+        $notake_ordergoods=Db::table('ns_order_goods')->where(['is_take'=>0,'goods_id'=>array('in',$group_id_array)])->select();
+		foreach($notake_ordergoods as $k=>$v){
+			$pay_status=Db::table('ns_order')->where(['order_id'=>$v['order_id']])->value('pay_status');
+			if($pay_status==2){
+				$path_pid=Db::table('ns_member')->where(['uid'=>$v['buyer_id']])->value('path_pid');
+				if(empty($path_pid)){
+					Db::table('ns_order_goods')->where(['order_goods_id'=>$v['order_goods_id']])->update(['is_take' =>2]); //2表示另一种情形
+				} else {
+					$path_arr=explode('#',$path_pid);
+					$count=count($path_arr);
+					if(!empty($path_arr[$count-1])){
+						if($v['price']==1680){$zhi_comm=400;} elseif ($v['price']==2980){$zhi_comm=400;} elseif ($v['price']==12800){$zhi_comm=500;} else {$zhi_comm=0;}
+						if($zhi_comm>0){
+							Db::table('ns_order_goods')->where(['order_goods_id'=>$v['order_goods_id']])->update(['is_take' =>1]);//金额可以调整
+							Db::table('ns_member')->where(['uid'=>$path_arr[$count-1]])->setInc('achievement',$zhi_comm); //直推（记录用）
+							Db::table('ns_member_account')->where(['uid'=>$path_arr[$count-1]])->setInc('balance',$zhi_comm); //直推（只可使用余额）
+							$data = ['uid' =>$path_arr[$count-1],'account_type' =>2,'sign' =>1,'number' =>$zhi_comm,'from_type'=>15,'data_id'=>$v['order_goods_id'],'text'=>'会员卡销售分红','create_time'=>date('Y-m-d h:i:s', time())];
+							Db::table('ns_member_account_records')->insert($data);
+						}
+					}
+					if(!empty($path_arr[$count-2])){
+						if($v['price']==1680){$jian_comm=200;} elseif ($v['price']==2980){$jian_comm=200;} elseif ($v['price']==12800){$jian_comm=1000;} else {$jian_comm=0;}
+						if($jian_comm>0){
+							Db::table('ns_order_goods')->where(['order_goods_id'=>$v['order_goods_id']])->update(['is_take' =>1]);//金额可以调整
+							Db::table('ns_member')->where(['uid'=>$path_arr[$count-2]])->setInc('achievement', $jian_comm); //间推（记录用）
+							Db::table('ns_member_account')->where(['uid'=>$path_arr[$count-2]])->setInc('balance', $jian_comm); //间推（只可使用余额）
+							$data = ['uid' =>$path_arr[$count-2],'account_type' =>2,'sign' =>1,'number' =>$jian_comm,'from_type'=>15,'data_id'=>$v['order_goods_id'],'text'=>'会员卡销售分红','create_time'=>date('Y-m-d h:i:s', time())];
+							Db::table('ns_member_account_records')->insert($data);
+						}
+					}
+				}
+			}
+		}
     }
     /**
      * 销售明细
      */
     public function salesDetails()
     {
+		$this->card_commission(); //先计算分红
 		$nsmember = new NsMemberModel();
-		$team=$nsmember->where("path_pid","like","%#".$this->uid."%")->select();
+		$team=$nsmember->where('path_pid','like','%#'.$this->uid.'#%')->whereOr('pid',$this->uid)->select();
 		$zhi_team_id=array();
 		$cong_team_id=array();
 		foreach($team as $key=>$val){
-			$once=explode("#".$this->uid,$val['path_pid']);
-			if(substr_count($once[1],"#")<2){
-				if(substr_count($once[1],"#")==1){
-					
+			if($val['pid']==$this->uid){
+				$zhi_team_id[]=$val['uid'];
+			} else {
+				$once=explode('#'.$this->uid.'#',$val['path_pid']);
+				if(substr_count($once[1],'#')==0){
 					$cong_team_id[]=$val['uid'];
-				} else {
-					$zhi_team_id[]=$val['uid'];
 				}
 			}
 		}
-		//查询对应的进行过提成的订单
-		if($_GET['type']==2){//1是直属团队
-			$extract_orders=Db::table('ns_order')->where(['is_extract'=>1,'buyer_id'=>array('in',$cong_team_id)])->select();
+		//查询会员卡销售分红记录
+		$account_records=Db::table('ns_member_account_records')->where(['uid'=>$this->uid,'from_type'=>15,'account_type' =>2])->select();
+		foreach($account_records as $key=>$val){
+			$order_goods=Db::table('ns_order_goods')->where(['order_goods_id'=>$val['data_id']])->find();
+			
+		}
+		
+		
+		//print_r($account_records);exit;
+		
+		if($_GET['type']==2){    //2指从属团队；1是直属团队
+			if(empty($cong_team_id)){ $extract_orders=array(); } else {
+				$extract_orders=Db::table('ns_order')->where(['is_extract'=>1,'buyer_id'=>array('in',$cong_team_id)])->select();
+			}
 		} else {
-			$extract_orders=Db::table('ns_order')->where(['is_extract'=>1,'buyer_id'=>array('in',$zhi_team_id)])->select();
+			if(empty($zhi_team_id)){ $extract_orders=array(); } else {
+				$extract_orders=Db::table('ns_order')->where(['is_extract'=>1,'buyer_id'=>array('in',$zhi_team_id)])->select();
+			}
 		}
 		$this->assign('extract_orders', $extract_orders);//输出信息需进行处理
         return view($this->style . "/Member/salesDetails");
@@ -1287,9 +1269,8 @@ class Member extends BaseController
      */
     public function cellPhone()
     {
-    	
 	    $member = new MemberService();
-        $member_info = $member->getMemberDetail($this->instance_id);
+        $member_info = $member->getMemberDetail();
         $this->assign('member_info', $member_info);
         
         return view($this->style . "/Member/cellPhone");
@@ -1332,12 +1313,15 @@ class Member extends BaseController
 		$this->assign('real_num1', $real_num1);
 		
 		//获取团队的人数
-		$result=Db::table("ns_member")->where('path_pid','like','%#'.$member_info['uid'].'%')->select();
+		$result=Db::table("ns_member")->where('path_pid','like','%#'.$member_info['uid'].'#%')->whereOr('pid',$member_info['uid'])->select();
 		$totle = 0;
 		foreach($result as $key=>$val){
-			$once=explode('#'.$member_info['uid'],$val['path_pid']);
-			if(substr_count($once[1],'#')<2){
-				$totle++;
+			if($val['pid']==$member_info['uid']){ $totle++; } 
+			else {
+				$once=explode('#'.$member_info['uid'].'#',$val['path_pid']);
+				if(substr_count($once[1],'#')==0){
+					$totle++;
+				}
 			}
 		}
 		$this->assign('totle', $totle);
@@ -1392,55 +1376,42 @@ class Member extends BaseController
      * @return number[]|string[]|string|mixed
      */
     function sendBindCode(){
-        if(request()->isAjax()){
-            $params['email'] = request()->post('email', '');
-            $params['mobile'] = request()->post('mobile','');
+            $email = request()->post('email', '');
+            $mobile = request()->post('mobile','');
             $type = request()->post("type",'');
-            $vertification = request()->post('vertification', '');
-            if ($this->login_verify_code["value"]["pc"] == 1) {
-                if (! captcha_check($vertification)) {
-                    $result = [
-                        'code' => -1,
-                        'message' => "验证码错误"
-                    ];
-                    return $result;
-                }else{
-                    $params['shop_id'] = 0;
-                    if($type == 'email'){
-                        $result = runhook('Notify', 'bindEmail', $params);
-                        Session::set('VerificationCode',$result['param']);
-                    }elseif($type == 'mobile'){
-                        $result = runhook('Notify', 'bindMobile', $params);
-                        Session::set('VerificationCode',$result['param']);
-                    }
-                }
-                return $result;
-            }else{
-                $params['shop_id'] = 0;
-                if($type == 'email'){
-                    $result = runhook('Notify', 'bindEmail', $params);
-                    Session::set('VerificationCode',$result['param']);
-                }elseif($type == 'mobile'){
-                    $result = runhook('Notify', 'bindMobile', $params);
-                    Session::set('VerificationCode',$result['param']);
-                }
-                return $result;
-            }
-        }
+            
+			if($type == 'email'){
+				$result = Db::table('sys_user')->where('uid',$this->uid)->update(['user_email' => $email]);
+			}elseif($type == 'mobile'){
+				$result = Db::table('sys_user')->where('uid',$this->uid)->update(['user_tel' => $mobile]);
+			}
+			return 1;
     }
     /**
      * 检侧动态验证码是否输入正确
      */
     public function check_dynamic_code(){
         if(request()->isAjax()){
-            $code = request()->post("vertification",'');
-            $verificationCode = Session::get("VerificationCode");
-            if($code != $verificationCode){
-                return $result = array(
+            $code = request()->post("mobile_code",'');
+			$mobile=request()->post("mobile",'');
+			/*获取存储的验证码并进行比较*/
+			$onerec=Db::table("ns_mobile_msgs")->where("mobile",$mobile)->order('id desc')->find();
+			$sendtime=strtotime($onerec['send_time']);
+			$difference=time()-$sendtime;
+			if($code==$onerec['code'] && $difference<300)  //验证码5分钟内有效
+			{  
+				return $result = array(
+                    "code" => 1,
+                    "message" => "动态验证码一致"
+                );
+			} else {
+				return $result = array(
                     "code" => -1,
                     "message" => "动态验证码不一致"
                 );
-            }
+			}
+            /*获取存储的验证码并比较结束*/
+            
         }
     }
     /**
@@ -1458,5 +1429,31 @@ class Member extends BaseController
             }
         }
     }
-    
+    /**
+     * 设置用户支付密码
+     */
+    public function setUserPaymentPassword()
+    {
+        if (request()->isAjax()) {
+            $uid = $this->uid;
+            $payment_password = request()->post("payment_password", '');
+            $member = new MemberService();
+            $res = $member->setUserPaymentPassword($uid, $payment_password);
+            return AjaxReturn($res);
+        }
+    }
+    /**
+     * 修改用户支付密码
+     */
+    public function updateUserPaymentPassword()
+    {
+        if (request()->isAjax()) {
+            $uid = $this->uid;
+            $old_payment_password = request()->post("old_payment_password", '');
+            $new_payment_password = request()->post("new_payment_password", '');
+            $member = new MemberService();
+            $res = $member->updateUserPaymentPassword($uid, $old_payment_password, $new_payment_password);
+            return AjaxReturn($res);
+        }
+    }
 }

@@ -1167,9 +1167,21 @@ class Member extends BaseController
 		}
 		//查询会员卡销售分红记录
 		$account_records=Db::table('ns_member_account_records')->where(['uid'=>$this->uid,'from_type'=>15,'account_type' =>2])->select();
+		$commission_orders=array();
 		foreach($account_records as $key=>$val){
+			$once=array();
 			$order_goods=Db::table('ns_order_goods')->where(['order_goods_id'=>$val['data_id']])->find();
-			
+			$once['number']=$val['number'];
+			$num = $order_goods['buyer_id'];
+			 $bit = 8;
+			 $num_len = strlen($num);
+			 $zero = '';
+			 for($i=$num_len; $i<$bit-1; $i++){
+			  $zero .= "0";
+			 }
+			 $real_num = "0".$zero.$num;
+			 $once['buyer_id']=$real_num;
+			$commission_orders[]=$once;
 		}
 		
 		
@@ -1184,7 +1196,7 @@ class Member extends BaseController
 				$extract_orders=Db::table('ns_order')->where(['is_extract'=>1,'buyer_id'=>array('in',$zhi_team_id)])->select();
 			}
 		}
-		$this->assign('extract_orders', $extract_orders);//输出信息需进行处理
+		$this->assign('commission_orders', $commission_orders);
         return view($this->style . "/Member/salesDetails");
     }
     /**

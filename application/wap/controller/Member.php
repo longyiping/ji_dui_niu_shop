@@ -25,6 +25,9 @@ use data\service\Shop;
 use data\service\WebSite;
 use data\service\Weixin;
 use think\Request;
+use data\service\Goods;
+use data\service\Order as OrderService;
+use data\service\Order\OrderGoods;
 use data\service\promotion\PromoteRewardRule;
 use think;
 use think\Session;
@@ -34,6 +37,7 @@ use data\service\Config;
 use data\model\NsMemberModel as NsMemberModel;
 use think\Db;
 use data\model\UserModel as UserModel;
+
 
 /**
  * 会员
@@ -1099,6 +1103,41 @@ class Member extends BaseController
      */
     public function myBag()
     {
+    	$uid = $this->uid;
+		$goods = new Goods();
+		$group_id_array=array();
+		 $result= Db::table('ns_goods')->where(['group_id_array'=>111])->field('goods_id')->select();
+		foreach($result as $key=>$val){
+			$group_id_array[]=$val['goods_id'];
+		}
+		
+		//根据买家id和支付状态为已付款----获取订单号
+			
+		$re = Db::table('ns_order_goods')->where(['buyer_id'=>$uid,'goods_id'=>array('in',$group_id_array)])->field('order_id,goods_id')->select();
+		
+		$order_id = array();
+		
+		foreach($re as $key=>$val){
+			$order_id[]=$val['order_id'];
+		}
+		
+		$reg = Db::table('ns_order')->where(['pay_status'=>2, 'buyer_id'=>$uid, 'order_id'=>array('in',$order_id)])->field('order_id')->find();
+		//获取商品类型为会员卡的商品id---6
+		$time = Db::table('ns_order')->where(['pay_status'=>2, 'buyer_id'=>$uid, 'order_id'=>array('in',$order_id)])->field('pay_time')->find();
+		$time = strtotime($time['pay_time']);
+		
+		$time1 = date('Y-m-d',($time+365*24*60*60)-1*24*60*60);
+		
+		//根据买家id和订单id和商品是会员卡----获取买家购买的会员卡商品
+    	$oder = new OrderGoods();
+		$res = Db::table('ns_order_goods')->where(['buyer_id'=>$uid, 'order_id'=>array('in',$reg)])->field('goods_id')->find();
+		
+		$num = count($res['goods_id']);
+		
+
+		$this->assign('time1', $time1);
+		$this->assign('num', $num);
+		$this->assign('res', $res);
         return view($this->style . "/Member/myBag");
     }
 	/**

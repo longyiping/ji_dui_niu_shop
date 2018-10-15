@@ -1103,41 +1103,41 @@ class Member extends BaseController
      */
     public function myBag()
     {
-    	$uid = $this->uid;
-		$goods = new Goods();
-		$group_id_array=array();
-		 $result= Db::table('ns_goods')->where(['group_id_array'=>111])->field('goods_id')->select();
+    	$uid 			= $this->uid;
+		$goods         	= new Goods();
+		$group_id_array	=array();
+		//获取会员卡商品的商品id
+		$result= Db::table('ns_goods')->where(['group_id_array'=>111])->field('goods_id')->select();
 		foreach($result as $key=>$val){
 			$group_id_array[]=$val['goods_id'];
 		}
+<<<<<<< HEAD
 		
 		//根据买家id和支付状态为已付款----获取订单号	
+=======
+	
+		//根据买家id和商品是会员卡---获取订单号
+>>>>>>> 77a7d5b3f4fb14246a7cf339159ac4a664431523
 		$re = Db::table('ns_order_goods')->where(['buyer_id'=>$uid,'goods_id'=>array('in',$group_id_array)])->field('order_id')->select();
-		
 		$order_id = array();
-		
 		foreach($re as $key=>$val){
 			$order_id[]=$val['order_id'];
 		}
-		
-		$reg = Db::table('ns_order')->where(['pay_status'=>2, 'buyer_id'=>$uid, 'order_id'=>array('in',$order_id)])->field('order_id')->select();
-		
-		//获取商品类型为会员卡的商品id---6
-		$time = Db::table('ns_order')->where(['pay_status'=>2, 'buyer_id'=>$uid, 'order_id'=>array('in',$order_id)])->field('pay_time')->find();
-		$time = strtotime($time['pay_time']);
-		
-		$time1 = date('Y-m-d',($time+365*24*60*60)-1*24*60*60);
-		
-		//根据买家id和订单id和商品是会员卡----获取买家购买的会员卡商品
-    	$oder = new OrderGoods();
-		$res = Db::table('ns_order_goods')->where(['buyer_id'=>$uid, 'order_id'=>array('in',$order_id)])->field('goods_id')->select();
-		$mycard = array();
-		foreach($res as $key=>$val){
-			$mycard[] = $val['goods_id'];
+		if(!empty($order_id)){
+			//根据买家id和支付状态为已付款----获取订单号
+			$reg = Db::table('ns_order')->where(['pay_status'=>2, 'buyer_id'=>$uid, 'order_id'=>array('in',$order_id)])->field('order_id')->select();
+			//获取支付时间,计算卡的到期时间
+			$time = Db::table('ns_order')->where(['pay_status'=>2, 'buyer_id'=>$uid, 'order_id'=>array('in',$order_id)])->field('pay_time')->find();
+			$time = strtotime($time['pay_time']);
+			$time1 = date('Y-m-d',($time+365*24*60*60)-1*24*60*60);
+			//根据买家id和订单id和商品是会员卡----获取买家购买的会员卡商品
+	    	$oder = new OrderGoods();
+			$res = Db::table('ns_order_goods')->where(['buyer_id'=>$uid, 'order_id'=>array('in',$order_id)])->field('goods_id')->select();
+			$mycard = array();
+			foreach($res as $key=>$val){
+				$mycard[] = $val['goods_id'];
+			}
 		}
-		
-		
-//print_r($mycard);exit;
 		$this->assign('time1', $time1);
 		$this->assign('mycard', $mycard);
         return view($this->style . "/Member/myBag");

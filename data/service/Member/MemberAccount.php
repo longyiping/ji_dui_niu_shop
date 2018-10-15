@@ -69,28 +69,27 @@ class MemberAccount extends BaseService
                 return CLOSE_POINT;
             } */
             
-        } 
-        
+        }
         
         $member_account = new NsMemberAccountRecordsModel();
+		$account_statistics = new NsMemberAccountModel();
         $member_account->startTrans();
         try{
-        $data = array(
-            'shop_id' => $shop_id,
-            'account_type' => $account_type,
-            'uid' => $uid,
-            'sign' => $sign,
-            'number' => $number,
-            'from_type' => $from_type,
-            'data_id' => $data_id,
-            'text' => $text,
-            'create_time' => date("Y-m-d H:i:s", time())
-        );
-        $retval = $member_account->save($data);
-        //更新对应会员账户
+			$data_one = array(
+				'shop_id' => $shop_id,
+				'account_type' => $account_type,
+				'uid' => $uid,
+				'sign' => $sign,
+				'number' => $number,
+				'from_type' => $from_type,
+				'data_id' => $data_id,
+				'text' => $text,
+				'create_time' => date("Y-m-d H:i:s", time())
+			);
+			
+			//更新对应会员账户
             if($account_type == 1)
             {
-				$account_statistics = new NsMemberAccountModel();
                 //积分
 				$account = $account_statistics->where(['uid'=> $uid, 'shop_id' => $shop_id])->value("point");//从账户取数方式
                 //$account = $member_account->where(['uid'=>$uid, 'shop_id' => $shop_id, 'account_type' => $account_type])->sum('number');
@@ -99,34 +98,10 @@ class MemberAccount extends BaseService
                     $member_account->rollback();
                     return LOW_POINT;
                 }
-              
-                $count = $account_statistics->where(['uid'=> $uid, 'shop_id' => $shop_id])->count();
-                if($count == 0)
-                {
-                    $data = array(
-                        'uid' => $uid,
-                         'shop_id' => $shop_id,
-                         'point' => $account,
-                         'member_sum_point' => $account
-                    );
-                    $account_statistics->save($data);
-                }else{
-                    $all_info = $account_statistics->getInfo(['uid'=> $uid, 'shop_id' => $shop_id], '*');
-                    $data_member = array(
-                        'point' => $account,
-                       
-                    );
-                    if($number > 0)
-                    {
-                        //计算会员累计积分
-                        $data_member['member_sum_point'] = $all_info['member_sum_point'] + $number;
-                    }
-                    $account_statistics->save($data_member,['uid'=> $uid, 'shop_id' => $shop_id]);
-                }
+				$account_statistics->where(['uid'=>$uid])->setInc('point',$number);
             }
             if($account_type == 2)
             {
-				$account_statistics = new NsMemberAccountModel();
                 //余额
 				$account = $account_statistics->where(['uid'=> $uid, 'shop_id' => $shop_id])->value("balance");//从账户取数比较
 				//$account = $member_account->where(['uid'=>$uid, 'shop_id' => 0, 'account_type' => $account_type])->sum('number');
@@ -135,25 +110,7 @@ class MemberAccount extends BaseService
                     $member_account->rollback();
                     return LOW_BALANCE;
                 }
-                    
-                
-                
-              
-                $count = $account_statistics->where(['uid'=> $uid, 'shop_id' => 0])->count();
-                if($count == 0)
-                {
-                    $data = array(
-                        'uid' => $uid,
-                         'shop_id' => 0,
-                         'balance' => $account
-                    );
-                    $account_statistics->save($data);
-                }else{
-                    $data_member = array(
-                        'balance' => $account
-                    );
-                    $account_statistics->save($data_member,['uid'=> $uid, 'shop_id' => 0]);
-                }
+				$account_statistics->where(['uid'=>$uid])->setInc('balance',$number);
             }
             if($account_type == 3)
             {
@@ -164,9 +121,6 @@ class MemberAccount extends BaseService
                     $member_account->rollback();
                     return LOW_COIN;
                 }
-            
-                $account_statistics = new NsMemberAccountModel();
-            
             
                 $count = $account_statistics->where(['uid'=> $uid, 'shop_id' => 0])->count();
                 if($count == 0)
@@ -184,6 +138,7 @@ class MemberAccount extends BaseService
                     $account_statistics->save($data_member,['uid'=> $uid, 'shop_id' => 0]);
                 }
             }
+			$retval = $member_account->save($data_one);//加入记录
             $member_account->commit();
             return 1;
         } catch (\Exception $e)

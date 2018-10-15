@@ -94,7 +94,7 @@ class Member extends BaseController
     public function index()
     {
    
-        $retval = $this->memberIndex(); 
+        $retval = $this->memberIndex();
    
         return $retval;
     }
@@ -115,11 +115,30 @@ class Member extends BaseController
 		 $real_num = "0".$zero.$num;
 		 //end
 		$tot_sale=0;
+		//总销售以提成的数字倒推
 		$account_records=Db::table('ns_member_account_records')->where(['uid'=>$this->uid,'from_type'=>15,'account_type' =>2])->select();
 		foreach($account_records as $key=>$val){
 			$once=Db::table('ns_order_goods')->where(['order_goods_id'=>$val['data_id']])->find();
 			$tot_sale+=$once['goods_money'];
 		}
+		//计算今日相关数据
+		$today=date("Y-m-d",,time());
+		print_r($today);exit;
+		$nsmember = new NsMemberModel();
+		$team=$nsmember->where('path_pid','like','%#'.$this->uid.'#%')->whereOr('pid',$this->uid)->select();
+		$zhi_team_id=array();
+		$cong_team_id=array();
+		foreach($team as $key=>$val){
+			if($val['pid']==$this->uid){
+				$zhi_team_id[]=$val['uid'];
+			} else {
+				$once=explode('#'.$this->uid.'#',$val['path_pid']);
+				if(substr_count($once[1],'#')==0){
+					$cong_team_id[]=$val['uid'];
+				}
+			}
+		}
+		//计算结束
 		$this->assign('tot_sale', $tot_sale);
 		$this->assign('real_num', $real_num);
         $this->assign('member_info', $member_info);
@@ -453,15 +472,6 @@ class Member extends BaseController
         $this->assign("balances", $list);
         $this->assign("shopid", $shopid);
         return view($this->style . '/Member/balanceWater');
-    }
-     /**
-     * 
-     * 客服
-     * 
-     */
-    public function customer()
-    {
-        return view($this->style . '/Member/customer');
     }
     /**
      * 余额提现记录
@@ -1127,6 +1137,9 @@ class Member extends BaseController
 		foreach($result as $key=>$val){
 			$group_id_array[]=$val['goods_id'];
 		}
+
+		//根据买家id和支付状态为已付款----获取订单号	
+	
 		//根据买家id和商品是会员卡---获取订单号
 		$re = Db::table('ns_order_goods')->where(['buyer_id'=>$uid,'goods_id'=>array('in',$group_id_array)])->field('order_id')->select();
 		$order_id = array();

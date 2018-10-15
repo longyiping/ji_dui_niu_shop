@@ -1111,8 +1111,7 @@ class Member extends BaseController
 			$group_id_array[]=$val['goods_id'];
 		}
 		
-		//根据买家id和支付状态为已付款----获取订单号
-			
+		//根据买家id和支付状态为已付款----获取订单号	
 		$re = Db::table('ns_order_goods')->where(['buyer_id'=>$uid,'goods_id'=>array('in',$group_id_array)])->field('order_id')->select();
 		
 		$order_id = array();
@@ -1166,24 +1165,20 @@ class Member extends BaseController
 					if(!empty($path_arr[$count-1])){
 						if($v['price']==1680){$zhi_comm=400;} elseif ($v['price']==2980){$zhi_comm=400;} elseif ($v['price']==12800){$zhi_comm=500;} else {$zhi_comm=0;}
 						$zhi_comm=$zhi_comm*$v['num'];
-						if($zhi_comm>0){
-							Db::table('ns_order_goods')->where(['order_goods_id'=>$v['order_goods_id']])->update(['is_take' =>1]);//金额可以调整
-							Db::table('ns_member')->where(['uid'=>$path_arr[$count-1]])->setInc('achievement',$zhi_comm); //直推（记录用）
-							Db::table('ns_member_account')->where(['uid'=>$path_arr[$count-1]])->setInc('balance',$zhi_comm); //直推（只可使用余额）
-							$data = ['uid' =>$path_arr[$count-1],'account_type' =>2,'sign' =>1,'number' =>$zhi_comm,'from_type'=>15,'data_id'=>$v['order_goods_id'],'text'=>'会员卡销售分红','create_time'=>date('Y-m-d h:i:s', time())];
-							Db::table('ns_member_account_records')->insert($data);
-						}
+						Db::table('ns_order_goods')->where(['order_goods_id'=>$v['order_goods_id']])->update(['is_take' =>1]);
+						Db::table('ns_member_account')->where(['uid'=>$path_arr[$count-1]])->setInc('balance',$zhi_comm); //直推（只可使用余额）直接到账未缓冲
+						$data = ['uid' =>$path_arr[$count-1],'account_type' =>2,'sign' =>1,'number' =>$zhi_comm,'from_type'=>15,'data_id'=>$v['order_goods_id'],'text'=>'会员卡销售分红','create_time'=>date('Y-m-d h:i:s', time())];
+						Db::table('ns_member_account_records')->insert($data);
+						
 					}
 					if(!empty($path_arr[$count-2])){
 						if($v['price']==1680){$jian_comm=200;} elseif ($v['price']==2980){$jian_comm=200;} elseif ($v['price']==12800){$jian_comm=1000;} else {$jian_comm=0;}
 						$jian_comm=$jian_comm*$v['num'];
-						if($jian_comm>0){
-							Db::table('ns_order_goods')->where(['order_goods_id'=>$v['order_goods_id']])->update(['is_take' =>1]);//金额可以调整
-							Db::table('ns_member')->where(['uid'=>$path_arr[$count-2]])->setInc('achievement', $jian_comm); //间推（记录用）
-							Db::table('ns_member_account')->where(['uid'=>$path_arr[$count-2]])->setInc('balance', $jian_comm); //间推（只可使用余额）
-							$data = ['uid' =>$path_arr[$count-2],'account_type' =>2,'sign' =>1,'number' =>$jian_comm,'from_type'=>15,'data_id'=>$v['order_goods_id'],'text'=>'会员卡销售分红','create_time'=>date('Y-m-d h:i:s', time())];
-							Db::table('ns_member_account_records')->insert($data);
-						}
+						Db::table('ns_order_goods')->where(['order_goods_id'=>$v['order_goods_id']])->update(['is_take' =>1]);
+						Db::table('ns_member_account')->where(['uid'=>$path_arr[$count-2]])->setInc('balance', $jian_comm); //间推（只可使用余额）直接到账未缓冲
+						$data = ['uid' =>$path_arr[$count-2],'account_type' =>2,'sign' =>1,'number' =>$jian_comm,'from_type'=>15,'data_id'=>$v['order_goods_id'],'text'=>'会员卡销售分红','create_time'=>date('Y-m-d h:i:s', time())];
+						Db::table('ns_member_account_records')->insert($data);
+						
 					}
 				}
 			}

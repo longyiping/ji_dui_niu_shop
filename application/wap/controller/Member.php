@@ -114,6 +114,13 @@ class Member extends BaseController
 		 }
 		 $real_num = "0".$zero.$num;
 		 //end
+		$tot_sale=0;
+		$account_records=Db::table('ns_member_account_records')->where(['uid'=>$this->uid,'from_type'=>15,'account_type' =>2])->select();
+		foreach($account_records as $key=>$val){
+			$once=Db::table('ns_order_goods')->where(['order_goods_id'=>$val['data_id']])->find();
+			$tot_sale+=$once['goods_money'];
+		}
+		$this->assign('tot_sale', $tot_sale);
 		$this->assign('real_num', $real_num);
         $this->assign('member_info', $member_info);
 		

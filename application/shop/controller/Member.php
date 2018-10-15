@@ -534,7 +534,7 @@ class Member extends BaseController
         $balance = 0;
         $member_detail = $this->user->getMemberDetail($this->instance_id);
         if (! empty($member_detail)) {
-            $point = $member_detail['point'];
+            $point = $member_detail['point']['point'];
             $balance = $member_detail['balance'];
         }
         if (isset($point)) {

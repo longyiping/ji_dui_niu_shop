@@ -1111,13 +1111,10 @@ class Member extends BaseController
 		foreach($result as $key=>$val){
 			$group_id_array[]=$val['goods_id'];
 		}
-<<<<<<< HEAD
-		
+
 		//根据买家id和支付状态为已付款----获取订单号	
-=======
 	
 		//根据买家id和商品是会员卡---获取订单号
->>>>>>> 77a7d5b3f4fb14246a7cf339159ac4a664431523
 		$re = Db::table('ns_order_goods')->where(['buyer_id'=>$uid,'goods_id'=>array('in',$group_id_array)])->field('order_id')->select();
 		$order_id = array();
 		foreach($re as $key=>$val){

@@ -16,23 +16,23 @@
 	</head>
 	<body>
 		<div class="box">
-			{if condition="$total_count neq ''"}
-				{foreach $balances.data as $balance}
-				<div class="content cf">
-					<div class="fl forward">
-						<div class="J_forward">余额提现</div>
-						<div class="money">{$balance.cash}</div>
+			{if condition="count($withdraws) neq 0 "}
+				{volist name="withdraws.data" id="vo"}
+					<div class="content cf">
+						<div class="fl forward">
+							<div class="J_forward">余额提现</div>
+							<div class="money">-{$vo['cash']}</div>
+						</div>
+						<div class="fr stateDate">
+							<div class="date">{$vo['ask_for_date']}</div>
+							<div class="state">{$vo['status']}</div>
+						</div>
 					</div>
-					<div class="fr stateDate">
-						<div class="date">{$balance.ask_for_date}</div>
-						<div class="state">{$balance.status}</div>
-					</div>
-				</div>
-				{/foreach}
+				{/volist}
 			{else/}
-			<div>
-				<div class="emptyFrame"> <i class="user_balance"></i><span>您暂时还没有提现记录哦！</span> </div>
-			</div>
+				<div>
+					<div class="emptyFrame"> <i class="user_balance"></i><span>您暂时还没有提现记录哦！</span> </div>
+				</div>
 			{/if}
 		</div>
 	</body>

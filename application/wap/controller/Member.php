@@ -452,7 +452,15 @@ class Member extends BaseController
         return view($this->style . '/Member/balance');
 
     }
-
+	/**
+     * 
+     * 客服
+     * 
+     */
+    public function customer()
+    {
+        return view($this->style . '/Member/customer');
+    }
     /**
      * 会员余额流水
      */

@@ -1197,8 +1197,8 @@ class Member extends BaseController
 						if($v['price']==1680){$zhi_comm=400;} elseif ($v['price']==2980){$zhi_comm=400;} elseif ($v['price']==12800){$zhi_comm=500;} else {$zhi_comm=0;}
 						$zhi_comm=$zhi_comm*$v['num'];
 						Db::table('ns_order_goods')->where(['order_goods_id'=>$v['order_goods_id']])->update(['is_take' =>1]);
-						Db::table('ns_member_account')->where(['uid'=>$path_arr[$count-1]])->setInc('balance',$zhi_comm); //直推（只可使用余额）直接到账未缓冲
-						$data = ['uid' =>$path_arr[$count-1],'account_type' =>2,'sign' =>1,'number' =>$zhi_comm,'from_type'=>15,'data_id'=>$v['order_goods_id'],'text'=>'会员卡销售分红','create_time'=>date('Y-m-d h:i:s', time())];
+						//直推（只可使用余额）预处理显示出来
+						$data = ['uid' =>$path_arr[$count-1],'account_type' =>2,'sign' =>1,'number' =>$zhi_comm,'from_type'=>15,'data_id'=>$v['order_goods_id'],'text'=>'会员卡销售分红','create_time'=>date('Y-m-d h:i:s', time()),'is_add'=>0];
 						Db::table('ns_member_account_records')->insert($data);
 						
 					}
@@ -1206,8 +1206,8 @@ class Member extends BaseController
 						if($v['price']==1680){$jian_comm=200;} elseif ($v['price']==2980){$jian_comm=200;} elseif ($v['price']==12800){$jian_comm=1000;} else {$jian_comm=0;}
 						$jian_comm=$jian_comm*$v['num'];
 						Db::table('ns_order_goods')->where(['order_goods_id'=>$v['order_goods_id']])->update(['is_take' =>1]);
-						Db::table('ns_member_account')->where(['uid'=>$path_arr[$count-2]])->setInc('balance', $jian_comm); //间推（只可使用余额）直接到账未缓冲
-						$data = ['uid' =>$path_arr[$count-2],'account_type' =>2,'sign' =>1,'number' =>$jian_comm,'from_type'=>15,'data_id'=>$v['order_goods_id'],'text'=>'会员卡销售分红','create_time'=>date('Y-m-d h:i:s', time())];
+						//间推（只可使用余额）预处理显示出来
+						$data = ['uid' =>$path_arr[$count-2],'account_type' =>2,'sign' =>1,'number' =>$jian_comm,'from_type'=>15,'data_id'=>$v['order_goods_id'],'text'=>'会员卡销售分红','create_time'=>date('Y-m-d h:i:s', time()),'is_add'=>0];
 						Db::table('ns_member_account_records')->insert($data);
 						
 					}
@@ -1215,6 +1215,19 @@ class Member extends BaseController
 			}
 		}
     }
+	/**
+     * 分红佣金到期加入账户
+     */
+    public function add_commission()
+    {
+		$add_0_arr=Db::table('ns_member_account_records')->where(['uid'=>$this->uid,'is_add'=>0])->select();
+		foreach($add_0_arr as $key=>$val){
+			Db::table('ns_member_account_records')->where(['id'=>$val['id']])->update(['is_add' =>1]);
+			Db::table('ns_member_account')->where(['uid'=>$this->uid])->setInc('balance',$zhi_comm);
+			Db::table('ns_member_account')->where(['uid'=>$this->uid])->setInc('balance', $jian_comm);
+		}
+		print_r($add_0_arr);exit;
+	}
     /**
      * 销售明细
      */
@@ -1257,8 +1270,6 @@ class Member extends BaseController
 			$once['pay_time']=$order['pay_time'];
 			$commission_orders[]=$once;
 		}
-		
-		
 		//print_r($account_records);exit;
 		
 		if($_GET['type']==2){    //2指从属团队；1是直属团队 暂未分！

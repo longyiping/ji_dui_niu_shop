@@ -115,30 +115,38 @@ class Member extends BaseController
 		 $real_num = "0".$zero.$num;
 		 //end
 		$tot_sale=0;
+		$today=date("Y-m-d",time());
 		//总销售以提成的数字倒推
+		$today_sale=0;
 		$account_records=Db::table('ns_member_account_records')->where(['uid'=>$this->uid,'from_type'=>15,'account_type' =>2])->select();
 		foreach($account_records as $key=>$val){
 			$once=Db::table('ns_order_goods')->where(['order_goods_id'=>$val['data_id']])->find();
 			$tot_sale+=$once['goods_money'];
+			$second=Db::table('ns_order')->where(['order_id'=>$once['order_id']])->find();
+			if(strpos($second['pay_time'],$today)===0){$today_sale+=$once['goods_money'];}
 		}
 		//计算今日相关数据
-		$today=date("Y-m-d",,time());
-		print_r($today);exit;
 		$nsmember = new NsMemberModel();
 		$team=$nsmember->where('path_pid','like','%#'.$this->uid.'#%')->whereOr('pid',$this->uid)->select();
-		$zhi_team_id=array();
-		$cong_team_id=array();
+		$my_team=0;
 		foreach($team as $key=>$val){
 			if($val['pid']==$this->uid){
-				$zhi_team_id[]=$val['uid'];
+				
+				if(strpos($val['reg_time'],$today)===0){
+					$my_team++;
+				}
 			} else {
 				$once=explode('#'.$this->uid.'#',$val['path_pid']);
 				if(substr_count($once[1],'#')==0){
-					$cong_team_id[]=$val['uid'];
+					if(strpos($val['reg_time'],$today)===0){
+						$my_team++;
+					}
 				}
 			}
 		}
-		//计算结束
+		//计算结束 还剩2个！
+		$this->assign('today_sale', $today_sale);
+		$this->assign('my_team', $my_team);
 		$this->assign('tot_sale', $tot_sale);
 		$this->assign('real_num', $real_num);
         $this->assign('member_info', $member_info);

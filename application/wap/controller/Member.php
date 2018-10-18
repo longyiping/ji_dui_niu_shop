@@ -1397,12 +1397,13 @@ class Member extends BaseController
     	$member = new MemberService();
         $member_info = $member->getMemberDetail();
         $this->assign('member_info', $member_info);
-		$authentication_time = date("Y-m-d H:i:s",time());
+//		print_r($authentication_time);
+//		exit;
 		$update_info_status = ""; // 修改信息状态 
         $upload_card_status = ""; //上传身份证状态 
         if (isset($_POST["submit"])) {
 			$card_state = 1;
-			$authentication_time = time();
+			$authentication_time = date("Y-m-d H:i:s",time());;
             $real_name = isset($_POST["real_name"]) ? $_POST["real_name"] : "";
             $ID_card = isset($_POST["ID_card"]) ? $_POST["ID_card"] : "";
             $ID_card_positive = isset($_POST["ID_card_positive"]) ? $_POST["ID_card_positive"] : "";

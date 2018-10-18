@@ -20,6 +20,7 @@ use data\service\User;
 use data\service\Weixin;
 use data\service\Config as WebConfig;
 use data\service\Address;
+use think\Db;
 /**
  * 会员管理
  *
@@ -60,7 +61,6 @@ class Member extends BaseController
                 $condition['nml.level_id'] = $level_id;
             }
             $list = $member->getMemberList($page_index, $page_size, $condition, 'su.reg_time desc');
-            
             return $list;
         } else {
             // 查询会员等级
@@ -82,6 +82,32 @@ class Member extends BaseController
         $info = $user->getUserInfoDetail($uid);
         return $info;
     }
+	
+	/**
+     * 实名认证审核
+     *
+     * @return multitype:unknown
+     */
+    public function updateCardState()
+    {
+    	if (request()->isAjax()) {
+    		
+    		$uid = request()->post('uid', '');
+    		$card_state = request()->post('card_state', '');
+			$reg = Db::table("sys_user")->where('uid',$uid)->field('card_state')->find();
+			if($reg['card_state']===1){
+				$res = Db::table("sys_user")->where('uid',$uid)->update(['card_state'=>$card_state]);
+				
+			}else{
+				$res = Db::table("sys_user")->where('uid',$uid)->update('card_state', $reg['card_state']);
+			}
+//			print_r($reg);exit;
+			return AjaxReturn($res);
+			
+    	}
+        
+    }
+	
 
     /**
      * 修改会员

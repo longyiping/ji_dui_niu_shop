@@ -22,6 +22,7 @@ use data\service\Config as Config;
 use data\service\WebSite as WebSite;
 use think\Controller;
 use think\Session;
+use think\Db;
 use data\model\NsMemberModel as NsMemberModel;
 \think\Loader::addNamespace('data', 'data/');
 
@@ -477,7 +478,7 @@ class Login extends Controller
 
             if ($retval > 0) {
                 // $this->success("注册成功", __URL__."/index");
-                
+                Db::table("ns_member_account")->insert(["uid"=>$retval]);
                 $this->redirect(__URL__ . "/index");
             } else {
                 $this->success("注册失败", __URL__ . "/login/register");

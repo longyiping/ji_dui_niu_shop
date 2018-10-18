@@ -435,6 +435,7 @@ class Login extends Controller
 			if($code==$onerec['code'] && $difference<300)  //验证码5分钟内有效
 			{  //可以增加一个前端的-2004 的功能
 				$retval = $member->registerMember($user_name, $password, $email, $mobile, '', '', '', '', '',$pid, $path_pid);
+				if($retval>0){Db::table("ns_member_account")->insert(["uid"=>$retval]);}
 				return AjaxReturn($retval);
 			} else {
 				return array('code'=>0,'message'=>'验证码无效');

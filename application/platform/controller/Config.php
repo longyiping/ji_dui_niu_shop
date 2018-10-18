@@ -29,6 +29,7 @@ use data\service\GoodsBrand as GoodsBrand;
 use data\service\GoodsCategory as GoodsCategory;
 use data\service\Goods as Goods;
 use data\extend\database;
+use think\Db;
 /**
  * 网站设置模块控制器
  *
@@ -2084,7 +2085,7 @@ class Config extends BaseController
      * 积分奖励
      */
     public function integral()
-    {
+    { 
         if (request()->isAjax()) {
             $shop_id = $this->instance_id;
             $sign_point = isset($_POST['sign_point']) ? $_POST['sign_point'] : 0;
@@ -2145,7 +2146,16 @@ class Config extends BaseController
             return view($this->style."Config/databaseList");
            
         }   
-    }           
+    }
+	public function setintegralajax(){
+		$one=Db::table("sys_config")->where(['instance_id'=>$this->instance_id,'key'=>'REGISTER_INTEGRAL'])->find();
+		$stutas1=Db::table("sys_config")->where(['id'=>$one['id']])->update(['is_use' =>$_POST['register']]);
+		$two=Db::table("sys_config")->where(['instance_id'=>$this->instance_id,'key'=>'SIGN_INTEGRAL'])->find();
+		$stutas2=Db::table("sys_config")->where(['id'=>$two['id']])->update(['is_use' =>$_POST['sign']]);
+		$tree=Db::table("sys_config")->where(['instance_id'=>$this->instance_id,'key'=>'SHARE_INTEGRAL'])->find();
+		$stutas3=Db::table("sys_config")->where(['id'=>$tree['id']])->update(['is_use' =>$_POST['share']]);
+		if($stutas1 || $stutas2 || $stutas3){return 1;} else {return 0;}
+	}
 
     public function expressMessage()
     {

@@ -51,7 +51,7 @@
            <div class="form-group">
 				<label class="col-sm-2 control-label">分享送积分:</label>
 				<div class="col-md-2">
-					<input name="UserCode" id="share_point" type="number"  class="form-control" value="{$res.share_point}" min="0"  onkeyup="value=value.replace(/[^\d+(\.\d+)?]/g,'')" >
+					<input name="UserCode" id="share_point" type="number"  class="form-control" value="{$res.share_point}=={$integralConfig['share_integral']}" min="0"  onkeyup="value=value.replace(/[^\d+(\.\d+)?]/g,'')" >
 				</div>
 			</div>
 			<div class="line line-dashed line-lg pull-in"></div>

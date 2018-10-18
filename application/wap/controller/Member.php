@@ -1191,10 +1191,11 @@ class Member extends BaseController
 		foreach($card_ids as $k=>$v){
 			$group_id_array[]=$v['goods_id'];
 		}
-        $notake_ordergoods=Db::table('ns_order_goods')->where(['is_take'=>0,'goods_id'=>array('in',$group_id_array)])->select();
+        //$notake_ordergoods=Db::table('ns_order_goods')->where(['is_take'=>0,'goods_id'=>array('in',$group_id_array)])->select();
+		$notake_ordergoods=Db::table('ns_order_goods')->where(['is_take'=>0])->select();
 		foreach($notake_ordergoods as $k=>$v){
-			$pay_status=Db::table('ns_order')->where(['order_id'=>$v['order_id']])->value('pay_status');
-			if($pay_status==2){
+			$oneorder=Db::table('ns_order')->where(['order_id'=>$v['order_id']])->find();
+			if($oneorder['pay_status']==2){
 				$path_pid=Db::table('ns_member')->where(['uid'=>$v['buyer_id']])->value('path_pid');
 				if(empty($path_pid)){
 					Db::table('ns_order_goods')->where(['order_goods_id'=>$v['order_goods_id']])->update(['is_take' =>2]); //2表示另一种情形
@@ -1202,22 +1203,109 @@ class Member extends BaseController
 					$path_arr=explode('#',$path_pid);
 					$count=count($path_arr);
 					if(!empty($path_arr[$count-1])){
-						if($v['price']==1680){$zhi_comm=400;} elseif ($v['price']==2980){$zhi_comm=400;} elseif ($v['price']==12800){$zhi_comm=500;} else {$zhi_comm=0;}
-						$zhi_comm=$zhi_comm*$v['num'];
-						Db::table('ns_order_goods')->where(['order_goods_id'=>$v['order_goods_id']])->update(['is_take' =>1]);
-						Db::table('ns_member_account')->where(['uid'=>$path_arr[$count-1]])->setInc('balance',$zhi_comm); //直推（只可使用余额）直接到账未缓冲
-						$data = ['uid' =>$path_arr[$count-1],'account_type' =>2,'sign' =>1,'number' =>$zhi_comm,'from_type'=>15,'data_id'=>$v['order_goods_id'],'text'=>'会员卡销售分红','create_time'=>date('Y-m-d h:i:s', time())];
-						Db::table('ns_member_account_records')->insert($data);
-						
+						//是否会员卡在此处判断处理提成金额  团队奖励未计算！招商的！
+						if(in_array($v['goods_id'],$group_id_array)){  //如果是怀化的会员卡
+							if($v['price']==1680){$zhi_comm=400;} elseif ($v['price']==2980){$zhi_comm=400;} elseif ($v['price']==12800){$zhi_comm=500;} else {$zhi_comm=0;}
+							$zhi_comm=$zhi_comm*$v['num'];
+							$text='会员卡销售分红';
+						} 
+						/*
+						elseif(){
+							//如果不是怀化的会员卡
+							$grade=Db::table('ns_member')->where(['uid'=>$path_arr[$count-1]])->value('grade');
+							if($grade==5){$zhi_comm=50*$v['num'];}
+							elseif($grade==2){$zhi_comm=40*$v['num'];}
+							else {$zhi_comm=30*$v['num'];}
+							$text='会员卡销售分红';
+						} */
+						else {
+							//如果是其它商品
+							$grade=Db::table('ns_member')->where(['uid'=>$path_arr[$count-2]])->value('grade');
+							$profit=($v['price']-$v['cost_price'])*$v['num'];
+							if($grade==5){$zhi_comm=$profit*0.06;}
+							elseif($grade==2){$zhi_comm=$profit*0.05;}
+							else {$zhi_comm=$profit*0.04;}
+							$text='商品销售分红';
+						}
+						//此处进行预处理和最终处理  如果订单过了收货后的退货期，加入余额，否则只展示不加入余额！
+						$one_records=Db::table('ns_member_account_records')->where(['uid'=>$path_arr[$count-1],'account_type' =>2,'from_type'=>15,'data_id'=>$v['order_goods_id']])->find();
+						//订单完成与未完成
+						if($oneorder['order_status']==4){  //看5订单关闭会否进入该环节
+							//无退货
+							if($v['refund_real_money']==0){
+								if(empty($one_records)){
+									Db::table('ns_order_goods')->where(['order_goods_id'=>$v['order_goods_id']])->update(['is_take' =>1]);
+									Db::table('ns_member_account')->where(['uid'=>$path_arr[$count-1]])->setInc('balance',$zhi_comm);
+									$data = ['uid' =>$path_arr[$count-1],'account_type' =>2,'sign' =>1,'number' =>$zhi_comm,'from_type'=>15,'data_id'=>$v['order_goods_id'],'text'=>$text,'create_time'=>date('Y-m-d h:i:s', time()),'is_add'=>1];
+									Db::table('ns_member_account_records')->insert($data);
+								} else {
+									Db::table('ns_member_account')->where(['uid'=>$path_arr[$count-1]])->setInc('balance',$zhi_comm);
+									Db::table('ns_member_account_records')->where(['id'=>$one_records['id']])->update(['is_add' =>1]);
+								}
+							} else {   //有退货
+								if(!empty($one_records)){
+									Db::table('ns_member_account_records')->where(['id'=>$one_records['id']])->delete();
+								}
+							}
+						} else {
+							if(empty($one_records)){
+								$data = ['uid' =>$path_arr[$count-1],'account_type' =>2,'sign' =>1,'number' =>$zhi_comm,'from_type'=>15,'data_id'=>$v['order_goods_id'],'text'=>$text,'create_time'=>date('Y-m-d h:i:s', time()),'is_add'=>0];
+								Db::table('ns_member_account_records')->insert($data);
+							}
+						}
+						//直推（只可使用余额）预处理显示出来
 					}
-					if(!empty($path_arr[$count-2])){
-						if($v['price']==1680){$jian_comm=200;} elseif ($v['price']==2980){$jian_comm=200;} elseif ($v['price']==12800){$jian_comm=1000;} else {$jian_comm=0;}
-						$jian_comm=$jian_comm*$v['num'];
-						Db::table('ns_order_goods')->where(['order_goods_id'=>$v['order_goods_id']])->update(['is_take' =>1]);
-						Db::table('ns_member_account')->where(['uid'=>$path_arr[$count-2]])->setInc('balance', $jian_comm); //间推（只可使用余额）直接到账未缓冲
-						$data = ['uid' =>$path_arr[$count-2],'account_type' =>2,'sign' =>1,'number' =>$jian_comm,'from_type'=>15,'data_id'=>$v['order_goods_id'],'text'=>'会员卡销售分红','create_time'=>date('Y-m-d h:i:s', time())];
-						Db::table('ns_member_account_records')->insert($data);
-						
+					if(!empty($path_arr[$count-2])){   //团队奖励未计算！招商的！
+						if(in_array($v['goods_id'],$group_id_array)){  //如果是怀化的会员卡
+							if($v['price']==1680){$jian_comm=200;} elseif ($v['price']==2980){$jian_comm=200;} elseif ($v['price']==12800){$jian_comm=1000;} else {$jian_comm=0;}
+							$jian_comm=$jian_comm*$v['num'];
+							$text='会员卡销售分红';
+						}
+						/*
+						elseif(){
+							//如果不是怀化的会员卡
+							$grade=Db::table('ns_member')->where(['uid'=>$path_arr[$count-2]])->value('grade');
+							if($grade==5){$jian_comm=100*$v['num'];}
+							elseif($grade==2){$jian_comm=80*$v['num'];}
+							else {$jian_comm=70*$v['num'];}
+							$text='会员卡销售分红';
+						}  */
+						else {
+							//如果是其它商品
+							$grade=Db::table('ns_member')->where(['uid'=>$path_arr[$count-2]])->value('grade');
+							$profit=($v['price']-$v['cost_price'])*$v['num'];
+							if($grade==5){$jian_comm=$profit*0.12;}
+							elseif($grade==2){$jian_comm=$profit*0.1;}
+							else {$jian_comm=$profit*0.08;}
+							$text='商品销售分红';
+						}
+						//间推（只可使用余额）预处理显示出来
+						$one_records=Db::table('ns_member_account_records')->where(['uid'=>$path_arr[$count-2],'account_type' =>2,'from_type'=>15,'data_id'=>$v['order_goods_id']])->find();
+						//订单完成与未完成
+						if($oneorder['order_status']==4){  //看5订单关闭会否进入该环节
+							//无退货
+							if($v['refund_real_money']==0){
+								if(empty($one_records)){
+									Db::table('ns_order_goods')->where(['order_goods_id'=>$v['order_goods_id']])->update(['is_take' =>1]);
+									Db::table('ns_member_account')->where(['uid'=>$path_arr[$count-2]])->setInc('balance',$jian_comm);
+									$data = ['uid' =>$path_arr[$count-2],'account_type' =>2,'sign' =>1,'number' =>$jian_comm,'from_type'=>15,'data_id'=>$v['order_goods_id'],'text'=>$text,'create_time'=>date('Y-m-d h:i:s', time()),'is_add'=>1];
+									Db::table('ns_member_account_records')->insert($data);
+								} else {
+									Db::table('ns_member_account')->where(['uid'=>$path_arr[$count-2]])->setInc('balance',$jian_comm);
+									Db::table('ns_member_account_records')->where(['id'=>$one_records['id']])->update(['is_add' =>1]);
+								}
+							} else {   //有退货
+								if(!empty($one_records)){
+									Db::table('ns_member_account_records')->where(['id'=>$one_records['id']])->delete();
+								}
+							}
+						} else {
+							if(empty($one_records)){
+								$data = ['uid' =>$path_arr[$count-2],'account_type' =>2,'sign' =>1,'number' =>$jian_comm,'from_type'=>15,'data_id'=>$v['order_goods_id'],'text'=>$text,'create_time'=>date('Y-m-d h:i:s', time()),'is_add'=>0];
+								Db::table('ns_member_account_records')->insert($data);
+							}
+						}
+						//间推（只可使用余额）预处理显示出来
 					}
 				}
 			}
@@ -1265,8 +1353,6 @@ class Member extends BaseController
 			$once['pay_time']=$order['pay_time'];
 			$commission_orders[]=$once;
 		}
-		
-		
 		//print_r($account_records);exit;
 		
 		if($_GET['type']==2){    //2指从属团队；1是直属团队 暂未分！

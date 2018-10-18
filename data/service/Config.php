@@ -1360,9 +1360,9 @@ class Config extends BaseService implements IConfig
             );
         }else{
             $array = array(
-                'register_integral' => $register_integral['value'],
-                'sign_integral' => $sign_integral['value'],
-                'share_integral' => $share_integral['value'],
+                'register_integral' => $register_integral['is_use'],
+                'sign_integral' => $sign_integral['is_use'],
+                'share_integral' => $share_integral['is_use'],
             );
         }
         return $array;

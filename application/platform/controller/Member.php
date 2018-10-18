@@ -94,13 +94,9 @@ class Member extends BaseController
     		
     		$uid = request()->post('uid', '');
     		$card_state = request()->post('card_state', '');
-			$reg = Db::table("sys_user")->where('uid',$uid)->field('card_state')->find();
-			if($reg['card_state']===1){
-				$res = Db::table("sys_user")->where('uid',$uid)->update(['card_state'=>$card_state]);
+			
+			$res = Db::table("sys_user")->where('uid',$uid)->update(['card_state'=>$card_state]);
 				
-			}else{
-				$res = Db::table("sys_user")->where('uid',$uid)->update('card_state', $reg['card_state']);
-			}
 //			print_r($reg);exit;
 			return AjaxReturn($res);
 			

@@ -250,7 +250,60 @@
 </div>
 <input type="hidden" id="modify_uid"/>
 
-<!-- 修改会员 -->
+<!-- 查看实名认证信息 -->
+<div class="modal" id="see_user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">查看用户实名认证信息</h4>
+			</div>
+			<div class="modal-body">
+				<div class="modal-infp-style" style="height:260px;overflow:auto;">
+					<table class="modal-tab">
+						<tr>
+							<td style="width:20%"><span class="required">*</span>用户名</td>
+							<td colspan='3'>
+								<span id="see_username"></span>
+								<span id="see_usernameyz"></span>
+								<input type="hidden" value="不存在" id="see_isset_username"/>
+							</td>
+						</tr>
+						<tr>
+							<td style="width:20%">身份证号码</td>
+							<td colspan='3'><span id="see_ID_card"></span></td>
+							
+						</tr>
+						<tr>
+							<td>认证时间</td>
+							<td colspan='3'><span id="see_authentication_time"></span></td>
+						</tr>
+						<tr>
+							<td>认证状态</td>
+							<td colspan='3'><span id="see_card_state"></span></td>
+						</tr>
+						<tr>
+							<td>身份证正面</td>
+							<td colspan='3'><img id="see_ID_card_reverse"></td>
+						</tr>
+						<tr>
+							<td>身份证反面</td>
+							<td colspan='3'><img id="see_ID_card_positive" /></td>
+						</tr>
+						
+						
+					</table>
+				</div>
+			</div>
+			
+			
+		</div>
+	</div>
+	
+</div>
+
+<!-- 编辑会员 -->
 <div class="modal" id="modify_user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
 	<div class="modal-dialog">
@@ -499,7 +552,7 @@ $(function(){
 							
 							html += '<a onclick="modify_user('+ data["data"][i]["uid"]+')">修改</a>&nbsp;&nbsp;<a onclick="delete_user('+ data["data"][i]["uid"]+')">删除</a><br/>';
 							
-							html += '<a onclick="authentication('+ data["data"][i]["uid"]+')">实名认证</a>&nbsp;&nbsp;<br/>';
+							html += '<a onclick="authentication('+ data["data"][i]["uid"]+')">实名认证</a>&nbsp;&nbsp;<a onclick="see_user('+ data["data"][i]["uid"]+')">查看信息</a><br/>';
 						}
 						html += '</td>'
 						html += '</tr>';
@@ -738,6 +791,52 @@ function addUser(){
 			}
 		});
 	}
+	//查看信息弹出
+	function see_user(uid){
+		var id = parseInt(uid);
+		$("#see_user").modal("show");
+		$.ajax({
+			type : "post",
+			url : "PLATFORM_MAIN/member/getmemberdetail",
+			data : { 'uid':id, },
+			success : function(data) {
+				$("#see_uid").val(data.uid);
+				$("#see_username").text(data.user_name);
+				if(data.ID_card !== null){
+					$("#see_ID_card").text(data.ID_card);
+				}else{
+					$("#see_ID_card").text('');
+				}
+				if(data.authentication_time !== null){
+					$("#see_authentication_time").text(data.authentication_time);
+				}else{
+					$("#see_authentication_time").text('');
+				}
+				
+				if(data.card_state == '0'){
+					$("#see_card_state").text('待认证');
+				}else if(data.card_state == '1'){
+					$("#see_card_state").text('审核中');
+				}else if(data.card_state == '2'){
+					$("#see_card_state").text('未通过');
+				}else{
+					$("#see_card_state").text('已认证');
+				}
+				if(data.ID_card_reverse !== null){
+					$("#see_ID_card_reverse").attr('src',"__UPLOAD__/"+data.ID_card_reverse);
+				}else{
+					$("#see_ID_card_reverse").attr('');
+				}
+				if(data.ID_card_positive !== null){
+					$("#see_ID_card_positive").attr('src',"__UPLOAD__/"+data.ID_card_positive);
+				}else{
+					$("#see_ID_card_positive").attr('');
+				}
+				
+			}
+		});
+	}
+						
 	//实名认证弹出
 	function authentication(uid){
 		var id = parseInt(uid);

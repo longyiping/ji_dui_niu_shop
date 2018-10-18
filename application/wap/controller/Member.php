@@ -101,6 +101,7 @@ class Member extends BaseController
 	//我的分销
 	public function mysale()
 	{
+		$this->card_commission(); //先计算分红
 		$member = new MemberService();
         $member_info = $member->getMemberDetail();
 		//给用户的id前面自动补零变为8位数字-例如00000294
@@ -1316,7 +1317,6 @@ class Member extends BaseController
      */
     public function salesDetails()
     {
-		$this->card_commission(); //先计算分红
 		$nsmember = new NsMemberModel();
 		$team=$nsmember->where('path_pid','like','%#'.$this->uid.'#%')->whereOr('pid',$this->uid)->select();
 		$zhi_team_id=array();
@@ -1357,11 +1357,11 @@ class Member extends BaseController
 		
 		if($_GET['type']==2){    //2指从属团队；1是直属团队 暂未分！
 			if(empty($cong_team_id)){ $extract_orders=array(); } else {
-				$extract_orders=Db::table('ns_order')->where(['is_extract'=>1,'buyer_id'=>array('in',$cong_team_id)])->select();
+				$extract_orders=Db::table('ns_order')->where(['buyer_id'=>array('in',$cong_team_id)])->select();
 			}
 		} else {
 			if(empty($zhi_team_id)){ $extract_orders=array(); } else {
-				$extract_orders=Db::table('ns_order')->where(['is_extract'=>1,'buyer_id'=>array('in',$zhi_team_id)])->select();
+				$extract_orders=Db::table('ns_order')->where(['buyer_id'=>array('in',$zhi_team_id)])->select();
 			}
 		}
 		$this->assign('commission_orders', $commission_orders);

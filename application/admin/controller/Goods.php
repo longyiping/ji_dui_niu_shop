@@ -112,7 +112,7 @@ class Goods extends BaseController
                     $v['sub_list'] = $goods_group->getGoodsGroupList(1, 0, 'pid = ' . $v['group_id']);
                 }
             }
-     
+			
             $this->assign("goods_group", $groupList['data']);
             $search_info = request()->get('search_info', '');
             $this->assign("search_info", $search_info);

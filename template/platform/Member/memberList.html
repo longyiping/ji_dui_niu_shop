@@ -44,6 +44,7 @@
 					<th class="center">积分</th>
 					<th class="center">账户余额</th>
 					<th class="center">注册&登录</th>
+					<th class="center">实名认证</th>
 					<th class="center">状态</th>
 					<th class="center">操作</th>
 				</tr>
@@ -318,6 +319,36 @@
 	</div>
 	
 </div>
+<!-- 实名认证 -->
+
+<div class="modal" id="authentication" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">审核认证</h4>
+			</div>
+			<div class="modal-body">
+				<div class="modal-infp-style" style="overflow:auto;">
+					<table class="modal-tab">
+						<tr>
+							<td>审核状态</td>
+							<td id="status">
+								<label style="width:50%"><input type="radio" name="card_state" value="3"/>通过&nbsp;&nbsp;</label>
+								<label style="width:50%"><input name="card_state" type="radio" value="2"/>不通过&nbsp;&nbsp;</label>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-info" onclick="conserve()" id="butSubmit"  style="display:inline-block;">保存</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+	
+</div>
 <!-- 修改会员 -->
 <div class="modal" id="modify_password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
@@ -366,6 +397,7 @@ $(function(){
 			},
 			success : function(data) {
 // 				alert(JSON.stringify(data));
+		
 				var html = '';
 				$("#total_count_num").text(data["total_count"]);
 				$("#page_count_num").text(data["page_count"]);
@@ -419,9 +451,38 @@ $(function(){
 						}else{
 							html += '<td class="tal">' + data["data"][i]["level_name"] + '</td>';
 						}
-						html += '<td class="tal">' + data["data"][i]["point"].point + '</td>';
+						html += '<td class="tal">' + data["data"][i]["point"]["point"] + '</td>';
 						html += '<td class="tal">'+'¥'+ data["data"][i]["balance"] +'</td>';
 						html += '<td class="tal">' +'注册时间 : '+ data["data"][i]["reg_time"] +'<br>'+'最后登录 : '+ data["data"][i]["current_login_time"]+'</td>';
+						if(data["data"][i]["authentication_time"]==null){
+							
+							if(data["data"][i]["card_state"]==0){
+								html += '<td class="tal">' +'认证时间 : '+ '--' +'<br>'+'审核状态 : '+ '待认证' +'</td>';
+							}else if(data["data"][i]["card_state"]==1){
+								html += '<td class="tal">' +'认证时间 : '+ '--' +'<br>'+'审核状态 : '+ '审核中' +'</td>';
+								
+							}else if(data["data"][i]["card_state"]==2){
+								html += '<td class="tal">' +'认证时间 : '+ '--' +'<br>'+'审核状态 : '+ '未通过' +'</td>';
+								
+							}else if(data["data"][i]["card_state"]==3){
+								html += '<td class="tal">' +'认证时间 : '+ data["data"][i]["authentication_time"] +'<br>'+'审核状态 : '+ '已认证' +'</td>';
+								
+							}
+						}else{
+							if(data["data"][i]["card_state"]==0){
+								html += '<td class="tal">' +'认证时间 : '+ data["data"][i]["authentication_time"] +'<br>'+'审核状态 : '+ '待认证' +'</td>';
+							}else if(data["data"][i]["card_state"]==1){
+								html += '<td class="tal">' +'认证时间 : '+ data["data"][i]["authentication_time"] +'<br>'+'审核状态 : '+ '审核中' +'</td>';
+								
+							}else if(data["data"][i]["card_state"]==2){
+								html += '<td class="tal">' +'认证时间 : '+ data["data"][i]["authentication_time"] +'<br>'+'审核状态 : '+ '未通过' +'</td>';
+								
+							}else if(data["data"][i]["card_state"]==3){
+								html += '<td class="tal">' +'认证时间 : '+ data["data"][i]["authentication_time"] +'<br>'+'审核状态 : '+ '已认证' +'</td>';
+								
+							}
+							
+						}	
 						html += data["data"][i]["user_status"] == 0 ? '<td style="color:red;">锁定</td>' : '<td style="color:green;">正常</td>';
 						html += '<td><a href="PLATFORM_MAIN/member/pointdetail?member_id='+ data['data'][i]['uid'] +'">积分明细</a>&nbsp;&nbsp;';
 						html += '<a href="PLATFORM_MAIN/member/accountdetail?member_id='+ data['data'][i]['uid'] +'">余额明细</a><br/>';
@@ -438,6 +499,7 @@ $(function(){
 							
 							html += '<a onclick="modify_user('+ data["data"][i]["uid"]+')">修改</a>&nbsp;&nbsp;<a onclick="delete_user('+ data["data"][i]["uid"]+')">删除</a><br/>';
 							
+							html += '<a onclick="authentication('+ data["data"][i]["uid"]+')">实名认证</a>&nbsp;&nbsp;<br/>';
 						}
 						html += '</td>'
 						html += '</tr>';
@@ -676,6 +738,40 @@ function addUser(){
 			}
 		});
 	}
+	//实名认证弹出
+	function authentication(uid){
+		var id = parseInt(uid);
+		$("#authentication").modal("show");
+		$.ajax({
+			type : "post",
+			url : "PLATFORM_MAIN/member/getmemberdetail",
+			data : { 'uid':id, },
+			success : function(data) {
+				$("#modify_uid").val(data.uid);
+				$("#card_state").find("input[value="+data.card_state+"]").attr("checked",true);
+			}
+		});
+	}
+	//提交实名认证
+	function conserve(){
+		var uid = $("#modify_uid").val();
+		var card_state = $("input[name='card_state']:checked").val();
+		$.ajax({
+			type:"post",
+			url:"PLATFORM_MAIN/member/updateCardState",
+			data : { 'uid':uid, 'card_state':card_state},
+			success : function(msg) {
+							
+				if (msg['code'] > 0) {
+					showMessage('success','修改成功','PLATFORM_MAIN/member/memberlist');
+				} else {
+					showMessage('error','修改失败');
+					flag = false;
+				}
+			}
+		});
+	}
+	
 	/**
 	重置密码弹出
 	*/
@@ -741,7 +837,7 @@ function addUser(){
 			contentText:"删除会员同时会删除会员相关账户信息，确定要删除吗？",
 		});
 	}
-// 	//修改会员
+ 	//修改会员
 	function modifyUser(){
 		var uid = $("#modify_uid").val();
 		var username = $("#modify_username").text();

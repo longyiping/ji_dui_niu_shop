@@ -865,6 +865,7 @@ class Member extends BaseController
 		
 		//$this->assign("convert_rate", $point_info['convert_rate']);
         $count_point_exchange = 0;
+		$new_list=array();
         foreach ($list as $k => $v) {
             $list[$k]['price'] = sprintf("%.2f", $list[$k]['price']);
             $list[$k]['subtotal'] = sprintf("%.2f", $list[$k]['price'] * $list[$k]['num']);
@@ -878,8 +879,14 @@ class Member extends BaseController
 				$list[$k]['price'] = sprintf("%.2f", 0);
 				$list[$k]['subtotal'] = sprintf("%.2f", 0);
 			}
+			if(empty($new_list[$v["shop_id"]])){
+				$new_list[$v["shop_id"]]['shop_name']=Db::table("ns_shop")->where("shop_id",$v["shop_id"])->value("shop_name");
+				$new_list[$v["shop_id"]]['goods_list'][]=$list[$k];
+			} else {
+				$new_list[$v["shop_id"]]['goods_list'][]=$list[$k];
+			}
         }
-        $this->assign("list", $list); // 格式化后的列表
+        $this->assign("new_list", $new_list); // 格式化后的列表
         $this->assign("count_point_exchange", $count_point_exchange); // 总积分
         
         $shop_config = $Config->getShopConfig(0);

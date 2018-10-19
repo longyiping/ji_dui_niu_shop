@@ -80,8 +80,10 @@
 					<div class="col col4">数量</div>
 					<div class="col col5">小计</div>
 				</div>
+				{foreach name="new_list" item="new_info" key="key"}
+				<span>{$new_info.shop_name}</span>
 				<div class="goods-tbody">
-					{foreach name="list" item="cart_info" key="k"}
+					{foreach name="new_info.goods_list" item="cart_info" key="k"}
 					<div class="goodinfo" data-goods-id="{$cart_info.goods_id}" data-goods-name="{$cart_info.goods_name}" data-sku-name="{$cart_info.sku_name}" data-sku-id="{$cart_info.sku_id}" data-price="{$cart_info.price}" data-img-id="{$cart_info.picture_info.pic_id}">
 						<div class="col col1 goods-title-pic">
 							<a href="SHOP_MAIN/goods/goodsinfo?goodsid={$cart_info.goods_id}" target="_blank">
@@ -100,7 +102,7 @@
 					</div>
 					{/foreach}
 				</div>
-				
+				{/foreach}
 			</div>
 		</div>
 

@@ -84,11 +84,13 @@ function selcart_submit() {
 			cart_id_arr.push($(this).val());
 		}
 	});
+	/*
 	if (shop_id.length > 0 && shop_id.length != 1) {
 		$.msg("目前只支持单店铺生成订单");
 		return;
 	}
 	// 目前只支持单店铺
+	*/
 	if (j > 0) {
 		$.ajax({
 			url : shop_main + "/member/ordercreatesession",

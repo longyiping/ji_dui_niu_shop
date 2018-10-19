@@ -95,7 +95,7 @@ class OrderGoods extends BaseService
                 $goods_model = new NsGoodsModel();
                 $goods_info = $goods_model->getInfo([
                     'goods_id' => $goods_sku_info['goods_id']
-                ], 'goods_name,price,goods_type,picture,promotion_type,promote_id,point_exchange_type,give_point');
+                ], 'goods_name,shop_id,price,goods_type,picture,promotion_type,promote_id,point_exchange_type,give_point');
                 $goods_promote = new GoodsPreference();
                 $sku_price = $goods_promote->getGoodsSkuPrice($goods_sku_info['sku_id']);
                 $goods_promote_info = $goods_promote->getGoodsPromote($goods_sku_info['goods_id']);
@@ -124,7 +124,7 @@ class OrderGoods extends BaseService
                     'cost_price' => $goods_sku_info['cost_price'],
                     'goods_money' => $sku_price * $goods_sku[1] - $adjust_money,
                     'goods_picture' => $goods_info['picture'],
-                    'shop_id' => $this->instance_id,
+                    'shop_id' => $goods_info['shop_id'],
                     'buyer_id' => $this->uid,
                     'goods_type' => $goods_info['goods_type'],
                     'promotion_id' => $goods_info['promote_id'],

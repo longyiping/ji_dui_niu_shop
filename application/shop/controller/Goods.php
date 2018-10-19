@@ -940,7 +940,8 @@ class Goods extends BaseController
         $goods_id = $cart_detail['goods_id'];
 		$GoodsDetail=$goods->getGoodsDetail($goods_id);
         $goods_name = $cart_detail['goods_name'];
-        $shop_id = $this->instance_id;
+		$shop_id = $GoodsDetail['shop_id'];
+        //$shop_id = $this->instance_id;
         $web_info = $this->web_site->getWebSiteInfo();
         $count = $cart_detail['count'];
         $sku_id = $cart_detail['sku_id'];

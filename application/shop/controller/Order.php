@@ -38,7 +38,7 @@ class Order extends BaseController
      * 创建订单
      */
     public function orderCreate()
-    {
+    {   
         $order = new OrderService();
         // 获取支付编号
         $out_trade_no = $order->getOrderTradeNo();

@@ -1183,7 +1183,7 @@ class Member extends BaseController
         return view($this->style . "/Member/myBag");
     }
 	/**
-     * 会员卡的分红佣金计算
+     * 会员卡及商品的分红佣金计算
      */
     public function card_commission()
     {
@@ -1256,7 +1256,7 @@ class Member extends BaseController
 						}
 						//直推（只可使用余额）预处理显示出来
 					}
-					if(!empty($path_arr[$count-2])){   //团队奖励未计算！招商的！
+					if(!empty($path_arr[$count-2])){   //团队奖励未计算！招商的！退积分给用户及商铺未计算！
 						if(in_array($v['goods_id'],$group_id_array)){  //如果是怀化的会员卡
 							if($v['price']==1680){$jian_comm=200;} elseif ($v['price']==2980){$jian_comm=200;} elseif ($v['price']==12800){$jian_comm=1000;} else {$jian_comm=0;}
 							$jian_comm=$jian_comm*$v['num'];

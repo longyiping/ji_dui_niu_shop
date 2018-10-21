@@ -58,6 +58,7 @@ class Order extends BaseController
         $member = new Member();
         $shipping_time = date("Y-m-d H::i:s", time());
         $address = $member->getDefaultExpressAddress();
+		//对用户购物车商品按店铺分类，然后生成不同的订单！
         $order_id = $order->orderCreate('1', $out_trade_no, $pay_type, $shipping_type, '1', 1, $leavemessage, $buyer_invoice, $shipping_time, $address['mobile'], $address['province'], $address['city'], $address['district'], $address['address'], $address['zip_code'], $address['consigner'], $integral, $use_coupon, 0, $goods_sku_list, $user_money, $pick_up_id,$express_company_id);
 		if ($order_id > 0) {
             $order->deleteCart($goods_sku_list, $this->uid);

@@ -5,3 +5,4 @@ data\service\Member下面的memberaccount.php中积分及余额下面调整取�
 
 积分兑换比例唯一
 /template/shop/blue/public/js/payment_orders/payment_orders.js
+shop文件夹下order.php中的orderCreate函数

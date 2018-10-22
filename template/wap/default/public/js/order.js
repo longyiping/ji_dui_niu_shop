@@ -11,20 +11,23 @@
  */
 function operation(no,order_id){
 	switch(no){
-	case 'pay'://支付
-		pay(order_id);
-		break;
-	case 'close'://订单关闭
-		orderClose(order_id);
-		break;
-	case 'getdelivery'://订单收货
-		getdelivery(order_id);
-		break;
-	case 'refund'://申请退款
-		orderRefund(order_id);
-		break;
-	default:
-		break;
+		case 'pay'://支付
+			pay(order_id);
+			break;
+		case 'close'://订单关闭
+			orderClose(order_id);
+			break;
+		case 'getdelivery'://订单收货
+			getdelivery(order_id);
+			break;
+		case 'delete': //删除订单
+			orderDelete(order_id)
+			break;
+		case 'refund'://申请退款
+			orderRefund(order_id);
+			break;
+		default:
+			break;
 	}
 }
 /**
@@ -67,6 +70,23 @@ function getdelivery(order_id){
 		success : function(data) {
 			if(data["code"] > 0 ){
 				showBox("收货成功");
+				window.location = "myorderlist?shop=0";
+			}
+		}
+	})
+}
+/*
+ * 删除订单
+ * 
+ */
+function orderDelete(order_id){
+	$.ajax({
+		type : "post",
+		url : "",
+		data : { "order_id" : order_id },
+		success : function(data) {
+			if(data["code"] > 0 ){
+				showBox('删除成功');
 				window.location = "myorderlist?shop=0";
 			}
 		}

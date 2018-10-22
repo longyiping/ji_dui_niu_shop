@@ -127,10 +127,10 @@
 	{/if}
 	
 	{if condition="count($shop_config.order_invoice_content_list)"}
-	<!--<div class="item-options" data-flag="invoice" data-select="0">
+	<div class="item-options" data-flag="invoice" data-select="0">
 		<label>发票信息<span style="font-size:12px;color:#FF9800;font-weight:bold;"></span></label>
 		<span class="arrow-right color-gray">不需要发票</span>
-	</div>-->
+	</div>
 	
 	<div class="item-options invoice">
 		<label><span style="font-size:12px;color:#FF9800;font-weight:bold;">将收取{$shop_config.order_invoice_tax}%的发票税率</span></label>
@@ -177,7 +177,7 @@
 		</p>-->
 		
 		
-		<!--{if condition="count($shop_config.order_invoice_content_list)>0"}
+		{if condition="count($shop_config.order_invoice_content_list)>0"}
 		<p>
 			<label>发票税额：</label>
 			<span>￥<b id="invoice_tax_money">0.00</b></span>
@@ -190,7 +190,7 @@
 			<label>使用余额：</label>
 			<span>￥<b id="use_balance">0.00</b></span>
 		</p>
-		{/if}-->
+		{/if}
 	</div>
 </section>
 

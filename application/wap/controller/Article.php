@@ -23,6 +23,12 @@ use data\service\Config;
 use think\Controller;
 \think\Loader::addNamespace('data', 'data/');
 
+
+
+
+
+
+
 class Article extends Controller
 {
 

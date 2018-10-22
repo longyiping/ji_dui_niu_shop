@@ -546,4 +546,12 @@ class Order extends BaseController
         $res = $order_service->OrderTakeDelivery($order_id);
         return AjaxReturn($res);
     }
+    /*
+     * 
+     * 订单评论
+     */
+    public function reviewCommodity()
+    {
+        return view($this->style . '/Order/reviewCommodity');
+    }
 }

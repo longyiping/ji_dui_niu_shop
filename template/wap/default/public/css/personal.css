@@ -123,17 +123,16 @@
 	margin-top:14px;
 	background: #fff;
 	padding: 20px 10px;
-	height:calc(100% - 500px);
-	min-height: 206px;
 }
 .news li{
 	display: block;
-	border-bottom:1px solid #F6F6F6;
-	padding:16px 0;
 }
 .news li a{
 	color: #3C3C3B;
 	font-size: 14px;
+	position:relative;
+	display:inline-block;
+	width:100%;
 }
 .news li a .fr{
 	padding-top: 6px;

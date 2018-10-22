@@ -15,14 +15,36 @@
 <!--     <script src="__TEMP__/{$style}/public/js/foundation.alert.js"></script> -->
 <!--     <script src="__TEMP__/{$style}/public/js/Common.js"></script> -->
     <style  type="text/css">
+	.body-gray{
+	    background: #F9FAFB;
+	    min-width: 320px;
+	    max-width: 640px;
+	    margin: 0 auto;
+	}
 .button-submit{
 	width:90%;
 	margin:0 auto;
 	margin-top:50px;
 }
+a:active,a:hover {outline: 0;text-decoration:none;color:#fff;}
+.head_back{
+	color:#FFF;
+    border: 1px solid #F83271;
+    background: #F83271;
+	font-size:15px;
+	border:none;
+	line-height:40px;
+	height:40px;
+	margin:0 auto;
+	margin-top:50px;
+	text-align: center;
+    border-radius: 3px;
+    display:block;
+}
 .button-submit button{
 	color:#FFF;
-	background-color:#E03115;
+    border: 1px solid #F83271;
+    background: #F83271;
 	font-size:15px;
 	border:none;
 	line-height:40px;
@@ -36,8 +58,8 @@
     margin-right: 7px;
     padding-left: 5px;
     padding-right: 0px;
-    height: 35px;
-    line-height: 30px;
+    height:60px;
+    line-height:56px;
     min-height: 35px;
     border-bottom: 1px solid #f1f1f1;
 }
@@ -45,14 +67,14 @@
 	padding-bottom: 8px;
     margin-top: 0px;
     padding-top: 0px;
-    height: 44px;
+    height:60px;
 }
 .value.touxiang{
-	float: left;
+	float: right;
 }
 .personal-center .side-nav{
-	margin-top:45px;
-	padding-top:7px;
+	margin-top:0;
+	padding:0 10px;
 }
 .personal-center .text{
 	font-size: 13px;
@@ -64,7 +86,6 @@
     width: 32px;
     height: auto;
 }
-.body-gray{background:#f5f5f5;margin: auto;}
 .mt-55.mlr-15 input{
 	box-shadow: none;
     margin: 0;
@@ -82,7 +103,7 @@
 	background: #fff;
 }
 .mt-55.mlr-15>div:first-child{
-margin-top:45px;	
+	margin-top:0;	
 }
 .mt-55.mlr-15>div>span{
 	width: 28%;
@@ -122,7 +143,7 @@ margin-top:45px;
     border: 1px solid #f5f5f5;
 }
 .personal-center .arrow, .personal-center .head-arrow{
-	margin-top: 10px;
+	margin-top: 24px;
 }
 .personal-center .set_a{
 	color: #29afe4;
@@ -131,12 +152,11 @@ margin-top:45px;
 	padding-left: 0px;
     border-bottom: 1px solid #ddd;
     border-top: 1px solid #ddd;
-    margin-top: 54px;
 }
 .mt-55.mlr-15>div.threeBind ul{
 	overflow: hidden;
 	margin-left: 0.5rem;
-	    margin-bottom: 0px;
+    margin-bottom: 0px;
 }
 .mt-55.mlr-15>div.threeBind ul li{
 	overflow: hidden;
@@ -204,23 +224,18 @@ margin-top:45px;
 </style>
 {/block}
 
-{block name="goodsHead"}
-<section class="head">
-		<a class="head_back" id="backoutapp" onclick="backPage()" href="javascript:void(0)"><i class="icon-back"></i></a>
-		<div class="head-title" id="title">个人资料</div>
-		
-	</section>
-{/block}
-
 {block name="main"} <!--submit errow tip begin-->
 <!--submit errow tip end-->
 <div class="personal-complete">
-	<div class="personal-complete-tip"  id="personaltip"></div>
 	<!--side nav begin-->
 	<div class="personal-center" id="divInfo" >
 		<ul class="side-nav" id="list" >
-			<li>
-					<a href="javascript:void(0)">
+			<li isnew="False">
+				<a href="javascript:void(0)">
+					<div class="title" style="display: block;padding-top: 10px;">
+						<i></i>
+						<span class="text">头像</span>
+					</div>
 					<div class="cont-value" style="padding:0px;">
 						{if condition="$member_img neq '' and $member_img neq '0'"}
 							<span class="value touxiang"><img src="__UPLOAD__/{$member_img}" /></span>
@@ -229,7 +244,7 @@ margin-top:45px;
 						{/if}
 						
 					</div>
-					</a>
+				</a>
 			</li>
 			
 			<li isnew="False" >
@@ -266,7 +281,32 @@ margin-top:45px;
 					</div>
 				</a>
 			</li>
-			<li ><a href="javascript:void(0)">
+			<li>
+				<a href="APP_MAIN/Member/realNameSystem" class="cf padding">
+					<div class="title">
+						<i></i>
+						<span class="text">身份认证</span>
+					</div>
+					<div class="cont-value">
+						<i class="arrow"></i>
+						<span class="value set_a">待认证</span>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="APP_MAIN/member/accountList" class="cf padding">
+					<div class="title">
+						<i></i>
+						<span class="text">银行卡</span>
+					</div>
+					<div class="cont-value">
+						<i class="arrow"></i>
+						<span class="value set_a">0 张</span>
+					</div>
+				</a>
+			</li>
+			<li >
+				<a href="javascript:void(0)">
 					<div class="title">
 						<i></i>
 						<span class="text" tage="mobilephone">手机</span>
@@ -279,91 +319,53 @@ margin-top:45px;
 							<span class="value set_a" id="mobilephone">绑定手机号</span>
 						{/if}
 					</div>
-			</a></li>
-			<li><a href="javascript:void(0)">
+				</a>
+			</li>
+			<li>
+				<a href="javascript:void(0)" class="cf padding">
 					<div class="title">
 						<i></i>
-					<span class="text" tage="qqno">QQ号</span>
+						<span class="text">邀请人</span>
 					</div>
 					<div class="cont-value">
-						<i class="arrow"></i><span class="value" id="qqno">{$member_info.user_info.user_qq}&nbsp;</span>
+						<span class="value set_a">无推荐人</span>
 					</div>
-			</a></li>	
-					
-			<li><a href="javascript:void(0)">
+				</a>
+			</li>
+			<li>
+				<a href="javascript:void(0);" class="cf padding">
 					<div class="title">
-						<i></i>
-					<span class="text" tage="email">邮箱</span>
-					</div>
-					<div class="cont-value">
-						<i class="arrow"></i><span class="value" id="emailno">{$member_info.user_info.user_email}&nbsp;</span>
-						<input type="hidden" id="oldEmail" value="{$member_info.user_info.user_email}">
-					</div>
-			</a></li>	
-			<li class="border-bottom-none"><a href="javascript:void(0)">
-					<div class="title">
-						<i></i>
-					<span class="text" tage="threeBind">第三方账号绑定</span>
-					</div>
-					<div class="cont-value">
-						<i class="arrow"></i><span class="value" id="threeBindno">
-							<!--<img src="__TEMP__/{$style}/public/images/personalData_weixin.png" alt="" />-->
-							<img src="__TEMP__/{$style}/public/images/personalData_qq.png" alt="" />
-						</span>
-					</div>
-			</a></li>	
+					<i></i>
+					<span class="text">团队</span>
+				</div>
+				<div class="cont-value">
+					<span class="value">0 人</span>
+				</div>
+				</a>
+			</li>
 		</ul>
-		
-			<div  class="button-submit">
-		<a id="logout" href="javascript:void(0)" >
-					
-				<button onclick="logout()" >
-			退出登录
-			</button>		
-						
+		<div  class="button-submit">
+			<a id="logout" href="javascript:void(0)" >
+				<button onclick="logout()" >退出登录</button>		
 			</a>
-			
 		</div>
-		
-		
 	</div>
 
 </div>
 <!--form begin-->
-<!-- 第三方绑定 -->
-<form class="mt-55 mlr-15" id="edit" style="display: none;margin:45px 0 0 0;width:100%;">
-	<div class="threeBind">
-		<ul>
-			<!-- <li><img src="__TEMP__/{$style}/public/images/personalData_weixin.png" alt="" /><a href="javascript:;"><span>微信</span> <div><span class="wei_span">未绑定</span><span class="right_border">&nbsp;</span></div></a> </li> -->
-			
-			{if condition="$qq_openid neq ''"}
-			<li><img src="__TEMP__/{$style}/public/images/personalData_qq.png" alt="" /><a href="APP_MAIN/member/removebindqq"><span>QQ</span> <div><span class="">解除绑定</span><span class="right_border">&nbsp;</span></div></a> </li>
-			{else /}
-			<li><img src="__TEMP__/{$style}/public/images/personalData_qq.png" alt="" /><a href="APP_MAIN/login/oauthlogin?type=QQLOGIN"><span>QQ</span> <div><span class="wei_span">未绑定</span><span class="right_border">&nbsp;</span></div></a> </li>
-				
-			{/if}
-			
-			<!-- <li><img src="__TEMP__/{$style}/public/images/personalData_weibo.png" alt="" /><a href=""><span>微博</span> <div><span class="wei_span" >未绑定</span><span class="right_border">&nbsp;</span></div></a> </li> -->
-		</ul>
-	</div>
-				
-</form>
-
 <!-- 密码修改 -->
-<form class="mt-55 mlr-15" id="editpassword" style="display: none;background-color:#fff;margin:45px 0 0 0" >
-		<div><span>当前密码：</span>
-			<input type="text" id="oldpassword" style="margin:0;height:50px;border-bottom:none;"  placeholder="原始密码"   onfocus="$(this).attr('type','password')">
-		</div>
-		
-		<div><span>新&nbsp;&nbsp;密&nbsp;码：</span>
-			<input type="text" id="newpassword" style="box-shadow:none;margin:0;height:35px;border:none;width:auto;display:inline-block;"  placeholder="新密码"  onfocus="$(this).attr('type','password')"/>
-			<span>确认新密码：</span><input type="text" id="newpassword2"   placeholder="确认新密码"  onfocus="$(this).attr('type','password')" >
-		</div>
+<form class="mt-55 mlr-15" id="editpassword" style="display: none;background-color:#fff;margin:0;" >
+	<div><span>当前密码：</span>
+		<input type="text" id="oldpassword" style="margin:0;height:50px;border-bottom:none;"  placeholder="原始密码"   onfocus="$(this).attr('type','password')">
+	</div>
+	<div><span>新&nbsp;&nbsp;密&nbsp;码：</span>
+		<input type="text" id="newpassword" style="box-shadow:none;margin:0;height:35px;border:none;width:auto;display:inline-block;"  placeholder="新密码"  onfocus="$(this).attr('type','password')"/>
+		<span>确认新密码：</span><input type="text" id="newpassword2"   placeholder="确认新密码"  onfocus="$(this).attr('type','password')" >
+	</div>
 		<!--03 end-->	
 </form>
-
 <!-- 手机号绑定 -->
-<form class="mt-55 mlr-15" id="edit_mobile" style="display: none;background-color:#fff;margin-top: 10px;margin:0;    margin-top: 8px;" >
+<form class="mt-55 mlr-15" id="edit_mobile" style="display: none;background-color:#fff;margin-top: 10px;margin:0;" >
 	<div>
 		<span>手机号</span>
 		<input type="text" id="mobile"  placeholder="请输入手机号码"  value='{$member_info.user_info.user_tel}'/>
@@ -385,13 +387,13 @@ margin-top:45px;
 	{/if}
 </form>
 
-<form class="mt-55 mlr-15" id="edit_nick_name" style="display: none;background-color:#fff;margin-top: 10px;margin:0;margin-top: 8px;">
+<form class="mt-55 mlr-15" id="edit_nick_name" style="display: none;background-color:#fff;margin:0;">
 	<div><span>昵称</span>
 		<input type="text" id="input_nick_name"  placeholder="请输入昵称"  value='{$member_info.user_info.nick_name}'/>
 	</div>
 </form>
 
-<form class="mt-55 mlr-15" id="edit_email" style="display: none;background-color:#fff;margin-top: 10px;margin:0;margin-top: 8px;">
+<form class="mt-55 mlr-15" id="edit_email" style="display: none;background-color:#fff;margin:0;">
 	<div><span>邮箱</span>
 		<input type="text" id="email"  placeholder="请输入邮箱"  value='{$member_info.user_info.user_email}'/>
 	</div>
@@ -410,8 +412,10 @@ margin-top:45px;
 	</div>
 	{/if}	
 </form>
-
-<div  id="saveBtn"class="button-submit" style="display: none;">
+<div  id="backoutapp"class="button-submit" style="display: none; margin-top: 10px;">
+	<a class="head_back" id="" onclick="backPage()" href="javascript:void(0)">返回上一步</a>
+</div>
+<div  id="saveBtn"class="button-submit" style="display: none; margin-top: 10px;">
 	<a href="javascript:void(0)" onclick="btnsave()">
 		<button >保存</button>		
 	</a>
@@ -445,9 +449,9 @@ margin-top:45px;
 			value = value.replace("&nbsp;", "");
 			$("#value").attr("placeholder", "");
 
-			$("#personaltip").toggle()
 			if (title == "账号") {
 				if ($(this).attr("isnew") == "False") {
+					$('#backoutapp').toggle();
 					return;
 				} else {
 					$("#value").attr("placeholder", "请输入会员名");
@@ -456,6 +460,7 @@ margin-top:45px;
 					$("#divInfo").toggle();
 					$("#exit").toggle();
 					$("#edit").toggle();
+					$('#backoutapp').toggle();
 					return;
 				}
 			}
@@ -465,6 +470,7 @@ margin-top:45px;
 				$("#divInfo").toggle();
 				$("#exit").toggle();
 				$("#editpassword").toggle();
+				$('#backoutapp').toggle();
 			}else if(title == "手机"){
 				$("#value").attr("placeholder", "请输入手机号码!");
 				$("#title").html("绑定手机号码");
@@ -472,6 +478,7 @@ margin-top:45px;
 				$("#divInfo").toggle();
 				$("#exit").toggle();
 				$("#edit_mobile").toggle();
+				$('#backoutapp').toggle();
 			}else if(title == "昵称"){
 				$("#value").attr("placeholder", "请输入昵称");
 				$("#title").html("修改昵称");
@@ -479,6 +486,7 @@ margin-top:45px;
 				$("#divInfo").toggle();
 				$("#exit").toggle();
 				$("#edit_nick_name").toggle();
+				$('#backoutapp').toggle();
 			}else if(title == "邮箱"){
 				$("#edit_email").toggle();
 				$("#title").html(title);
@@ -486,27 +494,29 @@ margin-top:45px;
 				$("#divInfo").toggle();
 				$("#exit").toggle();
 				$("#value").attr("placeholder", "请输入邮箱!");
+				$('#backoutapp').toggle();
 				$("#input_ico").attr("src","__TEMP__/{$style}/public/images/center_email.png");
-			} else {
-				$("#title").html(title);
-				$("#value").val(value);
-				$("#saveBtn").toggle();
-				$("#divInfo").toggle();
-				$("#exit").toggle();
-				$("#edit").toggle();
-				if(title=='第三方账号绑定'){
-					$('.button-submit').hide();
-				}
-				if(title == "真实姓名"){
-					$("#value").attr("placeholder", "请输入真实姓名!");
-					$("#input_ico").attr("src","__TEMP__/{$style}/public/images/center_user.png");
-				}else if(title == "QQ号"){
-					$("#value").attr("placeholder", "请输入QQ号!");
-					$("#input_ico").attr("src","__TEMP__/{$style}/public/images/center_qq.png");
-				}else if(title == "微信号"){
-					$("#value").attr("placeholder", "请输入微信号!");
-					$("#input_ico").attr("src","__TEMP__/{$style}/public/images/center_weixn.png");
-				}
+//			} else {
+//				$("#title").html(title);
+//				$("#value").val(value);
+//				$("#saveBtn").toggle();
+//				$("#divInfo").toggle();
+//				$("#exit").toggle();
+//				$("#edit").toggle();
+//				$('#backoutapp').toggle();
+//				if(title=='第三方账号绑定'){
+//					$('.button-submit').hide();
+//				}
+//				if(title == "真实姓名"){
+//					$("#value").attr("placeholder", "请输入真实姓名!");
+//					$("#input_ico").attr("src","__TEMP__/{$style}/public/images/center_user.png");
+//				}else if(title == "QQ号"){
+//					$("#value").attr("placeholder", "请输入QQ号!");
+//					$("#input_ico").attr("src","__TEMP__/{$style}/public/images/center_qq.png");
+//				}else if(title == "微信号"){
+//					$("#value").attr("placeholder", "请输入微信号!");
+//					$("#input_ico").attr("src","__TEMP__/{$style}/public/images/center_weixn.png");
+//				}
 			}
 		});
 	});

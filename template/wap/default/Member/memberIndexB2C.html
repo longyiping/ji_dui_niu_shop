@@ -141,7 +141,7 @@
 			</ul>
 		</div>
 		<div class='member_list'>
-		{volist name="menu_arr" id="arr_item" }
+		<!--{volist name="menu_arr" id="arr_item" }
 			<ul>
 				{volist name="arr_item" id="vo" }
 				<li>
@@ -160,30 +160,27 @@
 					</a>
 				</li>
 			</ul>
-		{/volist}
+		{/volist}-->
+			<ul class="cf">
+				<li><a href="/wap/member/personaldata" class="personal">个人信息</a></li>
+				<li><a href="/wap/member/memberCoupon" class="voucher">我的卡劵</a></li>
+				<li><a href="javascript:void(0);" class="heart">我的收藏</a></li>
+				<li><a href="/wap/member/mysale" class="money">我的分销</a></li>
+				<li><a href="/wap/member/putforward" class="apply">申请提现</a></li>
+				<li><a href="javascript:void(0);" class="bank">积分银行</a></li>
+				<li><a href="javascript:void(0);" class="msg">消息中心</a></li>
+				<li><a href="javascript:void(0);" class="vip">会员中心</a></li>
+			</ul>
 		</div>
-		<!--<div class="news">
+		<div class="news">
 			<ul>
 				<li>
-					<a href="javascript:void(0);" class="cf">
-						<div class="fl">消息中心</div>
-						<img class="fr" src="img/icon_101.png"/>
-					</a>
-				</li>
-				<li>
-					<a href="javascript:void(0);" class="cf">
-						<div class="fl">我的会员</div>
-						<img class="fr" src="img/icon_101.png"/>
-					</a>
-				</li>
-				<li>
-					<a href="javascript:void(0);" class="cf">
+					<a href="javascript:void(0);" class="cf right_href">
 						<div class="fl">设置</div>
-						<img class="fr" src="img/icon_101.png"/>
 					</a>
 				</li>
 			</ul>
-		</div>-->
+		</div>
 <script type="text/javascript">
 $(function(){
 	buttomActive('#bottom_member');

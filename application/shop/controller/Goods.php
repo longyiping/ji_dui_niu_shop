@@ -942,7 +942,8 @@ class Goods extends BaseController
         $goods_name = $cart_detail['goods_name'];
 		$shop_id = $GoodsDetail['shop_id'];
         //$shop_id = $this->instance_id;
-        $web_info = $this->web_site->getWebSiteInfo();
+        //$web_info = $this->web_site->getWebSiteInfo();
+		$shop_name = $GoodsDetail['shop_name'];
         $count = $cart_detail['count'];
         $sku_id = $cart_detail['sku_id'];
         $sku_name = $cart_detail['sku_name'];
@@ -950,7 +951,7 @@ class Goods extends BaseController
         $cost_price = $cart_detail['cost_price'];
         $picture_id = $cart_detail['picture_id'];
         $_SESSION['order_tag'] = ""; // 清空订单
-        $retval = $goods->addCart($uid, $shop_id, $web_info['title'], $goods_id, $goods_name, $sku_id, $sku_name, $price, $count, $picture_id, 0);
+        $retval = $goods->addCart($uid, $shop_id, $shop_name, $goods_id, $goods_name, $sku_id, $sku_name, $price, $count, $picture_id, 0);
         return $retval;
     }   
     /**
@@ -988,7 +989,6 @@ class Goods extends BaseController
             $list[$cart_list[$i]["shop_id"] . ',' . $cart_list[$i]["shop_name"]][] = $cart_list[$i];
         }
         $this->assign("list", $list);
-        $this->assign("cart_list",$cart_list);
         //var_dump($list);die;
        return view($this->style . 'Goods/cart');
     }

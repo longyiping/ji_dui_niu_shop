@@ -765,11 +765,10 @@ class Member extends BaseController
         $str_cart_id = ""; // 购物车id
         $goods_sku_list = ''; // 商品skuid集合
         for ($i = 0; $i < count($cart_list); $i ++) {
-            if ($cart_id_arr[$i] == $cart_list[$i]["cart_id"]) {
+            //if ($cart_id_arr[$i] == $cart_list[$i]["cart_id"]) {} 原来的有影响取消
                 $list[] = $cart_list[$i];
                 $str_cart_id .= "," . $cart_list[$i]["cart_id"];
                 $goods_sku_list .= "," . $cart_list[$i]['sku_id'] . ':' . $cart_list[$i]['num'];
-            }
         }
         $goods_sku_list = substr($goods_sku_list, 1); // 商品sku列表
         $res["list"] = $list;

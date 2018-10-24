@@ -1160,6 +1160,61 @@ class Config extends BaseService implements IConfig
         }
         return $array;
     }
+	 public function getUserGradeConfig($shop_id){
+        $hui_jing_num = $this->getConfig($shop_id, 'HUI_JING_NUM');
+        $hui_jing_money = $this->getConfig($shop_id, 'HUI_JING_MONEY');
+        $jing_zong_num = $this->getConfig($shop_id, 'JING_ZONG_NUM');
+        $jing_zong_money = $this->getConfig($shop_id, 'JING_ZONG_MONEY');
+        if(empty($hui_jing_num) || empty($hui_jing_money) || empty($jing_zong_num) || empty($jing_zong_money)){
+            $this->SetUserGradeConfig($shop_id, '', '', '', '');
+            $array = array(
+                'hui_jing_num' => '',
+                'hui_jing_money' => '',
+                'jing_zong_num' => '',
+                'jing_zong_money' => '',
+            );
+        }else{
+            $array = array(
+                'hui_jing_num' => $hui_jing_num['value'],
+                'hui_jing_money' => $hui_jing_money['value'],
+                'jing_zong_num' => $jing_zong_num['value'],
+                'jing_zong_money' => $jing_zong_money['value']
+            );
+        }
+        return $array;
+    }
+    public function SetUserGradeConfig($shop_id, $hui_jing_num, $hui_jing_money, $jing_zong_num, $jing_zong_money){
+        $array[0] = array(
+            'instance_id' => $shop_id,
+            'key' => 'HUI_JING_NUM',
+            'value' => $hui_jing_num,
+            'desc' => '会员升经理人数',
+            'is_use' => 1
+        );
+        $array[1] = array(
+            'instance_id' => $shop_id,
+            'key' => 'HUI_JING_MONEY',
+            'value' => $hui_jing_money,
+            'desc' => '会员升经理金额',
+            'is_use' => 1
+        );
+        $array[2] = array(
+            'instance_id' => $shop_id,
+            'key' => 'JING_ZONG_NUM',
+            'value' => $jing_zong_num,
+            'desc' => '经理升总监人数',
+            'is_use' => 1
+        );
+        $array[3] = array(
+            'instance_id' => $shop_id,
+            'key' => 'JING_ZONG_MONEY',
+            'value' => $jing_zong_money,
+            'desc' => '经理升总监金额',
+            'is_use' => 1
+        );
+        $res = $this->setConfig($array);
+        return $res;
+    }
     public function getShopConfig($shop_id){
         $order_auto_delinery= $this->getConfig($shop_id, 'ORDER_AUTO_DELIVERY');
         $order_balance_pay = $this->getConfig($shop_id, 'ORDER_BALANCE_PAY');

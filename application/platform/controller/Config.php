@@ -45,6 +45,45 @@ class Config extends BaseController
     {
         parent::__construct();
     }
+	/**
+     *会员升级条件参数设置
+     * by zxl
+     *
+     */
+    public function userGradeConfig()
+    {
+        $child_menu_list = array(
+            array(
+                'url' => "config/userGradeConfig",
+                'menu_name' => "网站设置",
+                "active" => 0
+            ),
+            array(
+                'url' => "config/userGradeConfig",
+                'menu_name' => "会员升级设置",
+                "active" => 1
+            )
+        );
+
+        $this->assign('child_menu_list', $child_menu_list);
+
+        $Config = new WebConfig();
+        if (request()->isAjax()) {
+            $shop_id = $this->instance_id;
+            $hui_jing_num = request()->post("hui_jing_num", '');
+            $hui_jing_money = request()->post("hui_jing_money", '');
+            $jing_zong_num = request()->post("jing_zong_num", '');
+            $jing_zong_maney = request()->post("jing_zong_maney", '');
+            $retval = $Config->SetUserGradeConfig($shop_id, $hui_jing_num, $hui_jing_money, $jing_zong_num, $jing_zong_maney);
+            return AjaxReturn($retval);
+        } else {
+            $shop_id = $this->instance_id;
+            $shopSet = $Config->getUserGradeConfig($shop_id);
+            $this->assign("info", $shopSet);
+        }
+        return view($this->style . "Config/userGradeConfig");
+
+    }
     /**
      * 网站设置
      */
